@@ -1,0 +1,160 @@
+
+
+*{
+    box-sizing: border-box;
+}
+
+.entire-container {
+  // TODO a flexboxx with  cols?
+  // TODO WHAT DOES THIS WIDTH EVEN DO!?!
+    width: 100%;
+    height: 100vh;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+
+    background-color: white;
+  }
+  
+  .toggle-button-area {
+    // TODO SOLVE THIS ISSUE OF THE HEADER UGLY, I WANT IT STICKY ON TOP PROPERLY ALIGNED ++ add an jump up button when scrolling?
+    box-shadow: 5px 10px 18px #888888;
+    background-color: rgb(103, 58, 183);
+    
+    z-index: 2;
+    // background-color: aquamarine;
+    position: sticky;
+    top: 0;
+    // background-color: white;
+
+    justify-content: space-between;
+    padding: 1%;
+    display: flex;
+    flex-flow: row nowrap;
+    height: 9vh;
+    align-items: center;
+
+    // TODO: CHECK THIS WIDTH , VW OR %?
+    width: 100%;
+    // 98%;
+    // padding: 10px;
+
+    .titleDiv{
+      // background-color: rgb(230, 103, 209);
+
+      height: 100%;
+      font-size: large;
+
+      color: white;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      // TODO CHECK THIS WIDTH TOO
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+    }
+
+  }
+
+  
+  
+  .sidenav {
+    padding: 20px;
+
+    // background-color: rgb(103, 58, 183);
+    
+    button{
+    margin-bottom: -7px;
+    width: 100%;
+    // text-align: left;
+
+    // color: white;
+    
+    &:hover{
+      // TODO THE SIZE INCREASES ON HOVER
+      border: 0.5px solid rgb(222, 222, 222);
+      border-radius: 5px;
+    }
+    }
+
+  }
+
+
+  .project-content{
+
+    background-color: white;
+    z-index: -1;
+
+    // padding: 10%;
+    // background-color: aquamarine;
+
+    display: flex;
+
+    // flex-flow: column;
+    justify-content: center;
+    align-items: center;
+
+    // height: 88vh;
+    // width: 90vw;
+
+    height: 90%;
+    width: 100%;
+  }
+
+
+  .user{
+
+    z-index: 2;
+    position: relative;
+    // display: flex;
+    // justify-content: center;
+
+    // button{
+
+    // }
+
+    &:hover {
+      .userBlock{
+        display: flex;
+      }
+    }
+  }
+
+  .userButton{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    // padding-left: 3.5%;
+    // margin:auto;
+    border-radius: 50%;
+    // width:90%;
+    width: 50px;
+    height: 50px;
+
+  }
+
+  .userBlock{
+    z-index: 2;
+    width: 200%;
+    height: max-content;
+    display: none;
+    justify-content: center;
+    flex-flow: column wrap;
+    position: absolute;
+    right: 20%;
+    top: 100%;
+    background-color: white;
+    border: thin solid rgb(103, 58, 183);
+    border-radius: 3%;
+    text-align: center;
+  }
+
+  .buttontext{
+    padding-right: 10%;
+    font-weight: bold;
+    font-size: large;
+  }
+
+  // .userIcon{
+  //   text-align: left;
+  //   border-radius: 50%;
+  //   background-color: aqua;
+  // }

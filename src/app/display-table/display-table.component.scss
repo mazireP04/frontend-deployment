@@ -1,0 +1,147 @@
+
+*{
+    box-sizing: border-box;
+}
+
+main{
+
+    section{
+        z-index: 1;
+    }
+    // z-index: 1;
+    // margin: auto;
+    width: 83vw;
+    height: 100vh;
+    display: flex;
+
+    padding-top: 3%;
+
+    // align-items: flex-start;
+    justify-content: flex-start;
+    flex-flow: column wrap;
+
+    background-color: #fff;
+}
+
+// FROM OFFICIAL SITE
+table {
+
+    
+
+    margin: auto;
+    width: 100%;
+
+    background-color: white;
+  }
+  
+//   the search boxes
+  .mat-mdc-form-field {
+    font-size: 14px;
+    width: 70%;
+    // margin: auto;
+    padding: 5%;
+  }
+  
+  td, th {
+    // text-align: center;
+    // width: 10%;
+    // width: calc(100% / 11);
+    border-right: thin solid rgb(233, 233, 233);
+  }
+
+//   th{
+//     text-align: center;
+//   }
+//   
+
+// th{
+//     border-right: thin solid gray;
+// }
+
+// table{
+//     height: auto;
+//     // width: 90%;
+
+//     border-right: 1px solid rgb(168, 168, 168);
+//     // padding: 2%;
+
+    
+// }
+
+
+// th{
+//     text-align: center;
+//     border-right: 1px solid rgb(168, 168, 168);
+// }
+
+// td{
+//     border-right: 1px solid rgb(168, 168, 168);
+//     border-bottom: none;
+// }
+
+.top{
+    border-top: 1px solid rgb(168, 168, 168);
+    border-bottom: 1px solid rgb(168, 168, 168);
+}
+
+
+
+.row{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 2% 0 0 1%;
+
+    .navButtons{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .filterBoxes{
+        display: flex;
+        justify-content: space-evenly;
+        align-items: flex-start;
+        // width:40%;
+
+    }
+
+   > button {
+        margin: 16px 8px;
+        width: 40%;
+      }
+}
+
+.addButton{
+    
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    // line-height: 0;
+}
+span.text{
+
+    display: inline-block;
+    text-align: center;
+    vertical-align: baseline;
+    // padding-bottom: 10%;
+}
+
+// span#icon{
+//     padding: 0;
+// }
+
+caption{
+    font-size: larger;
+    background-color: white;
+    font-weight: bold;
+    padding: 1%;
+    border-bottom: thin solid rgb(198, 198, 198);
+    text-align: left;
+}
+
+// button.edit{
+//     width: 10%;
+//     height: 10%;
+//     text-align: left;
+// }

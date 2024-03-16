@@ -1,0 +1,144 @@
+
+
+<!-- <main> -->
+
+    <!-- <form [formGroup]="resourceAssignmentForm" (ngSubmit)="onSubmit()"> -->
+
+        <!-- EMPLOYEE -->
+        <!-- <div class="row">
+        <mat-form-field appearance="outline" class="form-group">
+            <mat-label>Select Employee</mat-label>
+            <mat-select formControlName="employee" required>
+                <mat-option *ngFor="let employee of employees" [value]="employee">
+                    {{employee.empId}}: {{employee.empName}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div> -->
+
+        <!-- REQUIRED DEVICE - CATEGORY N SUBCATEGORY-->
+        <!-- <mat-form-field>
+            <mat-label>Required Deive</mat-label> -->
+            <!-- <mat-select formControlName="category" (selectionChange)="updateSelectOptions($event.value)">
+                <mat-option *ngFor="let category of categories" [value]="category">   -->
+                    <!-- label -->
+                    <!-- <mat-optgroup *ngFor="let subcategory of category.sub"
+                    {{employee.empId}}: {{employee.empName}} -->
+                    <!-- {{category}}
+                </mat-option>
+            </mat-select> -->
+        <!-- </mat-form-field> -->
+
+        <!-- TODO: MAKE AN OPTGROUP!!! -->
+        <!-- <div class="row">
+            <mat-form-field appearance="outline" class="form-group">
+                <mat-label>Select Employee</mat-label>
+                <mat-select formControlName="employee" required>
+                    <mat-option *ngFor="let category of categories" [label]="category">
+                        {{}}: {{employee.empName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div> -->
+
+        <!-- SPECIFICATIONS -->
+        <!-- <div class="row">
+            <mat-form-field appearance="outline" class="form-group">
+                <mat-label>Specifications</mat-label>
+                <mat-select formControlName="specification" required>
+                    <mat-option *ngFor="let spec of specification" [value]="spec">
+                        {{spec}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field> -->
+        <!-- </div> -->
+
+
+        <!-- AVAILABLE DEVICE IDs -->
+
+
+        <!-- ASSIGN BUTTON -->
+
+
+    <!-- </form> -->
+
+<!-- </main> -->
+
+
+<main>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+            <!-- EMPLOYEEE -->
+        <div class="row">
+            <mat-form-field appearance="outline" class="form-group">
+                <mat-label>Employee</mat-label>
+                <mat-select formControlName="employee" required placeholder="Select Employee">
+                    <mat-option *ngFor="let employee of employees" [value]="employee.empId">
+                    {{employee.empId}}: {{employee.empName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+
+        <!-- SUBCATEGORY AND MODEL -->
+        <div class="row">
+            <mat-form-field appearance="outline" class="form-group">
+                <mat-label>Required Device</mat-label>
+                <mat-select formControlName="requiredDevice" required placeholder="Required Device" #modelName>
+                    <div *ngFor="let subcat of subcategories">
+                        <mat-option *ngFor="let model of subcat.val" [value]="model">
+                            {{subcat.key}}: {{model}}
+                        </mat-option>
+                    </div>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+
+
+        <!-- SPECIFICATIONS -->
+        <div class="row">
+            <mat-form-field appearance="outline" class="form-group">
+                <mat-label>Specifications</mat-label>
+                <mat-select formControlName="specification" required placeholder="Specifications" #specs>
+                    <div *ngFor="let obj of devices">
+                        <mat-option *ngIf="obj.model == modelName.value" [value]="obj.specification">
+                            {{obj.specification}}
+                        </mat-option>
+                    </div>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+
+        <!-- AVAILABLE -->
+        <div class="row">
+            <mat-form-field appearance="outline" class="form-group">
+                <mat-label>Available Devices</mat-label>
+                <mat-select formControlName="available" required placeholder="Available Devices">
+                    <div *ngFor="let obj of devices">
+                        <mat-option *ngIf="(obj.model == modelName.value) 
+                                        && (obj.specification == specs.value) 
+                                        && (obj.availablility == 'Available')" 
+                                        [value]="obj.ID">
+                            {{obj.ID}}
+                        </mat-option>
+                    </div>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+
+        <!-- SUBMIT BUTTON -->
+        <div>
+            <button id="submit" mat-raised-button color="primary" [disabled]="form.invalid" type="submit">
+            Submit
+            </button>
+        </div>
+
+    </form>
+
+
+</main>
