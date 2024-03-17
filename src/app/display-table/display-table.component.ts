@@ -3,8 +3,7 @@ import {MatTableModule, MatTableDataSource} from '@angular/material/table';
 import { DataService } from '../data.service';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort, MatSortModule } from '@angular/material/sort';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-display-table',
@@ -13,23 +12,12 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 })
 export class DisplayTableComponent implements OnInit, AfterViewInit{
 
-  // filters!: FormGroup;
-  // assigned!: FormControl;
-  // stat!: FormControl;
-
-
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
   @ViewChild(MatSort) sort!: MatSort;
   
-  constructor(private _dataService: DataService, private router: Router){
-    // // private fb: FormBuilder
-    // this.filters = this.fb.group([
-    //   this.assigned = new FormControl('', []),
-    //   this.stat = new FormControl('', []),
-    // ])
-  }
+  constructor(private _dataService: DataService, private router: Router){}
   
   dataSource!: MatTableDataSource<any>;
 
@@ -63,23 +51,14 @@ export class DisplayTableComponent implements OnInit, AfterViewInit{
 
   applyFilter(event: Event, filterType: string){
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    // this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    // this.dataSource.filteredData[0].assignedTo;
     
     switch (filterType){
       // case 'general':
       //   this.dataSource.filter = filterValue;
       //   break;
 
-        // TODO: ISSUES IN CONSOLE, CANT READ PROPERTYIES OF UNDEFINED, READING INCLUDES
+        
       case 'assignedTo':
-        // this.dataSource.filteredData.forEach(obj => {
-        //   // return obj.assignedTo.filter = filterValue;
-        //   return obj.assignedTo.tri
-          
-        // });
-
         this.dataSource.filterPredicate = (data, filter) => {
           return data.assignedTo.trim().toLowerCase().includes(filter);
         };
@@ -122,32 +101,6 @@ export class DisplayTableComponent implements OnInit, AfterViewInit{
 
   ];
 
-  displayColumns: string [] = [
-    ' ',
-    ' ',
-    ' ',
-    'Model Name',
-    'Model Memory',
-    'Warranty',
-    'Memory Details',
-    'Screen Size',
-    ' ',
-    ' ',
-    ' ',
-
-  ]
-
-  topColumns: string [] = [
-    'ID',
-    'Category',
-    'Sub-Category',
-    'Model',
-    'Specifications',
-    'Price',
-    'Assigned To',
-    'Status',
-
-  ];
 
 }
 

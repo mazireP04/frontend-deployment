@@ -1,29 +1,21 @@
 
-<!-- TODO: WHY FORM SO UGLY!!! -->
 
-<!-- MAT-FORM-FIELD TO DIV -->
-
-
-      <!-- SUBCATEGORY: DROP DOWN -->
       <!-- TODO: ONLY IF CATEGORY IS ELECTRONICS -->
-      <!-- TODO button to go to display -->
 
       <main>
-        <!-- <button mat-raised-button id="toDisplay" (click)="routeToDataTable()">
-            Go to Data table
-        </button> -->
+
     <form [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
+
         <!-- CATEGORY: DROP DOWN -->
         <div class="row">
         <mat-form-field appearance="outline" class="form-group">
         <mat-label>Category</mat-label>
-        <mat-select formControlName="category" required placeholder="Select Category">
-            <mat-option *ngFor="let cat of cats" [value]="cat">{{cat}}</mat-option>
+        <mat-select formControlName="category" required placeholder="Select Category" #selectedCategory>
+            @for (category of categories.keys(); track category){
+                <mat-option [value]="category">{{category}}</mat-option>
+            }
+            <!-- <mat-option *ngFor="let cat of cats" [value]="cat">{{cat}}</mat-option> -->
         </mat-select>
-        <!-- @if(category.invalid)
-        {
-        <mat-error>{{getRequiredError()}}</mat-error>
-        } -->
         </mat-form-field>
     
     
@@ -32,7 +24,10 @@
         <mat-form-field appearance="outline" class="form-group">
         <mat-label>Sub-Category</mat-label>
         <mat-select formControlName="subCategory" required placeholder="Select Sub-Category">
-            <mat-option *ngFor="let subCat of subCats" [value]="subCat">{{subCat}}</mat-option>
+            @for (subcategory of categories.get(selectedCategory.value); track subcategory){
+                <mat-option [value]="subcategory">{{subcategory}}</mat-option>
+            }
+            <!-- <mat-option *ngFor="let subCat of subCats" [value]="subCat">{{subCat}}</mat-option> -->
         </mat-select>
     
         <!-- <mat-select *ngIf="form.get('category')?.value === 'Non-Electronics'"
@@ -43,7 +38,8 @@
         </mat-form-field>
     </div>
     
-        <!-- MODEL: NAME AND MEMORY -->
+
+        <!-- MODEL NAME -->
         <fieldset formGroupName="models">
         <mat-form-field appearance="outline" class="form-group">
             <mat-label>Model Name</mat-label>
@@ -55,6 +51,7 @@
             type="text" formControlName="modelName" required></textarea>
         </mat-form-field>
     
+        <!-- MODEL MEMORY -->
         <mat-form-field appearance="outline" class="form-group">
             <mat-label>Model Memory</mat-label>
             <textarea matInput
@@ -66,7 +63,8 @@
         </mat-form-field>
         </fieldset>
     
-        <!-- SPECIFICATIONS: WARRANTY, MEMORY DETAILS, SCREEN SIZE -->
+        <!-- SPECIFICATIONS:  -->
+        <!-- WARRANTY -->
         <fieldset formGroupName="specifications">
         <mat-form-field appearance="outline" class="form-group">
             <mat-label>Warranty</mat-label>
@@ -79,6 +77,7 @@
     
         </mat-form-field>
     
+        <!-- MEMORY DETAILS -->
         <mat-form-field appearance="outline" class="form-group">
             <mat-label>Memory Details</mat-label>
             <textarea matInput
@@ -90,6 +89,7 @@
     
         </mat-form-field>
     
+        <!-- SCREEN SIZE -->
         <mat-form-field appearance="outline" class="form-group">
             <mat-label>Screen Size</mat-label>
             <textarea matInput
@@ -104,7 +104,7 @@
         <div class="row">
     
     
-        <!-- QUANTITY BIND TO THIS # USE IN NG FOR TO DISPLAY -->
+        <!-- QUANTITY  -->
         <mat-form-field appearance="outline" class="form-group">
         <mat-label>Quantity</mat-label>
         <input matInput type="number" formControlName="quantity" required>

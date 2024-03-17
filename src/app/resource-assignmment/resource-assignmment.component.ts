@@ -1,31 +1,96 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, model } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../data.service';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-resource-assignmment',
   templateUrl: './resource-assignmment.component.html',
   styleUrl: './resource-assignmment.component.scss'
 })
-export class ResourceAssignmmentComponent {
-  // employees: Employee[] = [];
-  // selectedEmployee!: Employee;
-  // categories!: string[];
-  // subcategories: {[category: string]: string[]} = {};
-  // specifications!: string[];
-  // availableDevices!: string[];
+export class ResourceAssignmmentComponent implements OnInit {
 
   form!: FormGroup;
 
-  constructor(private fB: FormBuilder, private router: Router){
+  inventory_data: Array<any> = [];
+  
+  // employees!: Array<any>;
+  // requiredDevices!: Array<any>;
+  // models!: Array<any>;
+  // specifications!: Array<any>;
+
+  requiredDevices = new Map<string, Set<string>>(
+    [
+      ["Electronics", new Set()],
+      ["NonElectronics", new Set()],
+    ]
+  );
+
+  // models =  new Set<string>();
+  models = new Map<string, Set<string>>();
+
+  specifications = new Map<string, Set<string>>();
+
+
+  constructor(private fB: FormBuilder, private router: Router, private dataService: DataService){
     this.form = this.fB.group({
       employee: ['', Validators.required],
       requiredDevice: ['', Validators.required],
+      requiredModel: ['', Validators.required],
       specification: ['', Validators.required],
       available: ['', Validators.required],
     });
+  }
+
+  ngOnInit(){
+    this.dataService.formData$.subscribe((data) => {
+      // is inventory_data even needed?
+      this.inventory_data = data;
+
+      
+
+      this.inventory_data.forEach(obj => {
+        const category = obj.category;
+        const subCategory = obj.subCategory;
+        const modelName = obj.modelName;
+
+        if(!this.requiredDevices.has(category)){
+          this.requiredDevices.set(category, new Set<string>());
+        }
+        this.requiredDevices.get(category)?.add(subCategory);
+
+
+        if(!this.models.has(subCategory)){
+          this.models.set(subCategory, new Set<string>());
+        }
+        this.models.get(subCategory)?.add(modelName);
+        
+
+        // const specsKey = [obj.specificationMemoryDetails, obj.specificationScreenSize];
+        if(!this.specifications.has(modelName)){
+          this.specifications.set(modelName, new Set());
+        }
+        this.specifications.get(modelName)?.add(`${obj.specificationMemoryDetails}, ${obj.specificationScreenSize}`);
+        // HERE
+
+        
+
+        
+
+        // this.models.add(obj.modelName);
+        // this.specifications.add(`${obj.specificationMemoryDetails}, ${obj.specificationScreenSize}`);
+      
+        
+      });
+      
+
+    });
+
+    
+    console.log(this.requiredDevices);
+    console.log(this.models);
+    console.log(this.specifications);
+
   }
 
   employees: Array<Employee> = [
@@ -35,40 +100,38 @@ export class ResourceAssignmmentComponent {
   ];
 
 
-  devices: Array<Device> = [
-    {ID: "1234", subcategory: "Laptop", model: "HP", specification: "4GB 15 inches", availablility: "Available"},
-    {ID: "4566", subcategory: "Big Monitor", model: "Mac", specification: "8GB 13.5 inches", availablility: "Available"},
-    {ID: "4536", subcategory: "Laptop", model: "Dell", specification: "64GB 13 inches", availablility: "Assigned"},
-    {ID: "8744", subcategory: "Laptop", model: "HP", specification: "4GB 14 inches", availablility: "Available"},
-
-  ];
-
 
   // TODO: HOW TO FILTER OUT ONLY UNIQUE TITLES FOR SHOWING IN OPTIONS:
-  subcategories: Array<any> = [
-    {key: "Laptop", val: ["HP", "Dell"]},
-    {key: "Big Monitor",val:  ["Mac"]},
-  ];
+  // subcategories: Array<any> = [
+  //   {key: "Laptop", val: ["HP", "Dell"]},
+  //   {key: "Big Monitor",val:  ["Mac"]},
+  // ];
 
   onSubmit(){
 
     // TODO: BINDING ETC
+    
+    if(this.form.valid){
+      const selectedId = this.form.value.available;
+      const newData = this.inventory_data.map(obj => {
+        if(obj.id === selectedId){
+          return {...obj, assignedTo: this.form.value.employee, status: 'Assigned'};
+        }
+        return obj;
+      });
 
+      // this.dataService.updateFormData(newData);
+
+      this.dataService.updateAssignation(newData);
+
+      this.form.reset();
+      
     this.router.navigate(['/inventories']);
+    }
+
   }
 
-
 }
-
-class Device{
-  ID!: string;
-  subcategory!: string;
-  model!: string;
-  specification!: string;
-  availablility!: string;
-
-}
-
 
 class Employee{
   empId!: string;
@@ -84,6 +147,28 @@ class Employee{
   // }
 
 }
+
+
+// class Device{
+//   ID!: string;
+//   subcategory!: string;
+//   model!: string;
+//   specification!: string;
+//   availablility!: string;
+
+// }
+
+
+
+
+  // devices: Array<Device> = [
+  //   {ID: "1234", subcategory: "Laptop", model: "HP", specification: "4GB 15 inches", availablility: "Available"},
+  //   {ID: "4566", subcategory: "Big Monitor", model: "Mac", specification: "8GB 13.5 inches", availablility: "Available"},
+  //   {ID: "4536", subcategory: "Laptop", model: "Dell", specification: "64GB 13 inches", availablility: "Assigned"},
+  //   {ID: "8744", subcategory: "Laptop", model: "HP", specification: "4GB 14 inches", availablility: "Available"},
+
+  // ];
+
 
 
 

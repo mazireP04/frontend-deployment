@@ -14,23 +14,14 @@ export class InputFormComponent implements OnInit {
   form: FormGroup;
   itemsArray: Array<DisplayObject> = [];
 
-  cats: string[] = [
-    'Electronics',
-    'Non-electronics',
-  ];
+  
+  categories = new Map<string, Array<string>>(
+    [
+      ['Electronics', ["Laptop", "Internet Dongle", "Big Monitor"]],
+      ['Non-Electronics', ["Laptop Bag", "Notebook"],]
+    ]
+  );
 
-  // E
-  subCats: string[] = [
-    'Laptop',
-    'Internet Dongle',
-    'Big Monitor',
-  ];
-
-
-  // subCatsNE: string[] = [
-  //   'Cycles',
-  //   'Books',
-  // ];
 
   constructor(private fb: FormBuilder, private router: Router, private _dataService: DataService) {
     this.form = this.fb.group({
@@ -60,7 +51,6 @@ export class InputFormComponent implements OnInit {
 
     if (this.form.valid) {
       for (let i = 0; i < this.form.value.quantity; i++) {
-        // this.itemsArray.push(new DisplayObject(
         newData.push(new DisplayObject(
           uuidv4(),
           this.form.value.category,
@@ -80,7 +70,8 @@ export class InputFormComponent implements OnInit {
       // const currentData = this._dataService.getFormData();
       // const updatedData = [...currentData, ...newData];
 
-      console.log('New data to be added:', newData);
+      
+      // console.log('New data to be added:', newData);
       
       this._dataService.updateFormData(newData);
 
@@ -90,9 +81,6 @@ export class InputFormComponent implements OnInit {
     }
   }
 
-  // getRequiredError(){
-  //   return "This is required.";
-  // }
 }
 
 class DisplayObject {
@@ -113,16 +101,3 @@ class DisplayObject {
 }
 
 
-
-
-
-  // TODO: USE SESSION STORAGE APPROACH, THINK ABOUT SERVICE LATER
-
-      // ADD PROPER LOGIC TO PUT IN ARRAY AND SEND TO OTHER DISPLAY COMPONENT
-      
-      // and then store everything in session storage and then redirect to the display page
-
-
-      // TODO: ACCESS HOW MANY QUANTITY
-   
-// TODO: optional parameters in contructor and how to have model and specifications as maps..?

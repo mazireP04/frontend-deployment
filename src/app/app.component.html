@@ -1,11 +1,4 @@
 
-
-<!-- <main class="main">
-  
-</main>
-
-<router-outlet /> -->
-
 <head>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
@@ -24,7 +17,6 @@
     </h2>
     </div>
 
-    <!-- TODO WHAT ALIGNEMENT BUTTON TEXT -->
   
     <div class="user">
       <button mat-raised-button color="accent" class="userButton" [value]="buttonText">
@@ -33,7 +25,6 @@
       </button>
 
       <div class="userBlock">
-        <!-- <p>Hello!</p> -->
         <p>{{mailId}}</p>
         <button mat-button (click)="logout()">Logout</button>
       </div>
@@ -43,18 +34,11 @@
 </header>
 <mat-drawer-container class="entire-container" autosize>
 
-    <div >
-
-        <!-- TODO: ADD AN AUTHENTICATION SERVICE?????!?!?!?! -->
+    <div class="menuToggle" *ngIf="!router.url.includes('/login')">
       <button mat-icon-button color="accent" id="toggle" (click)="drawer?.toggle()" *ngIf="isAuthenticated">
-        <mat-icon>menu</mat-icon>
+        <mat-icon style="font-size:xx-large;">menu</mat-icon>
       </button>
-
-
     </div>
-
-    
-    
 
     <div class="project-content">
       <router-outlet ></router-outlet>
@@ -64,7 +48,6 @@
     <mat-drawer #drawer class="sidenav" mode="side" >
       <p> 
         <button mat-button routerLink="/inventories" routerLinkActive="active">
-          <!-- <mat-icon>home</mat-icon> -->
           <span class="material-symbols-outlined">
             inventory
             </span>
@@ -75,7 +58,8 @@
       <p> 
         <button mat-button routerLink="/add-inventory" routerLinkActive="active">
           <span class="material-symbols-outlined">
-            description
+            <!-- description -->
+            library_add
             </span> 
           <span style="vertical-align:super;"> Add Inventory </span>
         </button>

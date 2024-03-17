@@ -16,7 +16,10 @@
   
   .toggle-button-area {
     // TODO SOLVE THIS ISSUE OF THE HEADER UGLY, I WANT IT STICKY ON TOP PROPERLY ALIGNED ++ add an jump up button when scrolling?
-    box-shadow: 5px 10px 18px #888888;
+    box-shadow: 3px 7px 18px #888888;
+
+    // box-shadow: 3px 6px 10px rgb(255, 215, 64);
+
     background-color: rgb(103, 58, 183);
     
     z-index: 2;
@@ -50,23 +53,38 @@
       width: 100%;
       display: flex;
       justify-content: flex-start;
+
+      // 
+      flex-grow: 1;
     }
 
   }
 
+  .menuToggle{
+    position: sticky;
+    top: 0;
+  }
   
   
   .sidenav {
     padding: 20px;
 
+    // border: thin solid rgb(103, 58, 183);
+      border: thin solid rgb(255, 215, 64);
+
     // background-color: rgb(103, 58, 183);
+    // background-color: rgb(255, 215, 64);
     
     button{
     margin-bottom: -7px;
     width: 100%;
     // text-align: left;
 
+    font-size: medium;
+    font-weight:bold;
     // color: white;
+    // color: rgb(103, 58, 183);
+    
     
     &:hover{
       // TODO THE SIZE INCREASES ON HOVER
@@ -97,6 +115,9 @@
 
     height: 90%;
     width: 100%;
+
+
+    flex-grow: 1;
   }
 
 
@@ -125,9 +146,16 @@
     // padding-left: 3.5%;
     // margin:auto;
     border-radius: 50%;
+
+    // TODO: CHECK THIS
+    border: medium solid rgb(103, 58, 183);
+    outline: thin solid lavenderblush;
+
     // width:90%;
     width: 50px;
     height: 50px;
+
+    
 
   }
 
@@ -151,6 +179,8 @@
     padding-right: 10%;
     font-weight: bold;
     font-size: large;
+
+    // color:white;
   }
 
   // .userIcon{
@@ -158,3 +188,23 @@
   //   border-radius: 50%;
   //   background-color: aqua;
   // }
+
+  /* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .toggle-button-area {
+    flex-direction: column;
+    padding: 2%;
+  }
+
+  .titleDiv {
+    margin-bottom: 10px;
+  }
+
+  .user {
+    margin-top: 10px;
+  }
+
+  .userBlock {
+    right: 0;
+  }
+}

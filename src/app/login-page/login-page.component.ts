@@ -18,8 +18,6 @@ export class LoginPageComponent implements OnInit {
   correctPassword: string = "Password#1234";
 
   loginForm!: FormGroup;
-
-  // so that the template can bind to these for validation
   email!: FormControl;
   password!: FormControl;
 

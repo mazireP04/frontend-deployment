@@ -8,6 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DataService {
 
+  // private jsonFile = new BehaviorSubject<any>('data.json');
   private formDataSubject = new BehaviorSubject<any[]>([]);
   formData$ = this.formDataSubject.asObservable();
 
@@ -16,15 +17,20 @@ export class DataService {
     const currentData = this.formDataSubject.value;
     const updatedData = [...currentData, ...newData];
 
-    console.log('Current data in service:', currentData);
-  console.log('New data to be added:', newData);
-  console.log('Updated data:', updatedData);
+  //   console.log('Current data in service:', currentData);
+  // console.log('New data to be added:', newData);
+  // console.log('Updated data:', updatedData);
 
     this.formDataSubject.next(updatedData);
+    
   }
 
   getFormData(): any[]{
     return this.formDataSubject.value;
+  }
+
+  updateAssignation(dataToReplace: any[]){
+    this.formDataSubject.next(dataToReplace);
   }
 
 }
