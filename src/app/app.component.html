@@ -6,22 +6,23 @@
 
 
 
-<header class="toggle-button-area" *ngIf="!router.url.includes('/login')" >
+<header *ngIf="!router.url.includes('/login')" >
 
   
-  <div class="titleDiv">
-    <h2><span class="material-symbols-outlined" style="vertical-align:bottom;  font-size: larger;">
+  <!-- <div class="titleDiv"> -->
+    <h2 class="title">
+      <span class="material-symbols-outlined" style="vertical-align:bottom;  font-size: larger;">
       inventory_2
       </span> 
       <span style="vertical-align:middle;"> Inventory Management</span>
     </h2>
-    </div>
+    <!-- </div> -->
 
   
     <div class="user">
-      <button mat-raised-button color="accent" class="userButton" [value]="buttonText">
+      <button class="userButton" mat-raised-button color="accent" [value]="buttonText">
         <!-- <mat-icon>user</mat-icon> -->
-        <span class="buttontext">{{buttonText}}</span>
+        {{buttonText}}
       </button>
 
       <div class="userBlock">
@@ -32,17 +33,21 @@
     
 
 </header>
+
+
+
+
 <mat-drawer-container class="entire-container" autosize>
 
-    <div class="menuToggle" *ngIf="!router.url.includes('/login')">
-      <button mat-icon-button color="accent" id="toggle" (click)="drawer?.toggle()" *ngIf="isAuthenticated">
-        <mat-icon style="font-size:xx-large;">menu</mat-icon>
+    <!-- <div> -->
+      <button  class="menuToggle" *ngIf="!router.url.includes('/login')" mat-icon-button color="accent" id="toggle" (click)="drawer?.toggle()">
+        <mat-icon>menu</mat-icon>
       </button>
-    </div>
+    <!-- </div> -->
 
-    <div class="project-content">
+    <!-- <div class="project-content"> -->
       <router-outlet ></router-outlet>
-    </div>
+    <!-- </div> -->
     
 
     <mat-drawer #drawer class="sidenav" mode="side" >

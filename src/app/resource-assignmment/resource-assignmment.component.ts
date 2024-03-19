@@ -22,7 +22,7 @@ export class ResourceAssignmmentComponent implements OnInit {
   requiredDevices = new Map<string, Set<string>>(
     [
       ["Electronics", new Set()],
-      ["NonElectronics", new Set()],
+      ["Non-Electronics", new Set()],
     ]
   );
 
@@ -96,7 +96,9 @@ export class ResourceAssignmmentComponent implements OnInit {
   employees: Array<Employee> = [
     {empId: "AB1234", empName: 'Tom', empDepartment: 'HR', empDesignation: 'Manager'},
     {empId: "PQ5678", empName: 'Ben', empDepartment: 'IT', empDesignation: 'Developer'},
-    {empId: "XY49583", empName: 'John', empDepartment: 'Finance', empDesignation: 'Accountant'},
+    {empId: "XY4958", empName: 'John', empDepartment: 'Finance', empDesignation: 'Accountant'},
+    {empId: "RS6729", empName: 'ABC', empDepartment: 'Finance', empDesignation: 'Accountant'},
+    {empId: "JK0934", empName: 'XYZ', empDepartment: 'IT', empDesignation: 'Developer'},
   ];
 
 
@@ -129,6 +131,10 @@ export class ResourceAssignmmentComponent implements OnInit {
     this.router.navigate(['/inventories']);
     }
 
+  }
+
+  formReset(){
+    this.form.reset();
   }
 
 }

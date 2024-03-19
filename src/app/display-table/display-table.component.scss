@@ -5,31 +5,49 @@
 
 main{
 
-    section{
-        z-index: 1;
-    }
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+
+  // padding: 0 15%;
+ 
+    // section{
+    //     // z-index: 1;
+    //     height: auto;
+    // }
     // z-index: 1;
     // margin: auto;
-    width: 83vw;
+    width: 100%;
     height: 100vh;
-    display: flex;
+    // display: flex;
+    // row-gap: 0;
 
-    padding-top: 3%;
+    padding-top: 2%;
+    // margin-top: 45%;
 
     // align-items: flex-start;
-    justify-content: flex-start;
-    flex-flow: column wrap;
+    // justify-content: center;
+    // align-items: flex-start;
+    // flex-flow: row wrap;
 
     background-color: #fff;
 }
 
+section{
+  // TODO: CHECK
+  width: 85%;
+}
 // FROM OFFICIAL SITE
 table {
 
-    
+  table-layout: fixed;
 
-    margin: auto;
+  
+  // margin: auto;
+
+    // margin: auto;
     width: 100%;
+    height: auto;
 
     background-color: white;
   }
@@ -43,11 +61,20 @@ table {
   }
   
   td, th {
-    // text-align: center;
+    text-align: center;
     // width: 10%;
-    // width: calc(100% / 11);
+    width: calc(100% / 11);
     border-right: thin solid rgb(233, 233, 233);
+
+    // overflow: hidden;
+  // width: auto;
+  // text-overflow: ellipsis;
+  // white-space: nowrap;
   }
+  // TODO: WHAT TO DO IF A LOT OF DATA
+  // td{
+  //   overflow:auto;
+  // }
 
 //   th{
 //     text-align: center;
@@ -84,13 +111,16 @@ table {
     border-bottom: 1px solid rgb(168, 168, 168);
 }
 
-
+mat-paginator{
+  width: 100%;
+}
 
 .row{
-    width: 100%;
+  // margin: auto;
+    width: 85%;
     display: flex;
     justify-content: space-between;
-    padding: 2% 0 0 1%;
+    // padding: 2% 0 0 1%;
 
     .navButtons{
         display: flex;
@@ -141,7 +171,41 @@ caption{
 }
 
 // button.edit{
-//     width: 10%;
+//     width: 1%;
 //     height: 10%;
-//     text-align: left;
+//     // text-align: left;
 // }
+
+// .mat-mdc-button-touch-target{
+//     width: 5%;
+// }
+
+
+// mat-button.edit{
+//   width: 1px;
+// }
+
+// mat-mdc-button-persistent-ripple{
+//   width: 1px;
+// }
+
+// .material-symbols-outlined, .edit, .mat-mdc-button-touch-target{
+//   transform: scale(0.5);
+//   text-align: right;
+//   align-self: flex-end;
+// }
+
+.editHeader{
+  position: relative;
+  padding-left: 4px;
+  text-align: left;
+}
+
+button.edit {
+  position: absolute;
+  top: 20%;
+  right: -15px;
+  // transform: translateY(-50%);
+  transform: scale(0.9);
+  
+}

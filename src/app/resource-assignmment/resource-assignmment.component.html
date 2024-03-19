@@ -55,6 +55,7 @@
         </div>
 
         <!-- SPECIFICATIONS -->
+        <!-- TODO: EVERYTHING GETS BLANK IF UPPER SELECTION CHANGED? -->
         <div class="row">
             <mat-form-field appearance="outline" class="form-group">
                 <mat-label>Specifications</mat-label>
@@ -104,6 +105,8 @@
             <button id="submit" mat-raised-button color="primary" [disabled]="form.invalid" type="submit">
             Submit
             </button>
+            <button mat-raised-button class="reset-button" (click)="formReset()" type="reset">Reset</button>
+
         </div>
 
     </form>
