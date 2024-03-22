@@ -25,24 +25,37 @@ export class DisplayTableComponent implements OnInit, AfterViewInit{
 
   ngOnInit(){
 
-    this._dataService.formData$.subscribe((data) => {
-      this.storedData = data;
-      this.dataSource = new MatTableDataSource(this.storedData);
+    // this._dataService.formData$.subscribe((data) => {
+    //   this.storedData = data;
+    //   this.dataSource = new MatTableDataSource(this.storedData);
+
+      // ----------------------------
       // this.dataSource = new MatTableDataSource(data);
 
       // console.log('Data received in DisplayTableComponent:', data);
 
       // console.log(this.dataSource);
+      // --------------------
       
-    })
+      
+    // })
+
+    this._dataService.getInventoryItems().subscribe(data => {
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      // this.dataSource.data= data;
+    });
 
     // const displayItemsArray: any[] = JSON.parse(this.storedData || '[]');
 
   }
 
   ngAfterViewInit(): void {
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+    // if(this.dataSource){
+    //   this.dataSource.paginator = this.paginator;
+    //   this.dataSource.sort = this.sort;
+    // }
   }
 
   routeToForm(){
@@ -93,7 +106,6 @@ export class DisplayTableComponent implements OnInit, AfterViewInit{
     'Model Name',
     'Model Memory',
     'Warranty',
-    'Memory Details',
     'Screen Size',
     'Price',
     'Assigned To',

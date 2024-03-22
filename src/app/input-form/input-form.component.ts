@@ -27,14 +27,13 @@ export class InputFormComponent implements OnInit {
     this.form = this.fb.group({
       category: ['', Validators.required],
       subCategory: [''],
-      models: this.fb.group({
-        modelName: ['', Validators.required],
-        modelMemory: ['', Validators.required],
+      model: this.fb.group({
+        name: ['', Validators.required],
+        memory: ['', Validators.required],
       }),
-      specifications: this.fb.group({
-        specificationWarranty: ['', Validators.required],
-        specificationMemoryDetails: ['', Validators.required],
-        specificationScreenSize: ['', Validators.required],
+      specification: this.fb.group({
+        warranty: ['', Validators.required],
+        screenSize: ['', Validators.required],
       }),
       quantity: [ , Validators.required],
       price: ['', Validators.required],
@@ -55,11 +54,14 @@ export class InputFormComponent implements OnInit {
           uuidv4(),
           this.form.value.category,
           this.form.value.subCategory,
-          this.form.value.models.modelName,
-          this.form.value.models.modelMemory,
-          this.form.value.specifications.specificationWarranty,
-          this.form.value.specifications.specificationMemoryDetails,
-          this.form.value.specifications.specificationScreenSize,
+          {
+            name: this.form.value.model.name,
+            memory: this.form.value.model.memory
+          },
+          {
+          warranty: this.form.value.specification.warranty,
+          screenSize: this.form.value.specification.screenSize
+          },
           this.form.value.price,
         ));
       }
@@ -73,7 +75,9 @@ export class InputFormComponent implements OnInit {
       
       // console.log('New data to be added:', newData);
       
-      this._dataService.updateFormData(newData);
+      // this._dataService.updateFormData(newData);
+
+      this._dataService.addItems(newData);
 
       this.form.reset();
       this.routeToDataTable();
@@ -83,16 +87,21 @@ export class InputFormComponent implements OnInit {
 
 }
 
+// TODO: how to use model and specification objects here?
 class DisplayObject {
   constructor(
     public id: string = '',
     public category: string = '',
     public subCategory: string = '',
-    public modelName: string = '',
-    public modelMemory: string = '',
-    public specificationWarranty: string = '',
-    public specificationMemoryDetails: string = '',
-    public specificationScreenSize: string = '',
+    public model = {
+      name: '',
+      memory:  '',
+      // TODO: WHAT IS THIS
+    },
+    public specification:{
+      warranty: '',
+      screenSize: ''
+    },
     public price: string = '',
     public assignedTo: string = 'none',
     public status: string = 'available',

@@ -1,7 +1,5 @@
 
 
-      <!-- TODO: ONLY IF CATEGORY IS ELECTRONICS -->
-
       <main>
 
     <form [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
@@ -40,7 +38,7 @@
     
 
         <!-- MODEL NAME -->
-        <fieldset formGroupName="models">
+        <fieldset formGroupName="model">
         <mat-form-field appearance="outline" class="form-group">
             <mat-label>Model Name</mat-label>
             <textarea matInput
@@ -48,7 +46,7 @@
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="1"
             cdkAutosizeMaxRows="5"
-            type="text" formControlName="modelName" required></textarea>
+            type="text" formControlName="name" required></textarea>
         </mat-form-field>
     
         <!-- MODEL MEMORY -->
@@ -59,13 +57,13 @@
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="1"
             cdkAutosizeMaxRows="5" 
-            type="text" formControlName="modelMemory" required></textarea>
+            type="text" formControlName="memory" required></textarea>
         </mat-form-field>
         </fieldset>
     
         <!-- SPECIFICATIONS:  -->
         <!-- WARRANTY -->
-        <fieldset formGroupName="specifications">
+        <fieldset formGroupName="specification">
         <mat-form-field appearance="outline" class="form-group">
             <mat-label>Warranty</mat-label>
             <textarea matInput
@@ -73,21 +71,10 @@
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="1"
             cdkAutosizeMaxRows="5"
-            type="text" formControlName="specificationWarranty" required></textarea>
+            type="text" formControlName="warranty" required></textarea>
     
         </mat-form-field>
-    
-        <!-- MEMORY DETAILS -->
-        <mat-form-field appearance="outline" class="form-group">
-            <mat-label>Memory Details</mat-label>
-            <textarea matInput
-            cdkTextareaAutosize
-            #autosize="cdkTextareaAutosize"
-            cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5"
-            type="text" formControlName="specificationMemoryDetails" required></textarea>
-    
-        </mat-form-field>
+
     
         <!-- SCREEN SIZE -->
         <mat-form-field appearance="outline" class="form-group">
@@ -97,7 +84,7 @@
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="1"
             cdkAutosizeMaxRows="5"
-            type="text" formControlName="specificationScreenSize" required></textarea>
+            type="text" formControlName="screenSize" required></textarea>
         </mat-form-field>
         </fieldset>
     

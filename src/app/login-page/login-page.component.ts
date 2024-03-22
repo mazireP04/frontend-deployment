@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DataService } from '../data.service';
+
 
 @Component({
   selector: 'app-login-page',
@@ -9,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class LoginPageComponent implements OnInit {
 
+  // TODO: WHILE LOGGING IN, GET THAT USER EMAIL FROM DB, CHECK PASSWORD, AND THEN AUTHENTICATE ACCORDINGLY..
 
   title = "Inventory Management System";
    
@@ -21,7 +24,7 @@ export class LoginPageComponent implements OnInit {
   email!: FormControl;
   password!: FormControl;
 
-  constructor(private router: Router){}
+  constructor(private router: Router, private dataService: DataService){}
 
   ngOnInit(): void {
     this.createFormControls();
@@ -53,9 +56,9 @@ export class LoginPageComponent implements OnInit {
     if(this.password.hasError("required")){
       return "Password is required.";
     }
-    // return this.password.hasError('minLength') ? "Password should be atleast 8 characters" : "";
+    // return this.password.hasError('minLength') ? "Password should be at least 8 characters" : "";
 
-    else {return "Password should be atleast 8 characters";}
+    else {return "Password should be at least 8 characters";}
   }
 
   createForm(){
@@ -70,12 +73,26 @@ export class LoginPageComponent implements OnInit {
     {
       // console.log("VALID");
       // console.log(sessionStorage.getItem('authenticated'));
+      // try{
+      //   const admin = this.dataService.getAdmin(this.email.value);
+      // if(!admin){
+      //   // TODO: SHOW AN ALERT MESSAGE?
+      //   console.error("Invalid user!");
+      //   this.formReset();
+      // }
+      // else{
+      //   if(admin.)
+      // }
+
+      // }catch(error){
+
+      // }
       
       sessionStorage.setItem('authenticated', this.email.value);   
       this.router.navigate(['/inventories']);
     } 
     else{
-      // TODO: make it a goodlooking popup
+      // TODO: make it a good-looking popup
       // alert('Invalid credentials. Try again');
       this.formReset();
     }

@@ -14,10 +14,7 @@ export class ResourceAssignmmentComponent implements OnInit {
 
   inventory_data: Array<any> = [];
   
-  // employees!: Array<any>;
-  // requiredDevices!: Array<any>;
-  // models!: Array<any>;
-  // specifications!: Array<any>;
+  // TODO: GET EMPLOYEE OPTIONS FROM DB TOO
 
   requiredDevices = new Map<string, Set<string>>(
     [
@@ -52,7 +49,7 @@ export class ResourceAssignmmentComponent implements OnInit {
       this.inventory_data.forEach(obj => {
         const category = obj.category;
         const subCategory = obj.subCategory;
-        const modelName = obj.modelName;
+        const modelName = obj.model.name;
 
         if(!this.requiredDevices.has(category)){
           this.requiredDevices.set(category, new Set<string>());
@@ -70,7 +67,7 @@ export class ResourceAssignmmentComponent implements OnInit {
         if(!this.specifications.has(modelName)){
           this.specifications.set(modelName, new Set());
         }
-        this.specifications.get(modelName)?.add(`${obj.specificationMemoryDetails}, ${obj.specificationScreenSize}`);
+        this.specifications.get(modelName)?.add(`${obj.model.memory}, ${obj.specification.screenSize}`);
         // HERE
 
         

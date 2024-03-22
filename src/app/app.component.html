@@ -6,7 +6,7 @@
 
 
 
-<header *ngIf="!router.url.includes('/login')" >
+<header *ngIf="(!router.url.includes('/login')) && (!router.url.includes('/signup'))" >
 
   
   <!-- <div class="titleDiv"> -->
@@ -40,7 +40,7 @@
 <mat-drawer-container class="entire-container" autosize>
 
     <!-- <div> -->
-      <button  class="menuToggle" *ngIf="!router.url.includes('/login')" mat-icon-button color="accent" id="toggle" (click)="drawer?.toggle()">
+      <button  class="menuToggle" *ngIf="(!router.url.includes('/login')) && (!router.url.includes('/signup'))">
         <mat-icon>menu</mat-icon>
       </button>
     <!-- </div> -->

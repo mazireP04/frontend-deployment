@@ -1,0 +1,39 @@
+
+
+
+<main>
+
+    <form [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
+
+        <!--TODO: RESIZABLE ??  -->
+        <!-- Username -->
+        <mat-form-field appearance="outline" class="form-group">
+            <mat-label>Username</mat-label>
+            <input matInput
+            type="text" formControlName="username" required>
+        </mat-form-field>
+    
+        <!-- Email-ID -->
+        <mat-form-field appearance="outline" class="form-group">
+            <mat-label>Email-ID</mat-label>
+            <input matInput 
+            type="email" formControlName="email" required>
+        </mat-form-field>
+    
+        <!-- Password:  -->
+        <mat-form-field appearance="outline" class="form-group">
+            <mat-label>Department</mat-label>
+            <input matInput
+            type="password" formControlName="password" required>
+    
+        </mat-form-field>
+
+        <!-- SUBMIT -->
+        <div>
+        <button id="submit" mat-raised-button color="primary" [disabled]="form.invalid" type="submit">
+        Submit
+        </button>
+        </div>
+
+</form>
+</main>

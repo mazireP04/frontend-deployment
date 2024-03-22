@@ -2,9 +2,10 @@
 
 <main>
 
+    <!-- TODO: add user button -->
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-            <!-- EMPLOYEEE -->
+            <!-- EMPLOYEE -->
         <div class="row">
             <mat-form-field appearance="outline" class="form-group">
                 <mat-label>Employee</mat-label>
@@ -88,9 +89,9 @@
                 <mat-select formControlName="available" required placeholder="Available Devices">
                     <div *ngFor="let obj of inventory_data">
                         <mat-option *ngIf="(obj.subCategory == selectedSubCategory.value)
-                                        && (obj.modelName == selectedModelName.value) 
-                                        && (obj.specificationMemoryDetails == selectedSpecs.value[0]) 
-                                        && (obj.specificationScreenSize == selectedSpecs.value[1]) 
+                                        && (obj.model.name == selectedModelName.value) 
+                                        && (obj.model.memory == selectedSpecs.value[0]) 
+                                        && (obj.specification.screenSize == selectedSpecs.value[1]) 
                                         && (obj.status == 'available')" 
                                         [value]="obj.id">
                             {{obj.id.substring(0, 7)}}... 

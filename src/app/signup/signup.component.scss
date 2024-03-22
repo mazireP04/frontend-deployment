@@ -1,0 +1,22 @@
+
+
+main{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center
+}
+
+form{
+    // margin-top: 5%;
+    // padding-top: 5%;
+    width: 30%;
+    display: flex;
+    flex-flow: column;
+}
+
+button{
+    width: 100%;
+}

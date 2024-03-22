@@ -26,13 +26,19 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ResourceAssignmmentComponent } from './resource-assignmment/resource-assignmment.component';
 
+import { HttpClientModule } from '@angular/common/http';
+import { AddUserComponent } from './add-user/add-user.component';
+import { SignupComponent } from './signup/signup.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
     InputFormComponent,
     DisplayTableComponent,
-    ResourceAssignmmentComponent
+    ResourceAssignmmentComponent,
+    AddUserComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +61,7 @@ import { ResourceAssignmmentComponent } from './resource-assignmment/resource-as
     MatFormField,
     MatPaginator,
     MatSort,
+    HttpClientModule,
   ],
   providers: [
     provideAnimationsAsync(),

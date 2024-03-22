@@ -79,29 +79,25 @@
     <!-- Model Name -->
     <ng-container matColumnDef="Model Name">
         <th mat-header-cell *matHeaderCellDef>Model Name</th>
-        <td mat-cell *matCellDef="let element">{{element.modelName}}</td>
+        <td mat-cell *matCellDef="let element">{{element.model.name}}</td>
     </ng-container>
     <!-- Model Memory -->
     <ng-container matColumnDef="Model Memory">
         <th mat-header-cell *matHeaderCellDef>Model Memory</th>
-        <td mat-cell *matCellDef="let element">{{element.modelMemory}}</td>
+        <td mat-cell *matCellDef="let element">{{element.model.memory}}</td>
     </ng-container>
 
     <!-- SPECIFICATIONS -->
     <!-- Warranty -->
     <ng-container matColumnDef="Warranty">
         <th mat-header-cell *matHeaderCellDef>Warranty</th>
-        <td mat-cell *matCellDef="let element">{{element.specificationWarranty}}</td>
+        <td mat-cell *matCellDef="let element">{{element.specification.warranty}}</td>
     </ng-container>
-    <!-- Memory Details -->
-    <ng-container matColumnDef="Memory Details">
-        <th mat-header-cell *matHeaderCellDef>Memory Details</th>
-        <td mat-cell *matCellDef="let element">{{element.specificationMemoryDetails}}</td>
-    </ng-container>
+    
     <!-- Screen Size -->
     <ng-container matColumnDef="Screen Size">
         <th mat-header-cell *matHeaderCellDef>Screen Size</th>
-        <td mat-cell *matCellDef="let element">{{element.specificationScreenSize}}</td>
+        <td mat-cell *matCellDef="let element">{{element.specification.screenSize}}</td>
     </ng-container>
 
     <!-- Price -->
