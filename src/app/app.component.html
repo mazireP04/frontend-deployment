@@ -39,8 +39,9 @@
 
 <mat-drawer-container class="entire-container" autosize>
 
+  <!-- TODO: WHAT HAPPENED TO THIS TOGGLE BUTTON!?! -->
     <!-- <div> -->
-      <button  class="menuToggle" *ngIf="(!router.url.includes('/login')) && (!router.url.includes('/signup'))">
+      <button  class="menuToggle" type="button" mat-button (click)="drawer.toggle()" color="accent" *ngIf="((!router.url.includes('/login')) && (!router.url.includes('/signup')))">
         <mat-icon>menu</mat-icon>
       </button>
     <!-- </div> -->

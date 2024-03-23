@@ -77,10 +77,20 @@ export class InputFormComponent implements OnInit {
       
       // this._dataService.updateFormData(newData);
 
-      this._dataService.addItems(newData);
-
-      this.form.reset();
+      this._dataService.addItems(newData).subscribe(
+        (response) => {
+          console.log(response);
+          this.form.reset();
       this.routeToDataTable();
+        },
+        (error) => {
+          console.log(error);
+          
+        }
+      );
+
+      // this.form.reset();
+      // this.routeToDataTable();
 
     }
   }
@@ -103,8 +113,8 @@ class DisplayObject {
       screenSize: ''
     },
     public price: string = '',
-    public assignedTo: string = 'none',
-    public status: string = 'available',
+    // public assignedTo: string = 'none',
+    // public status: string = 'available',
   ) {}
 
 }

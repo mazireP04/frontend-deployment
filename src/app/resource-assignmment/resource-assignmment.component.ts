@@ -12,6 +12,8 @@ export class ResourceAssignmmentComponent implements OnInit {
 
   form!: FormGroup;
 
+  employees!: Array<any>;
+
   inventory_data: Array<any> = [];
   
   // TODO: GET EMPLOYEE OPTIONS FROM DB TOO
@@ -40,9 +42,25 @@ export class ResourceAssignmmentComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.dataService.formData$.subscribe((data) => {
-      // is inventory_data even needed?
-      this.inventory_data = data;
+    this.dataService.getUsers().subscribe(
+      (response) => {
+        console.log(response);
+        
+        // TODO: WANT TO MAKE AN EMPLOYEE ARRAY
+        this.employees = response;
+      },
+      (error) => {
+        console.error(error);
+        
+      }
+    );
+
+    this.dataService.getInventoryItems().subscribe(
+      (response) => {
+        console.log(response);
+
+        
+        this.inventory_data = response;
 
       
 
@@ -70,15 +88,48 @@ export class ResourceAssignmmentComponent implements OnInit {
         this.specifications.get(modelName)?.add(`${obj.model.memory}, ${obj.specification.screenSize}`);
         // HERE
 
+      }
+    );
+
+    // this.dataService.formData$.subscribe((data) => {
+    //   // is inventory_data even needed?
+    //   this.inventory_data = data;
+
+      
+
+    //   this.inventory_data.forEach(obj => {
+    //     const category = obj.category;
+    //     const subCategory = obj.subCategory;
+    //     const modelName = obj.model.name;
+
+    //     if(!this.requiredDevices.has(category)){
+    //       this.requiredDevices.set(category, new Set<string>());
+    //     }
+    //     this.requiredDevices.get(category)?.add(subCategory);
+
+
+    //     if(!this.models.has(subCategory)){
+    //       this.models.set(subCategory, new Set<string>());
+    //     }
+    //     this.models.get(subCategory)?.add(modelName);
         
+
+    //     // const specsKey = [obj.specificationMemoryDetails, obj.specificationScreenSize];
+    //     if(!this.specifications.has(modelName)){
+    //       this.specifications.set(modelName, new Set());
+    //     }
+    //     this.specifications.get(modelName)?.add(`${obj.model.memory}, ${obj.specification.screenSize}`);
+    //     // HERE
 
         
 
-        // this.models.add(obj.modelName);
-        // this.specifications.add(`${obj.specificationMemoryDetails}, ${obj.specificationScreenSize}`);
+        
+
+    //     // this.models.add(obj.modelName);
+    //     // this.specifications.add(`${obj.specificationMemoryDetails}, ${obj.specificationScreenSize}`);
       
         
-      });
+    //   });
       
 
     });
@@ -90,13 +141,13 @@ export class ResourceAssignmmentComponent implements OnInit {
 
   }
 
-  employees: Array<Employee> = [
-    {empId: "AB1234", empName: 'Tom', empDepartment: 'HR', empDesignation: 'Manager'},
-    {empId: "PQ5678", empName: 'Ben', empDepartment: 'IT', empDesignation: 'Developer'},
-    {empId: "XY4958", empName: 'John', empDepartment: 'Finance', empDesignation: 'Accountant'},
-    {empId: "RS6729", empName: 'ABC', empDepartment: 'Finance', empDesignation: 'Accountant'},
-    {empId: "JK0934", empName: 'XYZ', empDepartment: 'IT', empDesignation: 'Developer'},
-  ];
+  // employees: Array<Employee> = [
+  //   {empId: "AB1234", empName: 'Tom', empDepartment: 'HR', empDesignation: 'Manager'},
+  //   {empId: "PQ5678", empName: 'Ben', empDepartment: 'IT', empDesignation: 'Developer'},
+  //   {empId: "XY4958", empName: 'John', empDepartment: 'Finance', empDesignation: 'Accountant'},
+  //   {empId: "RS6729", empName: 'ABC', empDepartment: 'Finance', empDesignation: 'Accountant'},
+  //   {empId: "JK0934", empName: 'XYZ', empDepartment: 'IT', empDesignation: 'Developer'},
+  // ];
 
 
 
@@ -111,17 +162,24 @@ export class ResourceAssignmmentComponent implements OnInit {
     // TODO: BINDING ETC
     
     if(this.form.valid){
-      const selectedId = this.form.value.available;
-      const newData = this.inventory_data.map(obj => {
-        if(obj.id === selectedId){
-          return {...obj, assignedTo: this.form.value.employee, status: 'Assigned'};
+
+      this.dataService.updateItem(this.form.value.available, this.form.value.employee, "Assigned").subscribe(
+        (response) => {console.log(response)},
+        (error) => {console.log(error);
         }
-        return obj;
-      });
+        
+      );
+      // const selectedId = this.form.value.available;
+      // const newData = this.inventory_data.map(obj => {
+      //   if(obj.id === selectedId){
+      //     return {...obj, assignedTo: this.form.value.employee, status: 'Assigned'};
+      //   }
+      //   return obj;
+      // });
 
       // this.dataService.updateFormData(newData);
 
-      this.dataService.updateAssignation(newData);
+      // this.dataService.updateAssignation(newData);
 
       this.form.reset();
       

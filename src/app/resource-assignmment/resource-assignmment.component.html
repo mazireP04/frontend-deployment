@@ -10,8 +10,8 @@
             <mat-form-field appearance="outline" class="form-group">
                 <mat-label>Employee</mat-label>
                 <mat-select formControlName="employee" required placeholder="Select Employee">
-                    <mat-option *ngFor="let employee of employees" [value]="employee.empId">
-                    {{employee.empId}} {{employee.empName}}
+                    <mat-option *ngFor="let employee of employees" [value]="employee.id">
+                    {{employee.id}} {{employee.name}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -92,7 +92,7 @@
                                         && (obj.model.name == selectedModelName.value) 
                                         && (obj.model.memory == selectedSpecs.value[0]) 
                                         && (obj.specification.screenSize == selectedSpecs.value[1]) 
-                                        && (obj.status == 'available')" 
+                                        && (obj.status == 'Available')" 
                                         [value]="obj.id">
                             {{obj.id.substring(0, 7)}}... 
                         </mat-option>

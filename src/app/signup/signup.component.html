@@ -6,6 +6,7 @@
     <form [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
 
         <!--TODO: RESIZABLE ??  -->
+        <!-- TODO: add reset button -->
         <!-- Username -->
         <mat-form-field appearance="outline" class="form-group">
             <mat-label>Username</mat-label>
@@ -22,7 +23,7 @@
     
         <!-- Password:  -->
         <mat-form-field appearance="outline" class="form-group">
-            <mat-label>Department</mat-label>
+            <mat-label>Password</mat-label>
             <input matInput
             type="password" formControlName="password" required>
     

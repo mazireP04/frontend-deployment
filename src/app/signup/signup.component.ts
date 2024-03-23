@@ -39,10 +39,13 @@ export class SignupComponent {
           this.form.value.password,
         );
       
- 
+
+        // TODO: PREVENT DOUBLE CLICK ON SUBMIT BUTTON WHILE THIS IS GETTING PROCESSED
       this.dataService.addAdmin(newData).subscribe(
         (response) => {
           console.log("Admin added successfully: ", response);
+          sessionStorage.setItem('authenticated', this.form.value.email);   
+
           this.form.reset();
           this.routeToInventory();
           
@@ -53,8 +56,8 @@ export class SignupComponent {
         }
       );
 
-      this.form.reset();
-      this.routeToInventory();
+      // this.form.reset();
+      // this.routeToInventory();
 
     }
   }

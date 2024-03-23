@@ -68,8 +68,8 @@ export class LoginPageComponent implements OnInit {
       });
   }
 
-  onSubmit(){
-    if(this.loginForm.valid && this.email.value === this.correctEmail && this.password.value === this.correctPassword)
+  async onSubmit(){
+    if(this.loginForm.valid)
     {
       // console.log("VALID");
       // console.log(sessionStorage.getItem('authenticated'));
@@ -87,14 +87,29 @@ export class LoginPageComponent implements OnInit {
       // }catch(error){
 
       // }
+
+      // TODO: SUBSCRIBE DEPRECATED WHY
+      this.dataService.authenticateAdmin(this.loginForm.value.email, this.loginForm.value.password).subscribe( 
+        (response: any) => {
+            console.log("Authenticated!");
+            sessionStorage.setItem('authenticated', this.email.value);
+            this.formReset();
+            this.router.navigate(['/inventories']);
+        },
+      (error) => {
+        console.error(error.message);
+      }
+      )
       
-      sessionStorage.setItem('authenticated', this.email.value);   
-      this.router.navigate(['/inventories']);
+      // TODO: HOW TO SET USERNAME IN HEADER IF NOTHING STORED IN STORAGE?
+      // sessionStorage.setItem('authenticated', this.email.value);  
+      // TODO: THIS.EMAIL.VALUE VS THIS.FORM.VALUE.EMAIL 
+      // this.router.navigate(['/inventories']);
     } 
     else{
       // TODO: make it a good-looking popup
       // alert('Invalid credentials. Try again');
-      this.formReset();
+      // this.formReset();
     }
     this.formReset();
     

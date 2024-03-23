@@ -82,10 +82,14 @@ export class DataService {
     return this.http.get<any[]>(this.inventoryApiUrl);
   }
 
+  updateItem(id: string, assignedTo: string, status: string){
+    return this.http.patch<any[]>(`${this.inventoryApiUrl}/${id}`, {assignedTo, status});
+  }
+
 
   
 addUser(newData: Object){
-  return this.http.post<any[]>(this.usersApiUrl, newData);
+  return this.http.post<Object>(this.usersApiUrl, newData);
 
 }
 
@@ -108,11 +112,12 @@ addAdmin(admin: Object){
 
 // }
 
-getAdmin(email: string){
+authenticateAdmin(email: string, password: string){
   // check if admin exists
 // get admin where username or email matches and  then check if entered password matches the one in db
 // authenticate --- all this is component logic..?
-  return this.http.get<any[]>(`${this.adminsApiUrl}/${email}`);
+// TODO: GET OBJECT? ANY[]? WHAT?
+  return this.http.post<Object>(`${this.adminsApiUrl}/login`, {email, password});
 
 }
 

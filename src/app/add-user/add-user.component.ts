@@ -42,10 +42,19 @@ export class AddUserComponent implements OnInit {
         );
       
 
-      this.dataService.addUser(newData);
-
-      this.form.reset();
+      this.dataService.addUser(newData).subscribe(
+        (response) => {
+          console.log(response);
+          this.form.reset();
       this.routeToResourceAssignment();
+        }
+          ,
+        (error) => console.error(error)
+        
+      );
+
+      // this.form.reset();
+      // this.routeToResourceAssignment();
 
     }
   }
