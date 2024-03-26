@@ -19,6 +19,18 @@ main{
     background-color: white;
 }
 
+#overlay{
+    display: none;
+    // display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 3;
+    background-color: rgba(180, 179, 179, 0.5);
+
+}
 header{
     padding: 1%;
     position: fixed;

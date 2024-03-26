@@ -95,6 +95,8 @@ header{
   z-index: 3;
   width: auto;
   background-color: white;
+  margin-top: 7px;
+  
 
   mat-icon{
   // position: sticky;
@@ -104,7 +106,9 @@ header{
  
   // z-index: 3;
   font-weight: bold;
-  font-size: xx-large;
+  // font-size: x-large;
+  transform: scale(1.7);
+  
   }
 
   // color: rgb(103, 58, 183);

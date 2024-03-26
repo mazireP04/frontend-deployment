@@ -31,7 +31,6 @@ export class AddUserComponent implements OnInit {
   }
 
   onSubmit() {
-    // const newData!: Object<Employee>;
 
     if (this.form.valid) {
         const newData = new Employee(
@@ -52,11 +51,11 @@ export class AddUserComponent implements OnInit {
         (error) => console.error(error)
         
       );
-
-      // this.form.reset();
-      // this.routeToResourceAssignment();
-
     }
+  }
+
+  formReset(){
+    this.form.reset();
   }
 
 }

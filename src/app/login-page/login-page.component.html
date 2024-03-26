@@ -57,7 +57,14 @@
         <button mat-raised-button class="reset-button" (click)="formReset()" type="reset">Reset</button>
     </div>
 
+    <p style="font-size: small; text-align: center; margin-top: 15px;">New here? <button type="button" style="text-decoration: underline;" mat-button (click)="routeToSignup()">Signup</button></p>
+
     
 </form>
+
+<div id="overlay">
+<mat-spinner id="spinner" style="position: fixed; z-index: 2; align-self: center; size: 200%; " >
+</mat-spinner>
+</div>
 
 </main>

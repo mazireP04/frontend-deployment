@@ -71,52 +71,46 @@ export class LoginPageComponent implements OnInit {
   async onSubmit(){
     if(this.loginForm.valid)
     {
-      // console.log("VALID");
-      // console.log(sessionStorage.getItem('authenticated'));
-      // try{
-      //   const admin = this.dataService.getAdmin(this.email.value);
-      // if(!admin){
-      //   // TODO: SHOW AN ALERT MESSAGE?
-      //   console.error("Invalid user!");
-      //   this.formReset();
-      // }
-      // else{
-      //   if(admin.)
-      // }
-
-      // }catch(error){
-
-      // }
+      // TODO: what to do if unauthorized? how to stop this overlay
+      const overlay = document.getElementById("overlay");
+      overlay!.style.display = "flex";
 
       // TODO: SUBSCRIBE DEPRECATED WHY
       this.dataService.authenticateAdmin(this.loginForm.value.email, this.loginForm.value.password).subscribe( 
-        (response: any) => {
+        {
+          // TODO: THIS WAS RESPONSE INSTEAD OF COMPLETE, CHECK THIS
+          complete: () => {
             console.log("Authenticated!");
-            sessionStorage.setItem('authenticated', this.email.value);
-            this.formReset();
+            sessionStorage.setItem('authenticated', this.loginForm.value.email);
+            this.loginForm.reset();
             this.router.navigate(['/inventories']);
         },
-      (error) => {
-        console.error(error.message);
-      }
+      error: (err) => {
+        // TODO: show message that invalid credentials
+        console.error(err.message);
+        this.formReset();
+        overlay!.style.display = "none";
+
+      }}
       )
       
-      // TODO: HOW TO SET USERNAME IN HEADER IF NOTHING STORED IN STORAGE?
-      // sessionStorage.setItem('authenticated', this.email.value);  
       // TODO: THIS.EMAIL.VALUE VS THIS.FORM.VALUE.EMAIL 
-      // this.router.navigate(['/inventories']);
     } 
     else{
-      // TODO: make it a good-looking popup
+      // TODO: make it a good-looking popup - this will happen when password not string or email doesn't exist?
       // alert('Invalid credentials. Try again');
-      // this.formReset();
+      this.formReset();
     }
-    this.formReset();
+    // this.formReset();
     
   }
 
   formReset(){
     this.loginForm.reset();
+  }
+
+  routeToSignup(){
+    this.router.navigate(["/signup"]);
   }
   
 }

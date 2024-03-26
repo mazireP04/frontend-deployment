@@ -14,7 +14,7 @@ export class AppComponent {
 
   buttonText!: string;
 
-  mailId = sessionStorage.getItem('authenticated');
+  mailId!: string;
   constructor(private route: ActivatedRoute, protected router: Router) {}
 
   isAuthenticated!: boolean;
@@ -25,28 +25,17 @@ export class AppComponent {
     .subscribe(() => {
       this.isAuthenticated = sessionStorage.getItem('authenticated') != undefined;
       this.buttonText = sessionStorage.getItem('authenticated')?.charAt(0).toUpperCase() || '';
+      // why here?
+      this.mailId = sessionStorage.getItem('authenticated') || "";
 
-      this.updateTitle();
     });
-
-      this.updateTitle();
 
   }
 
-  private updateTitle(){
 
-    const currentRoute = this.route.firstChild?.snapshot;
-    const pageTitle = currentRoute?.data?.['title'] || "" ;
-
-    if(pageTitle){
-      this.title = `${pageTitle}`;
-    }
-    else{
-      this.title = "";
-    }
-}
 
 logout(){
+  // TODO: logout and how to actually logout?
   sessionStorage.removeItem('authenticated');
   this.router.navigate(["/login"]);
 }

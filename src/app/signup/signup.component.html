@@ -1,8 +1,15 @@
-
+<!-- 
+    main -- whole page - flex box, center
+    one mat-card  in center - flex box row - 50 50 - width 80%
+    form side properly in centre
+    div on right will have bg 
+ -->
 
 
 <main>
 
+    <!-- <div class="container"> -->
+<mat-card class="container">
     <form [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
 
         <!--TODO: RESIZABLE ??  -->
@@ -22,19 +29,49 @@
         </mat-form-field>
     
         <!-- Password:  -->
-        <mat-form-field appearance="outline" class="form-group">
-            <mat-label>Password</mat-label>
-            <input matInput
-            type="password" formControlName="password" required>
-    
-        </mat-form-field>
+            <mat-form-field appearance="outline" class="form-group" id="password">
+                <mat-label>Password</mat-label>
+                <input matInput 
+                        class="form-control"
+                        formControlName="password"
+                        required
+                        [type]="hide ? 'password' : 'text'"
+                        >
+                        <!-- @if (password.invalid){
+                            <mat-error class="form-control-feedback">
+                                   {{getPasswordError()}}
+                            </mat-error>
+                        } -->
+        
+                        <button type="button" mat-icon-button matSuffix class="showPassword" (click)="hide = !hide"
+            [attr.aria-pressed]="hide" id="hidePassword">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            </mat-form-field>
+
 
         <!-- SUBMIT -->
-        <div>
+        <div class="buttons">
         <button id="submit" mat-raised-button color="primary" [disabled]="form.invalid" type="submit">
         Submit
         </button>
+        <button mat-raised-button class="reset-button" (click)="formReset()" type="reset">Reset</button>
         </div>
 
 </form>
+<!-- </mat-card> -->
+
+
+<!-- <mat-card class="container" style="background-image: url('../../assets/anotherInventory.png');"> -->
+<div class="bgimg">
+<p>  </p>
+</div>
+
+</mat-card>
+
+<!-- <mat-card class="loading" style="display:none; position: fixed; background-color: rgb(183, 183, 183); z-index: 3; display: flex; justify-content: center; align-items: center;"> -->
+    <mat-spinner id="spinner" style="z-index: 2; position: fixed; display: none;"></mat-spinner>
+<!-- </mat-card> -->
+<!-- </div> -->
+
 </main>

@@ -29,6 +29,7 @@ import { ResourceAssignmmentComponent } from './resource-assignmment/resource-as
 import { HttpClientModule } from '@angular/common/http';
 import { AddUserComponent } from './add-user/add-user.component';
 import { SignupComponent } from './signup/signup.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { SignupComponent } from './signup/signup.component';
     MatPaginator,
     MatSort,
     HttpClientModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     provideAnimationsAsync(),

@@ -19,6 +19,7 @@
             <!-- <button mat-raised (click)="deleteRecords()">Delete records</button> -->
         </div>
 
+
         <!-- FILTERS -->
         <div  class="filterBoxes">
             <!-- FOR ASSIGNED TO -->
@@ -135,14 +136,11 @@
     <!-- WHEN NO DATA MATCHES -->
     <ng-container *ngIf="input.value != ''">
     <tr class="mat-row" *matNoDataRow>
-        <!-- *ngIf="input.value == 'true' "-->
-        <!-- [ngIf]="stat.touched || assign.touched"-->
         <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
       </tr>
     </ng-container>
 
     <!-- TODO : FIX THIS! -->
-    <!-- <ng-container *ngIf="dataSource.data ===  []"> -->
         <ng-container *ngIf="input.value == ''">
         <tr class="mat-row" *matNoDataRow>
             <td class="mat-cell" colspan="11" style="text-align: center; font-size: medium; font-weight: bold;padding-top: 15px;">No data found!</td>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
 import { DataService } from '../data.service';
 import { Router } from '@angular/router';
 
@@ -13,12 +13,13 @@ export class SignupComponent {
   form: FormGroup;
   users: Array<Admin> = [];
 
+  hide = true;
 
   constructor(private fb: FormBuilder, private router: Router, private dataService: DataService) {
     this.form = this.fb.group({
       username: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['' , Validators.required]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['' , [Validators.required, Validators.minLength(8)]]
     });
   }
 
@@ -33,6 +34,9 @@ export class SignupComponent {
   onSubmit() {
 
     if (this.form.valid) {
+      var spinner = document.getElementById("spinner");
+      spinner!.style.display = "block";
+
         const newData = new Admin(
           this.form.value.username,
           this.form.value.email,
@@ -41,6 +45,7 @@ export class SignupComponent {
       
 
         // TODO: PREVENT DOUBLE CLICK ON SUBMIT BUTTON WHILE THIS IS GETTING PROCESSED
+        // TODO USE ASYNC AWAIT INSTEAD?
       this.dataService.addAdmin(newData).subscribe(
         (response) => {
           console.log("Admin added successfully: ", response);
@@ -60,6 +65,19 @@ export class SignupComponent {
       // this.routeToInventory();
 
     }
+  }
+
+  formReset(){
+    this.form.reset();
+  }
+
+  getPasswordError(){
+    if(this.form.value.password.hasError("required")){
+      return "Password is required.";
+    }
+    // return this.password.hasError('minLength') ? "Password should be at least 8 characters" : "";
+
+    else {return "Password should be at least 8 characters";}
   }
 
 }

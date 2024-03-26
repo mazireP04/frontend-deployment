@@ -52,10 +52,12 @@
         
 
             <!-- SUBMIT -->
-            <div>
+            <div class="buttons">
             <button id="submit" mat-raised-button color="primary" [disabled]="form.invalid" type="submit">
             Submit
             </button>
+            <button mat-raised-button class="reset-button" (click)="formReset()" type="reset">Reset</button>
+
             </div>
     
     </form>

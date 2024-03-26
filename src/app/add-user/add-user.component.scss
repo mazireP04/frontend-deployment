@@ -16,6 +16,14 @@ form{
     flex-flow: column;
 }
 
-button{
+.buttons{
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-flow: column wrap;
     width: 100%;
+    button{
+        margin: 4px 0;
+        width: 100%;
+    }
 }

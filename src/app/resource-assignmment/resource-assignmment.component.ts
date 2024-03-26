@@ -91,63 +91,15 @@ export class ResourceAssignmmentComponent implements OnInit {
       }
     );
 
-    // this.dataService.formData$.subscribe((data) => {
-    //   // is inventory_data even needed?
-    //   this.inventory_data = data;
-
-      
-
-    //   this.inventory_data.forEach(obj => {
-    //     const category = obj.category;
-    //     const subCategory = obj.subCategory;
-    //     const modelName = obj.model.name;
-
-    //     if(!this.requiredDevices.has(category)){
-    //       this.requiredDevices.set(category, new Set<string>());
-    //     }
-    //     this.requiredDevices.get(category)?.add(subCategory);
-
-
-    //     if(!this.models.has(subCategory)){
-    //       this.models.set(subCategory, new Set<string>());
-    //     }
-    //     this.models.get(subCategory)?.add(modelName);
-        
-
-    //     // const specsKey = [obj.specificationMemoryDetails, obj.specificationScreenSize];
-    //     if(!this.specifications.has(modelName)){
-    //       this.specifications.set(modelName, new Set());
-    //     }
-    //     this.specifications.get(modelName)?.add(`${obj.model.memory}, ${obj.specification.screenSize}`);
-    //     // HERE
-
-        
-
-        
-
-    //     // this.models.add(obj.modelName);
-    //     // this.specifications.add(`${obj.specificationMemoryDetails}, ${obj.specificationScreenSize}`);
-      
-        
-    //   });
-      
 
     });
 
     
-    console.log(this.requiredDevices);
-    console.log(this.models);
+    // console.log(this.requiredDevices);
+    // console.log(this.models);
     console.log(this.specifications);
 
   }
-
-  // employees: Array<Employee> = [
-  //   {empId: "AB1234", empName: 'Tom', empDepartment: 'HR', empDesignation: 'Manager'},
-  //   {empId: "PQ5678", empName: 'Ben', empDepartment: 'IT', empDesignation: 'Developer'},
-  //   {empId: "XY4958", empName: 'John', empDepartment: 'Finance', empDesignation: 'Accountant'},
-  //   {empId: "RS6729", empName: 'ABC', empDepartment: 'Finance', empDesignation: 'Accountant'},
-  //   {empId: "JK0934", empName: 'XYZ', empDepartment: 'IT', empDesignation: 'Developer'},
-  // ];
 
 
 
@@ -190,6 +142,10 @@ export class ResourceAssignmmentComponent implements OnInit {
 
   formReset(){
     this.form.reset();
+  }
+
+  routeToAddUser(){
+    this.router.navigate(["/add-user"]);
   }
 
 }
