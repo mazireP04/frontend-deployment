@@ -31,16 +31,25 @@ export class SignupComponent {
 
   // TODO: ADD PROPER VALIDATIONS 
   // TODO: ADD AUTH GUARD LIKE LOGIN FORM
-  onSubmit() {
+  async onSubmit() {
 
     if (this.form.valid) {
       var spinner = document.getElementById("spinner");
       spinner!.style.display = "block";
 
+      try{
+      const encryptedPassword = await this.dataService.encryptPassword(this.form.value.password);
+      console.log(encryptedPassword);
+      
+       
+      if (typeof encryptedPassword !== 'string') {
+        throw new Error('Failed to encrypt password');
+      }
+
         const newData = new Admin(
           this.form.value.username,
           this.form.value.email,
-          this.form.value.password,
+          encryptedPassword,
         );
       
 
@@ -61,10 +70,13 @@ export class SignupComponent {
         }
       );
 
-      // this.form.reset();
-      // this.routeToInventory();
 
     }
+    catch(error){
+      console.error(error);
+      
+    }
+  }
   }
 
   formReset(){

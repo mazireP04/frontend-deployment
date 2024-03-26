@@ -71,16 +71,26 @@ export class LoginPageComponent implements OnInit {
   async onSubmit(){
     if(this.loginForm.valid)
     {
+      console.log(this.loginForm.value.password);
+      
       // TODO: what to do if unauthorized? how to stop this overlay
       const overlay = document.getElementById("overlay");
       overlay!.style.display = "flex";
 
-      // TODO: SUBSCRIBE DEPRECATED WHY
-      this.dataService.authenticateAdmin(this.loginForm.value.email, this.loginForm.value.password).subscribe( 
+      const encryptedPassword = await this.dataService.encryptPassword(this.loginForm.value.password);
+      console.log(encryptedPassword);
+
+      if (typeof encryptedPassword !== 'string') {
+        throw new Error('Failed to encrypt password');
+      }
+
+      this.dataService.authenticateAdmin(this.loginForm.value.email, encryptedPassword).subscribe( 
         {
           // TODO: THIS WAS RESPONSE INSTEAD OF COMPLETE, CHECK THIS
           complete: () => {
             console.log("Authenticated!");
+            console.log(encryptedPassword);
+            
             sessionStorage.setItem('authenticated', this.loginForm.value.email);
             this.loginForm.reset();
             this.router.navigate(['/inventories']);

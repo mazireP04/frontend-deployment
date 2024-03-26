@@ -17,11 +17,14 @@ align-items: center;
 }
 
 .container{
-    width:45%;
-    height: 50vh;
+    width:55%;
+    height: 60vh;
     margin: auto;
     display: flex;
     flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2%;
 
     // width:50%;
     // height: 60vh;
@@ -34,15 +37,19 @@ form{
     // margin-top: 5%;
     // padding-top: 5%;
     // width: 30%;
-    width: calc(40em/2);
+    // width: calc(40em/2);
     display: flex;
     flex-flow: column;
     padding: 2%;
+    // transform: scale(1.05);
+    width: 40%;
 }
 
 .bgimg{
     // width: 100%;
-    width: calc(40em/2);
+    // width: calc(40em/2);
+    width: 50%;
+    height: 100%;
     background-image: url("../../assets/signup.png");
     background-size: contain;
     background-repeat: no-repeat;
