@@ -30,6 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddUserComponent } from './add-user/add-user.component';
 import { SignupComponent } from './signup/signup.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { InventoryListComponent } from './inventory-list/inventory-list.component';
+import { MatDialogContent } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     DisplayTableComponent,
     ResourceAssignmmentComponent,
     AddUserComponent,
-    SignupComponent
+    SignupComponent,
+    InventoryListComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatPaginator,
     MatSort,
     HttpClientModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDialogContent
   ],
   providers: [
     provideAnimationsAsync(),

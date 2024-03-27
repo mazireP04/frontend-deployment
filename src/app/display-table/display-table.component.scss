@@ -141,11 +141,13 @@ mat-paginator{
       }
 }
 
-.addButton{
+.addButton, #deleteButton{
     
     display: inline-flex;
     align-items: center;
     justify-content: center;
+
+    margin-right: 4px;
 
     // line-height: 0;
 }

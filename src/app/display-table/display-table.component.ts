@@ -1,61 +1,51 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import {MatTableModule, MatTableDataSource} from '@angular/material/table';
-import { DataService } from '../data.service';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import {SelectionModel} from '@angular/cdk/collections';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {
+  MatDialog,
+  MatDialogRef,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogTitle,
+  MatDialogContent,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
+
+
 
 @Component({
   selector: 'app-display-table',
   templateUrl: './display-table.component.html',
   styleUrl: './display-table.component.scss'
 })
-export class DisplayTableComponent implements OnInit, AfterViewInit{
+export class DisplayTableComponent implements OnChanges{
+
+  selection = new SelectionModel<any>(true, []);
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
   @ViewChild(MatSort) sort!: MatSort;
   
-  constructor(private _dataService: DataService, private router: Router){}
+  constructor( private router: Router, public dialog: MatDialog){}
   
-  dataSource!: MatTableDataSource<any>;
+  @Input() data!: any[];
+  dataSource!: MatTableDataSource<any> ;
+  @Input() pageSize: any[] = [5, 10, 50];
 
- storedData: any[] = [];
+  @Output() deleteItems: EventEmitter<string[]> = new EventEmitter<string[]>();
 
-  ngOnInit(){
 
-    // this._dataService.formData$.subscribe((data) => {
-    //   this.storedData = data;
-    //   this.dataSource = new MatTableDataSource(this.storedData);
-
-      // ----------------------------
-      // this.dataSource = new MatTableDataSource(data);
-
-      // console.log('Data received in DisplayTableComponent:', data);
-
-      // console.log(this.dataSource);
-      // --------------------
-      
-      
-    // })
-
-    this._dataService.getInventoryItems().subscribe(data => {
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      // this.dataSource.data= data;
-    });
-
-    // const displayItemsArray: any[] = JSON.parse(this.storedData || '[]');
-
-  }
-
-  ngAfterViewInit(): void {
-    // if(this.dataSource){
-    //   this.dataSource.paginator = this.paginator;
-    //   this.dataSource.sort = this.sort;
-    // }
+  ngOnChanges(){
+    this.dataSource = new MatTableDataSource(this.data);
+    this.paginator.pageSizeOptions = this.pageSize;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   routeToForm(){
@@ -100,6 +90,7 @@ export class DisplayTableComponent implements OnInit, AfterViewInit{
 
   //TODO SR NUMBER?
   actualColumns: string [] = [
+    'select',
     'ID',
     'Category',
     'Sub-Category',
@@ -113,6 +104,88 @@ export class DisplayTableComponent implements OnInit, AfterViewInit{
 
   ];
 
+  numSelected!: any;
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    this.numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return this.numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.dataSource.data);
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: any): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  }
+
+
+
+  // REMOVE DATA:
+  removeData(){
+    const itemsToBeDeleted: string[] = [];
+    this.selection.selected.forEach(item => {
+      itemsToBeDeleted.push(item.id);
+    });
+    this.openDialog(itemsToBeDeleted);
+    // display the dialog box
+    // if yes clicked on dialog box, trigger another function wherein the selected id are sent to parent and there te isDeleted property is set to true
+  }
+  
+  openDialog(selectedItemIDs: string[], enterAnimationDuration: string = '0ms', exitAnimationDuration: string = '0ms'): void {
+   const dialogRef = this.dialog.open(Dialog, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: selectedItemIDs
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result === 'OK'){
+        this.deleteItems.emit(selectedItemIDs);
+      }
+    });
+  }
 
 }
 
+
+@Component({
+  selector: 'dialog',
+  template: `
+  <h2 mat-dialog-title>Delete item</h2>
+<mat-dialog-content >
+  Would you like to delete 
+  <ul>
+  @for(item of data; track item){
+    <li>{{item}}</li>
+  }
+</ul>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="dialogRef.close()">No</button>
+  <button mat-button mat-dialog-close cdkFocusInitial (click)="delete()" >Ok</button>
+</mat-dialog-actions>
+  `,
+  standalone: true,
+  imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent],
+})
+export class Dialog {
+  constructor(public dialogRef: MatDialogRef<DisplayTableComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any[]) {}
+  delete(){
+    this.dialogRef.close("OK");
+  }
+}

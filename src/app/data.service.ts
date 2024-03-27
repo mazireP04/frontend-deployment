@@ -158,6 +158,13 @@ export class DataService {
       password,
     });
   }
+
+
+  markItemsAsDeleted(itemIds: string[]){
+    const body = { ids: itemIds};
+    const headers = { 'Content-Type': 'application/json' };
+    return this.http.patch<any>(`${this.inventoryApiUrl}/delete`, body, {headers});
+  }
 }
 
 
