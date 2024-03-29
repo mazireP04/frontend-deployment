@@ -98,6 +98,7 @@
         </div> -->
 
         <!-- AVAILABLE -->
+        <!-- TODO: DONT SHOW IN UPPER SELECTION EITHER IF DELETED!! -->
         <div class="row">
             <mat-form-field appearance="outline" class="form-group">
                 <mat-label>Available Devices</mat-label>
@@ -107,10 +108,11 @@
                                         && (obj.model.name == selectedModelName.value) 
                                         && (obj.model.memory == selectedSpecs.value[0]) 
                                         && (obj.specification.screenSize == selectedSpecs.value[1]) 
-                                        && (obj.status == 'Available')" 
+                                        && (obj.status == 'Available')
+                                        && (obj.isDeleted == false)" 
                                         [value]="obj.id">
                             {{obj.id.substring(0, 7)}}... 
-                        </mat-option>
+                        </mat-option> 
                     </div>
                 </mat-select>
             </mat-form-field>

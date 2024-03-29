@@ -39,7 +39,6 @@ export class SignupComponent {
 
       try{
       const encryptedPassword = await this.dataService.encryptPassword(this.form.value.password);
-      console.log(encryptedPassword);
       
        
       if (typeof encryptedPassword !== 'string') {
@@ -57,7 +56,7 @@ export class SignupComponent {
         // TODO USE ASYNC AWAIT INSTEAD?
       this.dataService.addAdmin(newData).subscribe(
         (response) => {
-          console.log("Admin added successfully: ", response);
+          console.log("Admin added successfully!");
           sessionStorage.setItem('authenticated', this.form.value.email);   
 
           this.form.reset();

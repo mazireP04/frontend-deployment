@@ -17,13 +17,14 @@ import {
 import {MatButtonModule} from '@angular/material/button';
 
 
+// TODO: FIX PAGINATION TOO!
 
 @Component({
   selector: 'app-display-table',
   templateUrl: './display-table.component.html',
   styleUrl: './display-table.component.scss'
 })
-export class DisplayTableComponent implements OnChanges{
+export class DisplayTableComponent implements OnInit{
 
   selection = new SelectionModel<any>(true, []);
 
@@ -36,16 +37,35 @@ export class DisplayTableComponent implements OnChanges{
   
   @Input() data!: any[];
   dataSource!: MatTableDataSource<any> ;
-  @Input() pageSize: any[] = [5, 10, 50];
+  @Input() pageSize!: any[];
 
   @Output() deleteItems: EventEmitter<string[]> = new EventEmitter<string[]>();
+  @Output() unassignItems: EventEmitter<string[]> = new EventEmitter<string[]>();
 
 
-  ngOnChanges(){
-    this.dataSource = new MatTableDataSource(this.data);
-    this.paginator.pageSizeOptions = this.pageSize;
+  ngOnInit(){
+    this.dataSource =  new MatTableDataSource(this.data);
+
+    // console.log(this.paginator);
+    
+    if(!this.pageSize){
+      this.pageSize = [5, 10, 50];
+    }
+    // this.paginator.pageSizeOptions = this.pageSize;
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+  ngOnChanges(){
+    if(this.dataSource){
+    this.dataSource.paginator = this.paginator;
+    }
+  }
+
+  // TODO: CHECK THIS!
+  updateData(data: any[]) {
+    if (this.dataSource) {
+      this.dataSource.data = data;
+    }
   }
 
   routeToForm(){
@@ -132,6 +152,17 @@ export class DisplayTableComponent implements OnChanges{
   }
 
 
+  // unassign item: 
+  unassign(){
+    const itemsToBeUnassigned: string[] = [];
+    this.selection.selected.forEach(item => {
+      itemsToBeUnassigned.push(item.id);
+    });
+    this.openDialog('Unassign', itemsToBeUnassigned);
+
+  }
+
+
 
   // REMOVE DATA:
   removeData(){
@@ -139,22 +170,28 @@ export class DisplayTableComponent implements OnChanges{
     this.selection.selected.forEach(item => {
       itemsToBeDeleted.push(item.id);
     });
-    this.openDialog(itemsToBeDeleted);
+    this.openDialog('Delete', itemsToBeDeleted);
     // display the dialog box
     // if yes clicked on dialog box, trigger another function wherein the selected id are sent to parent and there te isDeleted property is set to true
   }
   
-  openDialog(selectedItemIDs: string[], enterAnimationDuration: string = '0ms', exitAnimationDuration: string = '0ms'): void {
+  openDialog(action: string, selectedItemIDs: string[], enterAnimationDuration: string = '0ms', exitAnimationDuration: string = '0ms'): void {
    const dialogRef = this.dialog.open(Dialog, {
       width: '250px',
       enterAnimationDuration,
       exitAnimationDuration,
-      data: selectedItemIDs
+      data: {action, items: selectedItemIDs},
     });
-
+    
     dialogRef.afterClosed().subscribe(result => {
       if(result === 'OK'){
-        this.deleteItems.emit(selectedItemIDs);
+        if(action === 'Delete'){
+          this.deleteItems.emit(selectedItemIDs);
+        }
+        else if(action === 'Unassign'){
+          this.unassignItems.emit(selectedItemIDs);
+        }
+        
       }
     });
   }
@@ -165,27 +202,29 @@ export class DisplayTableComponent implements OnChanges{
 @Component({
   selector: 'dialog',
   template: `
-  <h2 mat-dialog-title>Delete item</h2>
+  <h2 mat-dialog-title>{{data.action}}</h2>
 <mat-dialog-content >
-  Would you like to delete 
+  Would you like to {{ data.action.toLowerCase() }}  
   <ul>
-  @for(item of data; track item){
+  @for(item of data.items; track item){
     <li>{{item}}</li>
   }
 </ul>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close (click)="dialogRef.close()">No</button>
-  <button mat-button mat-dialog-close cdkFocusInitial (click)="delete()" >Ok</button>
+  <button mat-button mat-dialog-close cdkFocusInitial (click)="ok()" >Ok</button>
 </mat-dialog-actions>
   `,
   standalone: true,
   imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent],
 })
 export class Dialog {
+  // public action!: string;
+
   constructor(public dialogRef: MatDialogRef<DisplayTableComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any[]) {}
-  delete(){
+    @Inject(MAT_DIALOG_DATA) public data: any) {}
+  ok(){
     this.dialogRef.close("OK");
   }
 }

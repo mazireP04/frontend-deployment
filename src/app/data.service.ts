@@ -69,7 +69,6 @@ export class DataService {
       }
 
       // const publicKey = publicKeyResponse.trim();
-      console.log(publicKey);
       
       if (typeof publicKey !== 'string') {
         throw new Error('Public key is not a string');
@@ -89,67 +88,11 @@ export class DataService {
 
   async encryptPassword(password: string){
     const publicKey = await this.getPublicKey();
-    console.error(publicKey);
     
     const encryptedPassword = this.encryptor.encrypt(password);
     return encryptedPassword || "";
   }
 
-  // async encryptPassword(password: string): Promise<string>{
-
-  //   try{
-  //     const publicKey= await this.http.get<string>(`${this.adminApiUrl}/public-key`).toPromise();
-      
-  //     if (!publicKey) {
-  //       throw new Error('Public key not found');
-  //     }
-
-  //     // const publicKey = publicKeyResponse.trim();
-  //     console.log(publicKey);
-      
-  //     if (typeof publicKey !== 'string') {
-  //       throw new Error('Public key is not a string');
-  //     }
-
-  //     const encryptor = new JSEncrypt.JSEncrypt();
-  //     encryptor.setPublicKey(publicKey);
-  //     const encryptedPassword = encryptor.encrypt(password);
-  //     return encryptedPassword || "";
-
-  //   }
-  //   catch(error){
-  //       console.error(error);
-  //       throw error;
-  //     }
-  // };
-  
-    // try{
- 
-    // const publicKey = await firstValueFrom(this.http.get<string>(`${this.adminApiUrl}/public-key`));
-    // console.error(publicKey);
-     
-
-        // const encryptor = new JSEncrypt.JSEncrypt();
-        // encryptor.setPublicKey(publicKey);
-        // const encryptedPassword = encryptor.encrypt(password);
-       
-        
-    //       console.error(encryptedPassword);
-
-    //     if (typeof encryptedPassword !== 'string') {
-    //       console.error(publicKey);
-    //       console.error(encryptedPassword);
-          
-    //       throw new Error('Encryption failed');
-    //   }
-
-    //     return encryptedPassword;
-    //   }
-    //   catch(error){
-    //   console.error(error);
-    //   throw error;
-    // }
-  // };
 
   authenticateAdmin(email: string, password: string) {
     // check if admin exists..?
@@ -161,9 +104,17 @@ export class DataService {
 
 
   markItemsAsDeleted(itemIds: string[]){
+    // console.log("Request sent!");
+    
     const body = { ids: itemIds};
-    const headers = { 'Content-Type': 'application/json' };
-    return this.http.patch<any>(`${this.inventoryApiUrl}/delete`, body, {headers});
+    return this.http.patch<any>(`${this.inventoryApiUrl}/delete`, body);
+  }
+
+  unassign(itemIds: string[]){
+    // console.log("Request sent!");
+    
+    const body = { ids: itemIds};
+    return this.http.patch<any>(`${this.inventoryApiUrl}/unassign`, body);
   }
 }
 
