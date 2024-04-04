@@ -14,7 +14,7 @@ export class InputFormComponent implements OnInit {
   form: FormGroup;
   itemsArray: Array<DisplayObject> = [];
 
-  
+
   categories = new Map<string, Array<string>>(
     [
       ['Electronics', ["Laptop", "Internet Dongle", "Big Monitor"]],
@@ -35,14 +35,14 @@ export class InputFormComponent implements OnInit {
         warranty: ['', Validators.required],
         screenSize: ['', Validators.required],
       }),
-      quantity: [ , Validators.required],
+      quantity: [, Validators.required],
       price: ['', Validators.required],
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  routeToDataTable(){
+  routeToDataTable() {
     this.router.navigate(['/inventories']);
   }
   onSubmit() {
@@ -59,8 +59,8 @@ export class InputFormComponent implements OnInit {
             memory: this.form.value.model.memory
           },
           {
-          warranty: this.form.value.specification.warranty,
-          screenSize: this.form.value.specification.screenSize
+            warranty: this.form.value.specification.warranty,
+            screenSize: this.form.value.specification.screenSize
           },
           this.form.value.price,
         ));
@@ -72,20 +72,20 @@ export class InputFormComponent implements OnInit {
       // const currentData = this._dataService.getFormData();
       // const updatedData = [...currentData, ...newData];
 
-      
+
       // console.log('New data to be added:', newData);
-      
+
       // this._dataService.updateFormData(newData);
 
       this._dataService.addItems(newData).subscribe(
         (response) => {
           console.log(response);
           this.form.reset();
-      this.routeToDataTable();
+          this.routeToDataTable();
         },
         (error) => {
           console.log(error);
-          
+
         }
       );
 
@@ -105,17 +105,17 @@ class DisplayObject {
     public subCategory: string = '',
     public model = {
       name: '',
-      memory:  '',
+      memory: '',
       // TODO: WHAT IS THIS
     },
-    public specification:{
+    public specification: {
       warranty: '',
       screenSize: ''
     },
     public price: string = '',
     // public assignedTo: string = 'none',
     // public status: string = 'available',
-  ) {}
+  ) { }
 
 }
 

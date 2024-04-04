@@ -1,9 +1,23 @@
-
 <!-- <app-display-table [data]="inventoryItems" [pageSize]="pageSize" (deleteItems)="deleteItems($event)" (unassignItems)="unassignSelectedItems($event)"></app-display-table> -->
 
-<app-display-table [data]="inventoryItems" [pageSizeOptions]="pageSize"
-  [displayedColumns]="['ID', 'Category', 'Sub-Category', 'Model Name', 'Model Memory', 'Warranty', 'Screen Size', 'Price', 'Assigned To', 'Status']"
-  (deleteItems)="deleteItems($event)" (unassignItems)="unassignSelectedItems($event)"
-  (pageChanged)="onPageChanged($event)">
+<app-display-table
+  [data]="inventoryItems"
+  [pageSizeOptions]="pageSize"
+  [displayedColumns]="[
+    'ID',
+    'Category',
+    'Sub-Category',
+    'Model Name',
+    'Model Memory',
+    'Warranty',
+    'Screen Size',
+    'Price',
+    'Assigned To',
+    'Status'
+  ]"
+  (deleteItems)="deleteItems($event)"
+  (unassignItems)="unassignSelectedItems($event)"
+  (pageChanged)="onPageChanged($event)"
+>
 </app-display-table>
 <!-- TODO WHY IS THIS REQUIRING RELOAD EVERY TIME!? SUBSCRIBE!! -->

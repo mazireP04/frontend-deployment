@@ -1,116 +1,98 @@
-
-
-      <main>
+<main>
 
     <form [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
 
         <!-- CATEGORY: DROP DOWN -->
         <div class="row">
-        <mat-form-field appearance="outline" class="form-group">
-        <mat-label>Category</mat-label>
-        <mat-select formControlName="category" required placeholder="Select Category" #selectedCategory>
-            @for (category of categories.keys(); track category){
-                <mat-option [value]="category">{{category}}</mat-option>
-            }
-            <!-- <mat-option *ngFor="let cat of cats" [value]="cat">{{cat}}</mat-option> -->
-        </mat-select>
-        </mat-form-field>
-    
-    
-    
-        <!-- SUBCATEGORY: DROP DOWN -->
-        <mat-form-field appearance="outline" class="form-group">
-        <mat-label>Sub-Category</mat-label>
-        <mat-select formControlName="subCategory" required placeholder="Select Sub-Category">
-            @for (subcategory of categories.get(selectedCategory.value); track subcategory){
-                <mat-option [value]="subcategory">{{subcategory}}</mat-option>
-            }
-            <!-- <mat-option *ngFor="let subCat of subCats" [value]="subCat">{{subCat}}</mat-option> -->
-        </mat-select>
-    
-        <!-- <mat-select *ngIf="form.get('category')?.value === 'Non-Electronics'"
+            <mat-form-field appearance="outline" class="form-group">
+                <mat-label>Category</mat-label>
+                <mat-select formControlName="category" required placeholder="Select Category" #selectedCategory>
+                    @for (category of categories.keys(); track category){
+                    <mat-option [value]="category">{{category}}</mat-option>
+                    }
+                    <!-- <mat-option *ngFor="let cat of cats" [value]="cat">{{cat}}</mat-option> -->
+                </mat-select>
+            </mat-form-field>
+
+
+
+            <!-- SUBCATEGORY: DROP DOWN -->
+            <mat-form-field appearance="outline" class="form-group">
+                <mat-label>Sub-Category</mat-label>
+                <mat-select formControlName="subCategory" required placeholder="Select Sub-Category">
+                    @for (subcategory of categories.get(selectedCategory.value); track subcategory){
+                    <mat-option [value]="subcategory">{{subcategory}}</mat-option>
+                    }
+                    <!-- <mat-option *ngFor="let subCat of subCats" [value]="subCat">{{subCat}}</mat-option> -->
+                </mat-select>
+
+                <!-- <mat-select *ngIf="form.get('category')?.value === 'Non-Electronics'"
         formControlName="subCategory" required placeholder="Select Sub-Category">
             <mat-option *ngFor="let subCat of subCatsNE" [value]="subCat">{{subCat}}</mat-option>
         </mat-select> -->
-    
-        </mat-form-field>
-    </div>
-    
+
+            </mat-form-field>
+        </div>
+
 
         <!-- MODEL NAME -->
         <fieldset formGroupName="model">
-        <mat-form-field appearance="outline" class="form-group">
-            <mat-label>Model Name</mat-label>
-            <textarea matInput
-            cdkTextareaAutosize
-            #autosize="cdkTextareaAutosize"
-            cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5"
-            type="text" formControlName="name" required></textarea>
-        </mat-form-field>
-    
-        <!-- MODEL MEMORY -->
-        <mat-form-field appearance="outline" class="form-group">
-            <mat-label>Model Memory</mat-label>
-            <textarea matInput
-            cdkTextareaAutosize
-            #autosize="cdkTextareaAutosize"
-            cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5" 
-            type="text" formControlName="memory" required></textarea>
-        </mat-form-field>
+            <mat-form-field appearance="outline" class="form-group">
+                <mat-label>Model Name</mat-label>
+                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="5" type="text" formControlName="name" required></textarea>
+            </mat-form-field>
+
+            <!-- MODEL MEMORY -->
+            <mat-form-field appearance="outline" class="form-group">
+                <mat-label>Model Memory</mat-label>
+                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="5" type="text" formControlName="memory" required></textarea>
+            </mat-form-field>
         </fieldset>
-    
+
         <!-- SPECIFICATIONS:  -->
         <!-- WARRANTY -->
         <fieldset formGroupName="specification">
-        <mat-form-field appearance="outline" class="form-group">
-            <mat-label>Warranty</mat-label>
-            <textarea matInput
-            cdkTextareaAutosize
-            #autosize="cdkTextareaAutosize"
-            cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5"
-            type="text" formControlName="warranty" required></textarea>
-    
-        </mat-form-field>
+            <mat-form-field appearance="outline" class="form-group">
+                <mat-label>Warranty</mat-label>
+                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="5" type="text" formControlName="warranty" required></textarea>
 
-    
-        <!-- SCREEN SIZE -->
-        <mat-form-field appearance="outline" class="form-group">
-            <mat-label>Screen Size</mat-label>
-            <textarea matInput
-            cdkTextareaAutosize
-            #autosize="cdkTextareaAutosize"
-            cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5"
-            type="text" formControlName="screenSize" required></textarea>
-        </mat-form-field>
+            </mat-form-field>
+
+
+            <!-- SCREEN SIZE -->
+            <mat-form-field appearance="outline" class="form-group">
+                <mat-label>Screen Size</mat-label>
+                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="5" type="text" formControlName="screenSize" required></textarea>
+            </mat-form-field>
         </fieldset>
-    
+
         <div class="row">
-    
-    
-        <!-- QUANTITY  -->
-        <mat-form-field appearance="outline" class="form-group">
-        <mat-label>Quantity</mat-label>
-        <input matInput type="number" formControlName="quantity" required>
-        </mat-form-field>
-    
-        <!-- PRICE -->
-        <mat-form-field appearance="outline" class="form-group">
-        <mat-label>Price</mat-label>
-        <input matInput type="text" formControlName="price" required>
-        </mat-form-field>
+
+
+            <!-- QUANTITY  -->
+            <mat-form-field appearance="outline" class="form-group">
+                <mat-label>Quantity</mat-label>
+                <input matInput type="number" formControlName="quantity" required>
+            </mat-form-field>
+
+            <!-- PRICE -->
+            <mat-form-field appearance="outline" class="form-group">
+                <mat-label>Price</mat-label>
+                <input matInput type="text" formControlName="price" required>
+            </mat-form-field>
         </div>
-    
-    
+
+
         <!-- SUBMIT -->
         <div>
-        <button id="submit" mat-raised-button color="primary" [disabled]="form.invalid" type="submit">
-        Submit
-        </button>
+            <button id="submit" mat-raised-button color="primary" [disabled]="form.invalid" type="submit">
+                Submit
+            </button>
         </div>
 
-</form>
+    </form>
 </main>

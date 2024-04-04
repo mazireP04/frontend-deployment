@@ -1,64 +1,41 @@
+<main>
+    <form [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
+        <!-- Employee ID -->
+        <mat-form-field appearance="outline" class="form-group">
+            <mat-label>Employee ID</mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5" type="text" formControlName="id" required></textarea>
+        </mat-form-field>
 
+        <!-- Employee Name -->
+        <mat-form-field appearance="outline" class="form-group">
+            <mat-label>Employee Name</mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5" type="text" formControlName="name" required></textarea>
+        </mat-form-field>
 
-      <main>
+        <!-- Department:  -->
+        <mat-form-field appearance="outline" class="form-group">
+            <mat-label>Department</mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5" type="text" formControlName="department" required></textarea>
+        </mat-form-field>
 
-        <form [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
-    
-            <!-- Employee ID -->
-            <mat-form-field appearance="outline" class="form-group">
-                <mat-label>Employee ID</mat-label>
-                <textarea matInput
-                cdkTextareaAutosize
-                #autosize="cdkTextareaAutosize"
-                cdkAutosizeMinRows="1"
-                cdkAutosizeMaxRows="5"
-                type="text" formControlName="id" required></textarea>
-            </mat-form-field>
-        
-            <!-- Employee Name -->
-            <mat-form-field appearance="outline" class="form-group">
-                <mat-label>Employee Name</mat-label>
-                <textarea matInput
-                cdkTextareaAutosize
-                #autosize="cdkTextareaAutosize"
-                cdkAutosizeMinRows="1"
-                cdkAutosizeMaxRows="5" 
-                type="text" formControlName="name" required></textarea>
-            </mat-form-field>
-        
-            <!-- Department:  -->
-            <mat-form-field appearance="outline" class="form-group">
-                <mat-label>Department</mat-label>
-                <textarea matInput
-                cdkTextareaAutosize
-                #autosize="cdkTextareaAutosize"
-                cdkAutosizeMinRows="1"
-                cdkAutosizeMaxRows="5"
-                type="text" formControlName="department" required></textarea>
-        
-            </mat-form-field>
-    
-        
-            <!-- Designation -->
-            <mat-form-field appearance="outline" class="form-group">
-                <mat-label>Designation</mat-label>
-                <textarea matInput
-                cdkTextareaAutosize
-                #autosize="cdkTextareaAutosize"
-                cdkAutosizeMinRows="1"
-                cdkAutosizeMaxRows="5"
-                type="text" formControlName="designation" required></textarea>
-            </mat-form-field>
-        
+        <!-- Designation -->
+        <mat-form-field appearance="outline" class="form-group">
+            <mat-label>Designation</mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5" type="text" formControlName="designation" required></textarea>
+        </mat-form-field>
 
-            <!-- SUBMIT -->
-            <div class="buttons">
+        <!-- SUBMIT -->
+        <div class="buttons">
             <button id="submit" mat-raised-button color="primary" [disabled]="form.invalid" type="submit">
-            Submit
+                Submit
             </button>
-            <button mat-raised-button class="reset-button" (click)="formReset()" type="reset">Reset</button>
-
-            </div>
-    
+            <button mat-raised-button class="reset-button" (click)="formReset()" type="reset">
+                Reset
+            </button>
+        </div>
     </form>
-    </main>
+</main>

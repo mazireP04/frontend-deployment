@@ -1,97 +1,76 @@
-
 <head>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 
-
-
-<header *ngIf="(!router.url.includes('/login')) && (!router.url.includes('/signup'))" >
-
-  
+<header *ngIf="!router.url.includes('/login') && !router.url.includes('/signup')">
   <!-- <div class="titleDiv"> -->
-    <h2 class="title">
-      <span class="material-symbols-outlined" style="vertical-align:bottom;  font-size: larger;">
+  <h2 class="title">
+    <span class="material-symbols-outlined" style="vertical-align: bottom; font-size: larger">
       inventory_2
-      </span> 
-      <span style="vertical-align:middle;"> Inventory Management</span>
-    </h2>
-    <!-- </div> -->
+    </span>
+    <span style="vertical-align: middle"> Inventory Management</span>
+  </h2>
+  <!-- </div> -->
 
-  
-    <div class="user">
-      <button class="userButton" mat-raised-button color="accent" [value]="buttonText">
-        <!-- <mat-icon>user</mat-icon> -->
-        {{buttonText}}
-      </button>
+  <div class="user">
+    <button class="userButton" mat-raised-button color="accent" [value]="buttonText">
+      <!-- <mat-icon>user</mat-icon> -->
+      {{ buttonText }}
+    </button>
 
-      <div class="userBlock">
-        <p>{{mailId}}</p>
-        <button mat-button (click)="logout()">Logout</button>
-      </div>
+    <div class="userBlock">
+      <p>{{ mailId }}</p>
+      <button mat-button (click)="logout()">Logout</button>
     </div>
-    
-
+  </div>
 </header>
 
-
-
-
 <mat-drawer-container class="entire-container" autosize>
-
   <!-- TODO: WHAT HAPPENED TO THIS TOGGLE BUTTON!?! -->
-    <!-- <div> -->
-      <!-- <mat-drawer #drawer class="sidenav" mode="side"> -->
-      <button  class="menuToggle" type="button" mat-button (click)="drawer.toggle()" color="accent" *ngIf="((!router.url.includes('/login')) && (!router.url.includes('/signup')))">
-        <mat-icon>menu</mat-icon>
+  <!-- <div> -->
+  <!-- <mat-drawer #drawer class="sidenav" mode="side"> -->
+  <button class="menuToggle" type="button" mat-button (click)="drawer.toggle()" color="accent"
+    *ngIf="!router.url.includes('/login') && !router.url.includes('/signup')">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <!-- </mat-drawer> -->
+  <!-- </div> -->
+
+  <!-- <div class="project-content"> -->
+  <router-outlet></router-outlet>
+  <!-- </div> -->
+
+  <mat-drawer #drawer class="sidenav" mode="side">
+    <p>
+      <button mat-button routerLink="/inventories" routerLinkActive="active">
+        <span class="material-symbols-outlined"> inventory </span>
+        <span style="vertical-align: super"> Inventories </span>
       </button>
-      <!-- </mat-drawer> -->
-    <!-- </div> -->
+    </p>
 
-    <!-- <div class="project-content"> -->
-      <router-outlet ></router-outlet>
-    <!-- </div> -->
-    
+    <p>
+      <button mat-button routerLink="/add-inventory" routerLinkActive="active">
+        <span class="material-symbols-outlined">
+          <!-- description -->
+          library_add
+        </span>
+        <span style="vertical-align: super"> Add Inventory </span>
+      </button>
+    </p>
 
-    <mat-drawer #drawer class="sidenav" mode="side" >
-      <p> 
-        <button mat-button routerLink="/inventories" routerLinkActive="active">
-          <span class="material-symbols-outlined">
-            inventory
-            </span>
-            <span style="vertical-align:super;"> Inventories </span>
-        </button>
-      </p>
-      
-      <p> 
-        <button mat-button routerLink="/add-inventory" routerLinkActive="active">
-          <span class="material-symbols-outlined">
-            <!-- description -->
-            library_add
-            </span> 
-          <span style="vertical-align:super;"> Add Inventory </span>
-        </button>
-      </p>
+    <p>
+      <button mat-button routerLink="/resource-assignment" routerLinkActive="active">
+        <span class="material-symbols-outlined"> edit </span>
+        <span style="vertical-align: super"> Assign Resource </span>
+      </button>
+    </p>
 
-      <p> 
-        <button mat-button routerLink="/resource-assignment" routerLinkActive="active">
-          <span class="material-symbols-outlined">
-            edit
-            </span> 
-          <span style="vertical-align:super;"> Assign Resource </span>
-        </button>
-      </p>
-
-      <p> 
-        <button mat-button routerLink="/add-user" routerLinkActive="active">
-          <span class="material-symbols-outlined">
-            person_add
-            </span> 
-          <span style="vertical-align:super;"> Add User </span>
-        </button>
-      </p>
-    </mat-drawer>
-
+    <p>
+      <button mat-button routerLink="/add-user" routerLinkActive="active">
+        <span class="material-symbols-outlined"> person_add </span>
+        <span style="vertical-align: super"> Add User </span>
+      </button>
+    </p>
+  </mat-drawer>
 </mat-drawer-container>
-
-

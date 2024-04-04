@@ -1,32 +1,25 @@
-
 <head>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 
 <main>
-
-    
     <div>
-        <button class="addUser" mat-raised-button (click)="routeToAddUser()" >
-            <span id="icon" class="material-symbols-outlined">
-                person_add
-                </span>
+        <button class="addUser" mat-raised-button (click)="routeToAddUser()">
+            <span id="icon" class="material-symbols-outlined"> person_add </span>
             <span class="text">Add User</span>
         </button>
     </div>
 
-    
     <!-- TODO: add user button -->
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-
-
-            <!-- EMPLOYEE -->
+        <!-- EMPLOYEE -->
         <div class="row">
             <mat-form-field appearance="outline" class="form-group">
                 <mat-label>Employee</mat-label>
                 <mat-select formControlName="employee" required placeholder="Select Employee">
                     <mat-option *ngFor="let employee of employees" [value]="employee.id">
-                    {{employee.id}} {{employee.name}}
+                        {{ employee.id }} {{ employee.name }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -37,35 +30,34 @@
         <div class="row">
             <mat-form-field appearance="outline" class="form-group">
                 <mat-label>Required Device</mat-label>
-                <mat-select formControlName="requiredDevice" required placeholder="Required Device" #selectedSubCategory>
+                <mat-select formControlName="requiredDevice" required placeholder="Required Device"
+                    #selectedSubCategory>
                     @for (category of requiredDevices.keys(); track category) {
-                        <mat-optgroup style="font-weight: bold;" [label]="category">
-                            @for (subcat of requiredDevices.get(category); track subcat){
-                                <mat-option [value]="subcat">{{subcat}}</mat-option>
-                            }
-                        </mat-optgroup>
+                    <mat-optgroup style="font-weight: bold" [label]="category">
+                        @for (subcat of requiredDevices.get(category); track subcat){
+                        <mat-option [value]="subcat">{{ subcat }}</mat-option>
+                        }
+                    </mat-optgroup>
                     }
                 </mat-select>
             </mat-form-field>
         </div>
 
-                    <!-- <div *ngFor="let subcat of subcategories">
+        <!-- <div *ngFor="let subcat of subcategories">
                         <mat-option *ngFor="let model of subcat.val" [value]="model">
                             {{subcat.key}}: {{model}}
                         </mat-option>
                     </div>
                 </mat-select> -->
-            
-        
 
         <!-- MODEL -->
         <div class="row">
             <mat-form-field appearance="outline" class="form-group">
                 <mat-label>Required Model</mat-label>
                 <mat-select formControlName="requiredModel" required placeholder="Required Model" #selectedModelName>
-                        @for (model of models.get(selectedSubCategory.value); track model){
-                            <mat-option [value]="model">{{model}}</mat-option>
-                        }
+                    @for (model of models.get(selectedSubCategory.value); track model){
+                    <mat-option [value]="model">{{ model }}</mat-option>
+                    }
                 </mat-select>
             </mat-form-field>
         </div>
@@ -76,11 +68,14 @@
             <mat-form-field appearance="outline" class="form-group">
                 <mat-label>Specifications</mat-label>
                 <mat-select formControlName="specification" required placeholder="Specifications" #selectedSpecs>
-                        @for (specification of specifications.get(selectedModelName.value); track specification){
-                            <!-- @for (spec of specification; track spec){ -->
-                                <mat-option [value]="specification.split(', ')">{{specification.split(',')}}</mat-option>
-                            <!-- } -->
-                        }
+                    @for (specification of specifications.get(selectedModelName.value);
+                    track specification){
+                    <!-- @for (spec of specification; track spec){ -->
+                    <mat-option [value]="specification.split(', ')">{{
+                        specification.split(",")
+                        }}</mat-option>
+                    <!-- } -->
+                    }
                 </mat-select>
             </mat-form-field>
         </div>
@@ -104,15 +99,16 @@
                 <mat-label>Available Devices</mat-label>
                 <mat-select formControlName="available" required placeholder="Available Devices">
                     <div *ngFor="let obj of inventory_data">
-                        <mat-option *ngIf="(obj.subCategory == selectedSubCategory.value)
-                                        && (obj.model.name == selectedModelName.value) 
-                                        && (obj.model.memory == selectedSpecs.value[0]) 
-                                        && (obj.specification.screenSize == selectedSpecs.value[1]) 
-                                        && (obj.status == 'Available')
-                                        && (obj.isDeleted == false)" 
-                                        [value]="obj.id">
-                            {{obj.id.substring(0, 7)}}... 
-                        </mat-option> 
+                        <mat-option *ngIf="
+                obj.subCategory == selectedSubCategory.value &&
+                obj.model.name == selectedModelName.value &&
+                obj.model.memory == selectedSpecs.value[0] &&
+                obj.specification.screenSize == selectedSpecs.value[1] &&
+                obj.status == 'Available' &&
+                obj.isDeleted == false
+              " [value]="obj.id">
+                            {{ obj.id.substring(0, 7) }}...
+                        </mat-option>
                     </div>
                 </mat-select>
             </mat-form-field>
@@ -121,14 +117,11 @@
         <!-- SUBMIT BUTTON -->
         <div>
             <button id="submit" mat-raised-button color="primary" [disabled]="form.invalid" type="submit">
-            Submit
+                Submit
             </button>
-            <button mat-raised-button class="reset-button" (click)="formReset()" type="reset">Reset</button>
-
+            <button mat-raised-button class="reset-button" (click)="formReset()" type="reset">
+                Reset
+            </button>
         </div>
-
     </form>
-
 </main>
-
-

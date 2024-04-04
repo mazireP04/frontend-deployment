@@ -1,14 +1,13 @@
-
-main{
+main {
     width: 100%;
     height: 100vh;
     display: flex;
     flex-flow: column;
     justify-content: flex-start;
-    align-items: center
+    align-items: center;
 }
 
-form{
+form {
     margin-top: 5%;
     padding-top: 5%;
     width: 30%;
@@ -16,13 +15,14 @@ form{
     flex-flow: column;
 }
 
-.buttons{
+.buttons {
     padding-top: 20px;
     display: flex;
     justify-content: space-evenly;
     flex-flow: column wrap;
     width: 100%;
-    button{
+
+    button {
         margin: 4px 0;
         width: 100%;
     }

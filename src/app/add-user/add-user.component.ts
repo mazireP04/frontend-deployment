@@ -19,42 +19,42 @@ export class AddUserComponent implements OnInit {
     this.form = this.fb.group({
       id: ['', Validators.required],
       name: ['', Validators.required],
-      department: ['' , Validators.required],
+      department: ['', Validators.required],
       designation: ['', Validators.required],
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  routeToResourceAssignment(){
+  routeToResourceAssignment() {
     this.router.navigate(['/resource-assignment']);
   }
 
   onSubmit() {
 
     if (this.form.valid) {
-        const newData = new Employee(
-          this.form.value.id,
-          this.form.value.name,
-          this.form.value.department,
-          this.form.value.designation,
-        );
-      
+      const newData = new Employee(
+        this.form.value.id,
+        this.form.value.name,
+        this.form.value.department,
+        this.form.value.designation,
+      );
+
 
       this.dataService.addUser(newData).subscribe(
         (response) => {
           console.log(response);
           this.form.reset();
-      this.routeToResourceAssignment();
+          this.routeToResourceAssignment();
         }
-          ,
+        ,
         (error) => console.error(error)
-        
+
       );
     }
   }
 
-  formReset(){
+  formReset() {
     this.form.reset();
   }
 
@@ -67,7 +67,7 @@ class Employee {
     public name: string = '',
     public department: string = '',
     public designation: string = ''
-  ) {}
+  ) { }
 
 }
 

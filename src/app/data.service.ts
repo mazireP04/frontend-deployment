@@ -5,7 +5,6 @@ import { api_url } from './api.const';
 import * as JSEncrypt from 'jsencrypt';
 import { Observable, firstValueFrom } from 'rxjs';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -16,7 +15,7 @@ export class DataService {
   private adminApiUrl = `${api_url}admin`;
 
   encryptor!: JSEncrypt.JSEncrypt;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   addItems(newItems: any[]) {
     return this.http.post<any[]>(this.inventoryApiUrl, newItems);
@@ -31,13 +30,15 @@ export class DataService {
   //   return this.http.get<any[]>(`${this.inventoryApiUrl}?limit=${limit}&offset=${offset}`);
   // }
 
-  getAllItems(){
+  getAllItems() {
     return this.http.get<any>(`${this.inventoryApiUrl}/getAll`);
   }
 
-  getInventoryItems(pageIndex: number, pageLength: number): Observable<any>{
+  getInventoryItems(pageIndex: number, pageLength: number): Observable<any> {
     // return this.http.get<any[]>(this.inventoryApiUrl);
-    return this.http.get<any[]>(`${this.inventoryApiUrl}?pageIndex=${pageIndex}&pageLength=${pageLength}`);
+    return this.http.get<any[]>(
+      `${this.inventoryApiUrl}?pageIndex=${pageIndex}&pageLength=${pageLength}`
+    );
   }
 
   updateItem(id: string, assignedTo: string, status: string) {
@@ -69,40 +70,38 @@ export class DataService {
 
   // TODO: noticed 4 vulnerabilities when npm install jsencrypt
 
-  async getPublicKey(): Promise<string>{
+  async getPublicKey(): Promise<string> {
+    try {
+      const publicKey = await this.http
+        .get<string>(`${this.adminApiUrl}/public-key`)
+        .toPromise();
 
-    try{
-      const publicKey= await this.http.get<string>(`${this.adminApiUrl}/public-key`).toPromise();
-      
       if (!publicKey) {
         throw new Error('Public key not found');
       }
 
       // const publicKey = publicKeyResponse.trim();
-      
+
       if (typeof publicKey !== 'string') {
         throw new Error('Public key is not a string');
       }
 
       this.encryptor = new JSEncrypt.JSEncrypt();
       this.encryptor.setPublicKey(publicKey);
-     
+
       return publicKey;
-
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
-    catch(error){
-        console.error(error);
-        throw error;
-      }
-  };
-
-  async encryptPassword(password: string){
-    const publicKey = await this.getPublicKey();
-    
-    const encryptedPassword = this.encryptor.encrypt(password);
-    return encryptedPassword || "";
   }
 
+  async encryptPassword(password: string) {
+    const publicKey = await this.getPublicKey();
+
+    const encryptedPassword = this.encryptor.encrypt(password);
+    return encryptedPassword || '';
+  }
 
   authenticateAdmin(email: string, password: string) {
     // check if admin exists..?
@@ -112,48 +111,20 @@ export class DataService {
     });
   }
 
-
-  markItemsAsDeleted(itemIds: string[]){
+  markItemsAsDeleted(itemIds: string[]) {
     // console.log("Request sent!");
-    
-    const body = { ids: itemIds};
+
+    const body = { ids: itemIds };
     return this.http.patch<any>(`${this.inventoryApiUrl}/delete`, body);
   }
 
-  unassign(itemIds: string[]){
+  unassign(itemIds: string[]) {
     // console.log("Request sent!");
-    
-    const body = { ids: itemIds};
+
+    const body = { ids: itemIds };
     return this.http.patch<any>(`${this.inventoryApiUrl}/unassign`, body);
   }
-
-  
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // TODO:
 // INPUT FORM TO ADD INVENTORY ITEMS - POST

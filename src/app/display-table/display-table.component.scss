@@ -1,5 +1,3 @@
-
-
 * {
   box-sizing: border-box;
 }
@@ -10,7 +8,7 @@ main {
   align-items: center;
   padding-top: 5%;
   background-color: #fff;
-  min-height: 100vh; 
+  min-height: 100vh;
 }
 
 .row {
@@ -25,7 +23,8 @@ main {
   justify-content: center;
 }
 
-.addButton, #deleteButton {
+.addButton,
+#deleteButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,21 +32,25 @@ main {
   padding: 8px;
 
 
-  .text{
-    flex: 1; /* Allow text to take remaining space */
-    text-align: center; /* Center-align the text */
-    font-size: 14px; 
-    white-space: nowrap; /* Prevent text from wrapping */
-    overflow: hidden; /* Hide any overflow text */
+  .text {
+    flex: 1;
+    /* Allow text to take remaining space */
+    text-align: center;
+    /* Center-align the text */
+    font-size: 14px;
+    white-space: nowrap;
+    /* Prevent text from wrapping */
+    overflow: hidden;
+    /* Hide any overflow text */
     text-overflow: ellipsis;
   }
 
 
   @media (min-width: 786px) {
-    .text{
+    .text {
       vertical-align: super;
     }
-    
+
   }
 }
 
@@ -72,13 +75,16 @@ main {
 }
 
 mat-paginator {
-  width: 100%; /* Ensure pagination section occupies full width */
-  display: flex; /* Use flex display */
-  justify-content: flex-end; /* Center the paginator horizontally */
+  width: 100%;
+  /* Ensure pagination section occupies full width */
+  display: flex;
+  /* Use flex display */
+  justify-content: flex-end;
+  /* Center the paginator horizontally */
 
   @media (max-width: 768px) {
     width: 195%;
-    
+
   }
 }
 
@@ -90,9 +96,10 @@ mat-paginator {
 
 section {
   width: 85%;
-  overflow-x: auto; /* Enable horizontal scrolling for smaller screens */
+  overflow-x: auto;
+  /* Enable horizontal scrolling for smaller screens */
   min-height: 50vh;
-  margin: 0 auto; 
+  margin: 0 auto;
   display: flex;
   flex-flow: column;
   justify-content: space-between;
@@ -101,17 +108,23 @@ section {
 table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: auto; /* Change table layout to auto */
-    overflow-x: auto; 
+  table-layout: auto;
+  /* Change table layout to auto */
+  overflow-x: auto;
 }
 
-td, th {
+td,
+th {
   text-align: center;
-  border: 1px solid #ddd; /* Add border for better visibility */
+  border: 1px solid #ddd;
+  /* Add border for better visibility */
   padding: 8px;
-  font-size: 14px; /* Adjust font size */
-  width: auto; /* Set column width to auto */
-    white-space: nowrap; /* Prevent text wrapping */
+  font-size: 14px;
+  /* Adjust font size */
+  width: auto;
+  /* Set column width to auto */
+  white-space: nowrap;
+  /* Prevent text wrapping */
 }
 
 caption {
@@ -121,14 +134,15 @@ caption {
   text-align: left;
 }
 
-#assigned{
+#assigned {
   color: gray;
 }
-#available{
+
+#available {
   color: green;
 }
 
-#statusText{
+#statusText {
   vertical-align: super;
 }
 
@@ -145,7 +159,7 @@ caption {
 //   align-items: center;
 
 //   // padding: 0 15%;
- 
+
 //     // section{
 //     //     // z-index: 1;
 //     //     height: auto;
@@ -177,7 +191,7 @@ caption {
 
 //   table-layout: fixed;
 
-  
+
 //   // margin: auto;
 
 //     // margin: auto;
@@ -186,7 +200,7 @@ caption {
 
 //     background-color: white;
 //   }
-  
+
 // //   the search boxes
 //   .mat-mdc-form-field {
 //     font-size: 14px;
@@ -194,7 +208,7 @@ caption {
 //     // margin: auto;
 //     padding: 5%;
 //   }
-  
+
 //   td, th {
 //     text-align: center;
 //     // width: 10%;
@@ -227,7 +241,7 @@ caption {
 // //     border-right: 1px solid rgb(168, 168, 168);
 // //     // padding: 2%;
 
-    
+
 // // }
 
 
@@ -277,7 +291,7 @@ caption {
 // }
 
 // .addButton, #deleteButton{
-    
+
 //     display: inline-flex;
 //     align-items: center;
 //     justify-content: center;
@@ -367,5 +381,5 @@ caption {
 //   right: -15px;
 //   // transform: translateY(-50%);
 //   transform: scale(0.9);
-  
+
 // }

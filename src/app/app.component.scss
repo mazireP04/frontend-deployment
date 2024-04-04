@@ -1,7 +1,5 @@
-
-
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
 
 // .header{
@@ -12,24 +10,23 @@
 //   align-items: center;
 // }
 
-header{
+header {
   z-index: 2;
- width: 100%;
- background-color: rgb(103, 58, 183);
- display: flex;
- justify-content: space-between;
- margin-top: 0;
- align-items: center;
- padding-left: 5px;
- padding-right: 5px;
+  width: 100%;
+  background-color: rgb(103, 58, 183);
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0;
+  align-items: center;
+  padding-left: 5px;
+  padding-right: 5px;
 
-
- box-shadow: 3px 7px 18px #888888;
- position: sticky;
- top: 0;
+  box-shadow: 3px 7px 18px #888888;
+  position: sticky;
+  top: 0;
 }
 
-.title{
+.title {
   color: white;
   flex-grow: 1;
 }
@@ -46,33 +43,29 @@ header{
 
 // }
 
-
-
-
-.user{
-
+.user {
   z-index: 2;
   position: relative;
-  
+
   &:hover {
-    .userBlock{
+    .userBlock {
       display: flex;
     }
   }
 
-  .userButton{
+  .userButton {
     border-radius: 50%;
     width: 50px;
     height: 50px;
     font-weight: bold;
     font-size: large;
 
-     // TODO: CHECK THIS
-  border: medium solid rgb(103, 58, 183);
-  outline: thin solid lavenderblush;
+    // TODO: CHECK THIS
+    border: medium solid rgb(103, 58, 183);
+    outline: thin solid lavenderblush;
   }
 
-  .userBlock{
+  .userBlock {
     z-index: 2;
     // width: 200%;
     padding: 7px;
@@ -89,78 +82,66 @@ header{
   }
 }
 
-.menuToggle{
+.menuToggle {
   position: fixed;
   // top: 0;
   z-index: 100;
   width: auto;
   background-color: white;
   margin-top: 7px;
-  
+
   // top: 0;
   // left: 0; /* Adjust position as needed */
-  width: 50px; /* Adjust width as needed */
-  height: 50px; /* Adjust height as needed */
+  width: 50px;
+  /* Adjust width as needed */
+  height: 50px;
+  /* Adjust height as needed */
   background-color: transparent;
   border: none;
 
-  mat-icon{
-  // position: sticky;
-  // top: 0;
-  width: auto;
-  vertical-align:top;
- 
-  // z-index: 3;
-  font-weight: bold;
-  // font-size: x-large;
-  transform: scale(1.7);
-  
+  mat-icon {
+    // position: sticky;
+    // top: 0;
+    width: auto;
+    vertical-align: top;
+
+    // z-index: 3;
+    font-weight: bold;
+    // font-size: x-large;
+    transform: scale(1.7);
   }
 
   // color: rgb(103, 58, 183);
 }
 
-
-
-
-
 // -----------------------------------------------------------------
 
-
 .entire-container {
-
-  // TODO WHAT IS THIS 
+  // TODO WHAT IS THIS
   // height: 100%;
-    // border: 1px solid rgba(0, 0, 0, 0.5);
-    background-color: white;
-  }
+  // border: 1px solid rgba(0, 0, 0, 0.5);
+  background-color: white;
+}
 
-  
+.sidenav {
+  // width: 30vw;
+  display: flex;
+  flex-flow: column;
+  // justify-content: left;
 
-  
-  
-  
-  .sidenav {
+  padding: 20px;
 
-    // width: 30vw;
+  // border: thin solid rgb(103, 58, 183);
+  border: thin solid rgb(255, 215, 64);
+  background-color: white;
+
+  // background-color: rgb(103, 58, 183);
+  // background-color: rgb(255, 215, 64);
+
+  button {
     display: flex;
-    flex-flow: column;
-    // justify-content: left;
-
-    padding: 20px;
-
-    // border: thin solid rgb(103, 58, 183);
-      border: thin solid rgb(255, 215, 64);
-      background-color: white;
-
-    // background-color: rgb(103, 58, 183);
-    // background-color: rgb(255, 215, 64);
-    
-    button{
-
-      display: flex;
     // flex-flow: column;
-    align-items: center; 
+    align-items: center;
     justify-content: left;
     // margin-bottom: -7px;
     width: 100%;
@@ -168,16 +149,18 @@ header{
     text-align: left;
 
     font-size: medium;
-    font-weight:bold;
+    font-weight: bold;
     // color: white;
     // color: rgb(103, 58, 183);
-    
+
     padding: 8px 16px;
-    margin-bottom: 8px; /* Add margin between buttons */
-    border: none; /* Remove default button border */
-    background-color: transparent; 
-    
-    &:hover{
+    margin-bottom: 8px;
+    /* Add margin between buttons */
+    border: none;
+    /* Remove default button border */
+    background-color: transparent;
+
+    &:hover {
       // TODO THE SIZE INCREASES ON HOVER
       // border: 0.5px solid rgb(103, 58, 183);
       // border: 0.5px solid rgb(222, 222, 222);
@@ -188,22 +171,19 @@ header{
     }
 
     .material-symbols-outlined {
-      margin-right: 8px; /* Add spacing between icon and text */
+      margin-right: 8px;
+      /* Add spacing between icon and text */
     }
-
-    }
-
   }
+}
 
+// .userIcon{
+//   text-align: left;
+//   border-radius: 50%;
+//   background-color: aqua;
+// }
 
-
-  // .userIcon{
-  //   text-align: left;
-  //   border-radius: 50%;
-  //   background-color: aqua;
-  // }
-
-  /* Responsive Styles */
+/* Responsive Styles */
 @media screen and (max-width: 680px) {
   .toggle-button-area {
     flex-direction: column;
@@ -217,7 +197,6 @@ header{
 
   .user {
     margin-top: 10px;
-
   }
 
   .userBlock {
