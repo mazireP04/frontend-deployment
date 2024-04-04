@@ -28,8 +28,7 @@ export class DisplayTableComponent implements OnInit{
 
   selection = new SelectionModel<any>(true, []);
 
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   @ViewChild(MatSort) sort!: MatSort;
   
@@ -39,9 +38,15 @@ export class DisplayTableComponent implements OnInit{
   dataSource!: MatTableDataSource<any> ;
   @Input() pageSize!: any[];
 
+  // @Input() totalItems: number = 0;
+  // @Input() pageLength: number = 10; 
+
   @Output() deleteItems: EventEmitter<string[]> = new EventEmitter<string[]>();
   @Output() unassignItems: EventEmitter<string[]> = new EventEmitter<string[]>();
+  @Output() pageChanged: EventEmitter<number> = new EventEmitter<number>();
 
+  @Input() pageSizeOptions: number[] = [];
+  @Input() displayedColumns: string[] = [];
 
   ngOnInit(){
     this.dataSource =  new MatTableDataSource(this.data);
@@ -59,13 +64,24 @@ export class DisplayTableComponent implements OnInit{
     if(this.dataSource){
     this.dataSource.paginator = this.paginator;
     }
+
+    // TODO: CHECK THIS
+    this.dataSource = new MatTableDataSource<any>(this.data);
+    this.dataSource.paginator = this.paginator;
   }
 
   // TODO: CHECK THIS!
   updateData(data: any[]) {
     if (this.dataSource) {
       this.dataSource.data = data;
+      this.dataSource.paginator = this.paginator;
     }
+  }
+
+  // TODO: CHECK THIS OUT
+  onPageChanged(event: any): void {
+    // Emit the page number to the parent component
+    this.pageChanged.emit(event);
   }
 
   routeToForm(){
@@ -186,9 +202,12 @@ export class DisplayTableComponent implements OnInit{
     dialogRef.afterClosed().subscribe(result => {
       if(result === 'OK'){
         if(action === 'Delete'){
+          console.log("Sent for deletion");
+          
           this.deleteItems.emit(selectedItemIDs);
         }
         else if(action === 'Unassign'){
+          console.log("Sent for unassignation");
           this.unassignItems.emit(selectedItemIDs);
         }
         

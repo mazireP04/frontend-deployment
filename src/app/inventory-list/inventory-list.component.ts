@@ -16,21 +16,55 @@ export class InventoryListComponent {
   inventoryItems: any[] = [];
   pageSize: any[] = [5,7,10, 15];
 
+  // pageLength = 10;
+  // totalItems = 0;
+  pageIndex!: any;
+  pageLength!: any;
+
+
+
+  // SERVER SIDE PAGINATION
+  currentPage = 1;
+  itemsPerPage = 5;
+
 
   @ViewChild(DisplayTableComponent) displayTable!: DisplayTableComponent
   
   constructor(private dataService: DataService, @Inject(DOCUMENT) private document: Document){}
 
+ 
+
+  // ngOnInit(){
+
+  //   const offset = (this.currentPage - 1) * this.itemsPerPage;
+  //   this.dataService.getInventoryItems(offset, this.itemsPerPage).subscribe(data => {
+  //     // this.sourceData = new MatTableDataSource(data);
+  //     this.inventoryItems = data.filter((item: any) => item.isDeleted === false);
+  //     this.updateDisplayTableData();
+  //   });
+  // }
+
+  ngOnInit() {
+    this.getInventoryItems();
+  }
   
-
-  ngOnInit(){
-
-    this.dataService.getInventoryItems().subscribe(data => {
-      // this.sourceData = new MatTableDataSource(data);
-      this.inventoryItems = data.filter((item) => item.isDeleted === false);
+  getInventoryItems() {
+    const offset = (this.pageIndex) * this.pageLength;
+    this.dataService.getInventoryItems(offset, this.pageLength).subscribe(data => {
+      this.inventoryItems = data.data.filter((item: any) => !item.isDeleted);
+      // this.totalItems = data.totalItems;
       this.updateDisplayTableData();
     });
   }
+  
+  onPageChanged(page: any) {
+    this.pageIndex = page.pageIndex;
+    // this.pageLength = page.pageLength;
+
+    // this.currentPage = page;
+    this.getInventoryItems();
+  }
+
 
   updateDisplayTableData() {
     if (this.displayTable) {
@@ -39,11 +73,16 @@ export class InventoryListComponent {
   }
 
   deleteItems(selectedItemIds: string[]): void {
-    this.dataService.markItemsAsDeleted(selectedItemIds).subscribe(() => {
-      // console.error("DELETED!!!");
+    this.dataService.markItemsAsDeleted(selectedItemIds).subscribe(
+      () => {
+        console.log("Items deleted successfully");
+        this.reloadPage();
+    },
+    (error) => {
+        console.error("Error deleting items:", error);
+    }
 
-    });
-    this.reloadPage();
+    );
     
   }
 

@@ -41,9 +41,11 @@
 
   <!-- TODO: WHAT HAPPENED TO THIS TOGGLE BUTTON!?! -->
     <!-- <div> -->
+      <!-- <mat-drawer #drawer class="sidenav" mode="side"> -->
       <button  class="menuToggle" type="button" mat-button (click)="drawer.toggle()" color="accent" *ngIf="((!router.url.includes('/login')) && (!router.url.includes('/signup')))">
         <mat-icon>menu</mat-icon>
       </button>
+      <!-- </mat-drawer> -->
     <!-- </div> -->
 
     <!-- <div class="project-content"> -->
@@ -68,6 +70,24 @@
             library_add
             </span> 
           <span style="vertical-align:super;"> Add Inventory </span>
+        </button>
+      </p>
+
+      <p> 
+        <button mat-button routerLink="/resource-assignment" routerLinkActive="active">
+          <span class="material-symbols-outlined">
+            edit
+            </span> 
+          <span style="vertical-align:super;"> Assign Resource </span>
+        </button>
+      </p>
+
+      <p> 
+        <button mat-button routerLink="/add-user" routerLinkActive="active">
+          <span class="material-symbols-outlined">
+            person_add
+            </span> 
+          <span style="vertical-align:super;"> Add User </span>
         </button>
       </p>
     </mat-drawer>

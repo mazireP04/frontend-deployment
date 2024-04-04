@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { DataService } from './data.service';
 import {  ActivatedRoute, Router  } from '@angular/router';
+import { MatDrawer } from '@angular/material/sidenav';
 
 
 @Component({
@@ -10,6 +11,9 @@ import {  ActivatedRoute, Router  } from '@angular/router';
   providers: [DataService],
 })
 export class AppComponent {
+
+  @ViewChild('drawer') drawer!: MatDrawer;
+
   title = 'inventory-app';
 
   buttonText!: string;

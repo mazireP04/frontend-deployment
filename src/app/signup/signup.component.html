@@ -10,10 +10,15 @@
 
     <!-- <div class="container"> -->
 <mat-card class="container">
-    <mat-card-header style="position: fixed; top: 20%; right: 46%;  ">
-        <mat-card-title style="font-size:xx-large; font-weight: bold;">Signup</mat-card-title>
+    <!-- <mat-card-header> -->
+        <mat-card-title class="header">Signup</mat-card-title>
         <!-- <mat-card-subtitle>Start</mat-card-subtitle> -->
-      </mat-card-header>
+      <!-- </mat-card-header> -->
+
+      <div class="nowrap">
+
+     
+      <div class="form-container">
     <form [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
 
         <!--TODO: RESIZABLE ??  -->
@@ -63,12 +68,16 @@
         </div>
 
 </form>
+
+      </div>
 <!-- </mat-card> -->
 
 
 <!-- <mat-card class="container" style="background-image: url('../../assets/anotherInventory.png');"> -->
 <div class="bgimg">
 <p>  </p>
+</div>
+
 </div>
 
 </mat-card>

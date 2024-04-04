@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 // import { BehaviorSubject } from 'rxjs';
 import { api_url } from './api.const';
 import * as JSEncrypt from 'jsencrypt';
-import { firstValueFrom } from 'rxjs';
+import { Observable, firstValueFrom } from 'rxjs';
 
 
 @Injectable({
@@ -26,8 +26,18 @@ export class DataService {
     return this.http.delete<any[]>(`${this.inventoryApiUrl}/${id}`);
   }
 
-  getInventoryItems() {
-    return this.http.get<any[]>(this.inventoryApiUrl);
+  // getInventoryItems(limit: number, offset: number): Observable<any> {
+  //   // return this.http.get<any[]>(this.inventoryApiUrl);
+  //   return this.http.get<any[]>(`${this.inventoryApiUrl}?limit=${limit}&offset=${offset}`);
+  // }
+
+  getAllItems(){
+    return this.http.get<any>(`${this.inventoryApiUrl}/getAll`);
+  }
+
+  getInventoryItems(pageIndex: number, pageLength: number): Observable<any>{
+    // return this.http.get<any[]>(this.inventoryApiUrl);
+    return this.http.get<any[]>(`${this.inventoryApiUrl}?pageIndex=${pageIndex}&pageLength=${pageLength}`);
   }
 
   updateItem(id: string, assignedTo: string, status: string) {
@@ -116,6 +126,8 @@ export class DataService {
     const body = { ids: itemIds};
     return this.http.patch<any>(`${this.inventoryApiUrl}/unassign`, body);
   }
+
+  
 }
 
 

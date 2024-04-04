@@ -1,206 +1,253 @@
 <head>
-    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" /> -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" /> -->
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0"
+  />
 </head>
 <main>
+  <div class="row">
+    <!-- BUTTONS -->
+    <div class="navButtons">
+      <!-- TODO: DISABLE IF AN AVAILABLE ITEM SELECTED? -->
+      <button
+        mat-raised-button
+        (click)="unassign()"
+        class="addButton"
+        [disabled]="!data.length || !numSelected"
+      >
+        <span id="icon" class="material-symbols-outlined">remove</span>
+        <span
+          class="text"
+        >
+          Unassign item</span
+        >
+      </button>
 
-    
-    <div class="row">
-
-        <!-- BUTTONS -->
-        <div class="navButtons">
-            <!-- TODO: DISABLE IF AN AVAILABLE ITEM SELECTED? -->
-            <button mat-raised-button (click)="unassign()" class="addButton" [disabled]="!data.length || !numSelected"> 
-                <span id="icon" class="material-symbols-outlined">
-                    remove
-                    </span>
-                    <span class="text" style="width: auto; padding-left: 3px; height: auto; vertical-align:super;">  Unassign item</span> 
-            </button>
-            <!--(click)="openDialog('0ms', '0ms')" -->
-
-            <button
-            id="deleteButton"
-            (click)="removeData()"
-            mat-raised-button
-            [disabled]="!data.length || !numSelected"
-            
-            class="demo-button">
-            <span class="material-symbols-outlined">
-                delete
-                </span>
-                <span class="text" style="width: auto; padding-left: 3px; height: auto; vertical-align:super;"> Remove data </span>
-        </button>
-        </div>
-
-
-        <!-- FILTERS -->
-        <div  class="filterBoxes">
-            <!-- FOR ASSIGNED TO -->
-            <mat-form-field >
-                <mat-label>Assigned To
-                </mat-label>
-                <input matInput (keyup)="applyFilter($event, 'assignedTo')" #input>
-            </mat-form-field>
-
-            <!-- FOR STATUS -->
-            <mat-form-field>
-                <mat-label>Status</mat-label>
-                <input matInput (keyup)="applyFilter($event, 'status')" #inputS>
-            </mat-form-field>
-
-        </div>
+      <button
+        id="deleteButton"
+        (click)="removeData()"
+        mat-raised-button
+        [disabled]="!data.length || !numSelected"
+        class="demo-button"
+      >
+        <span class="material-symbols-outlined">delete</span>
+        <span
+          class="text"
+        >
+          Remove data
+        </span>
+      </button>
     </div>
 
+    <!-- FILTERS -->
+    <div class="filterBoxes">
+      <!-- FOR ASSIGNED TO -->
+      <mat-form-field>
+        <mat-label>Assigned To </mat-label>
+        <input matInput (keyup)="applyFilter($event, 'assignedTo')" #input />
+      </mat-form-field>
 
-<!-- FILTER -->
-<!-- GENERAL -->
-<!-- <mat-form-field>
+      <!-- FOR STATUS -->
+      <mat-form-field>
+        <mat-label>Status</mat-label>
+        <input matInput (keyup)="applyFilter($event, 'status')" #inputS />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <!-- GENERAL -->
+  <!-- <mat-form-field>
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event, 'general')" #inputGeneral>  -->
-    <!-- #inputGeneral -->
-<!-- </mat-form-field> -->
+  <!-- #inputGeneral -->
+  <!-- </mat-form-field> -->
 
+  <section class="example-container mat-elevation-z8">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="example-container mat-elevation-z8"
+      tabindex="0"
+    >
+      <caption>
+        Inventories
+      </caption>
 
-
-
-
-<section class="example-container mat-elevation-z8" >
-
-<table mat-table [dataSource]="dataSource" class="example-container mat-elevation-z8" tabindex="0">
-    
-    
-    <caption> Inventories</caption>
-
-    <!-- Checkbox Column -->
-  <ng-container matColumnDef="select">
-    <th mat-header-cell *matHeaderCellDef>
-      <mat-checkbox (change)="$event ? toggleAllRows() : null"
-                    [checked]="selection.hasValue() && isAllSelected()"
-                    [indeterminate]="selection.hasValue() && !isAllSelected()"
-                    [aria-label]="checkboxLabel()">
-      </mat-checkbox>
-    </th>
-    <td mat-cell *matCellDef="let row">
-      <mat-checkbox (click)="$event.stopPropagation()"
-                    (change)="$event ? selection.toggle(row) : null"
-                    [checked]="selection.isSelected(row)"
-                    [aria-label]="checkboxLabel(row)">
-      </mat-checkbox>
-    </td>
-  </ng-container>
-
-
-    <!-- ID -->
-    <ng-container matColumnDef="ID">
-        <th mat-header-cell *matHeaderCellDef>ID</th>
-        <td mat-cell *matCellDef="let element">{{element.id}}</td>
-    </ng-container>
-
-    <!-- Category -->
-    <ng-container matColumnDef="Category">
-        <th mat-header-cell *matHeaderCellDef>Category</th>
-        <td mat-cell *matCellDef="let element">{{element.category}}</td>
-    </ng-container>
-
-    <!-- Sub-Category -->
-    <ng-container matColumnDef="Sub-Category">
-        <th mat-header-cell *matHeaderCellDef>Sub-Category</th>
-        <td mat-cell *matCellDef="let element">{{element.subCategory}}</td>
-    </ng-container>
-
-    <!-- MODEL -->
-    <!-- Model Name -->
-    <ng-container matColumnDef="Model Name">
-        <th mat-header-cell *matHeaderCellDef>Model Name</th>
-        <td mat-cell *matCellDef="let element">{{element.model.name}}</td>
-    </ng-container>
-    <!-- Model Memory -->
-    <ng-container matColumnDef="Model Memory">
-        <th mat-header-cell *matHeaderCellDef>Model Memory</th>
-        <td mat-cell *matCellDef="let element">{{element.model.memory}}</td>
-    </ng-container>
-
-    <!-- SPECIFICATIONS -->
-    <!-- Warranty -->
-    <ng-container matColumnDef="Warranty">
-        <th mat-header-cell *matHeaderCellDef>Warranty</th>
-        <td mat-cell *matCellDef="let element">{{element.specification.warranty}}</td>
-    </ng-container>
-    
-    <!-- Screen Size -->
-    <ng-container matColumnDef="Screen Size">
-        <th mat-header-cell *matHeaderCellDef>Screen Size</th>
-        <td mat-cell *matCellDef="let element">{{element.specification.screenSize}}</td>
-    </ng-container>
-
-    <!-- Price -->
-    <ng-container matColumnDef="Price">
-        <th mat-header-cell *matHeaderCellDef>Price</th>
-        <td mat-cell *matCellDef="let element">{{element.price}}</td>
-    </ng-container>
-
-    <!-- Assigned To -->
-    <!-- TODO: PROPER ALIGNMENT OF BUTTON -->
-    <ng-container matColumnDef="Assigned To">
-        <th class="editHeader" style="padding-right:0;" mat-header-cell *matHeaderCellDef>
-            <span>Assigned To</span>
-            <button mat-button class='edit' (click)="routeToResourceAssignment()">
-                <span class="material-symbols-outlined">edit</span>
-            </button>
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox
+            (change)="$event ? toggleAllRows() : null"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            [aria-label]="checkboxLabel()"
+          >
+          </mat-checkbox>
         </th>
-        <td mat-cell *matCellDef="let element">{{element.assignedTo}}</td>
-    </ng-container>
-
-    <!-- Status -->
-    <ng-container matColumnDef="Status">
-        <th mat-header-cell *matHeaderCellDef>Status</th>
-        <td mat-cell *matCellDef="let element" #status>{{element.status}}
-        @if(element.status === "Assigned"){
-            <span id="assigned" class="material-symbols-outlined">
-                disabled_by_default
-                </span>
-        }
-        @else if(element.status === "Available"){
-            <span id="available" class="material-symbols-outlined">
-                check_circle
-                </span>
-        }
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)"
+            [aria-label]="checkboxLabel(row)"
+          >
+          </mat-checkbox>
         </td>
-    </ng-container>
+      </ng-container>
 
-    <ng-container matColumnDef=" ">
-        <th mat-header-cell *matHeaderCellDef> </th>
-    </ng-container>
+      <!-- ID -->
+      <ng-container matColumnDef="ID">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
 
+      <!-- Category -->
+      <ng-container matColumnDef="Category">
+        <th mat-header-cell *matHeaderCellDef>Category</th>
+        <td mat-cell *matCellDef="let element">{{ element.category }}</td>
+      </ng-container>
 
-    <tr class="top" mat-header-row *matHeaderRowDef="actualColumns sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: actualColumns;" (click)="selection.toggle(row)"></tr>
+      <!-- Sub-Category -->
+      <ng-container matColumnDef="Sub-Category">
+        <th mat-header-cell *matHeaderCellDef>Sub-Category</th>
+        <td mat-cell *matCellDef="let element">{{ element.subCategory }}</td>
+      </ng-container>
 
-    <!-- WHEN NO DATA MATCHES -->
-    <ng-container *ngIf="input.value != ''">
-    <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-      </tr>
-    </ng-container>
+      <!-- MODEL -->
+      <!-- Model Name -->
+      <ng-container matColumnDef="Model Name">
+        <th mat-header-cell *matHeaderCellDef>Model Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.model.name }}</td>
+      </ng-container>
+      <!-- Model Memory -->
+      <ng-container matColumnDef="Model Memory">
+        <th mat-header-cell *matHeaderCellDef>Model Memory</th>
+        <td mat-cell *matCellDef="let element">{{ element.model.memory }}</td>
+      </ng-container>
 
-    <!-- TODO : FIX THIS! -->
-        <ng-container *ngIf="input.value == ''">
+      <!-- SPECIFICATIONS -->
+      <!-- Warranty -->
+      <ng-container matColumnDef="Warranty">
+        <th mat-header-cell *matHeaderCellDef>Warranty</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.specification.warranty }}
+        </td>
+      </ng-container>
+
+      <!-- Screen Size -->
+      <ng-container matColumnDef="Screen Size">
+        <th mat-header-cell *matHeaderCellDef>Screen Size</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.specification.screenSize }}
+        </td>
+      </ng-container>
+
+      <!-- Price -->
+      <ng-container matColumnDef="Price">
+        <th mat-header-cell *matHeaderCellDef>Price</th>
+        <td mat-cell *matCellDef="let element">{{ element.price }}</td>
+      </ng-container>
+
+      <!-- Assigned To -->
+      <!-- TODO: PROPER ALIGNMENT OF BUTTON -->
+      <ng-container matColumnDef="Assigned To">
+        <th
+          class="editHeader"
+          mat-header-cell
+          *matHeaderCellDef
+        >
+          <span>Assigned To</span>
+          <!-- <button mat-button class="edit" (click)="routeToResourceAssignment()">
+            <span class="material-symbols-outlined">edit</span>
+          </button> -->
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.assignedTo }}</td>
+      </ng-container>
+
+      <!-- Status -->
+      <ng-container matColumnDef="Status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let element" #status>
+          <span id="statusText">{{ element.status }} </span>
+          @if(element.status === "Assigned"){
+          <span id="assigned" class="material-symbols-outlined">
+            disabled_by_default
+          </span>
+          } @else if(element.status === "Available"){
+          <span id="available" class="material-symbols-outlined">
+            check_circle
+          </span>
+          }
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef=" ">
+        <th mat-header-cell *matHeaderCellDef></th>
+      </ng-container>
+
+      <tr
+        class="top"
+        mat-header-row
+        *matHeaderRowDef="actualColumns; sticky: true"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: actualColumns"
+        (click)="selection.toggle(row)"
+      ></tr>
+
+      <!-- WHEN NO DATA MATCHES -->
+      <ng-container *ngIf="input.value != ''">
         <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="11" style="text-align: center; font-size: medium; font-weight: bold;padding-top: 15px;">No data found!</td>
-          </tr>
-        </ng-container>
-        <ng-container *ngIf="inputS.value == ''">
-            <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="11" style="text-align: center; font-size: medium; font-weight: bold;padding-top: 15px;">No data found!</td>
-              </tr>
-            </ng-container>
+          <td class="mat-cell" colspan="4">
+            No data matching the filter "{{ input.value }}"
+          </td>
+        </tr>
+      </ng-container>
 
+      <!-- TODO : FIX THIS! -->
+      <ng-container *ngIf="input.value == ''">
+        <tr class="mat-row" *matNoDataRow>
+          <td
+            class="mat-cell"
+            colspan="11"
+            style="
+              text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              padding-top: 15px;
+            "
+          >
+            No data found!
+          </td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="inputS.value == ''">
+        <tr class="mat-row" *matNoDataRow>
+          <td
+            class="mat-cell"
+            colspan="11"
+            style="
+              text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              padding-top: 15px;
+            "
+          >
+            No data found!
+          </td>
+        </tr>
+      </ng-container>
+    </table>
 
-</table>
-
-<mat-paginator style="width:100%;" [pageSizeOptions]="pageSize" aria-label="Select pages"></mat-paginator>
-<!-- [pageSizeOptions]="pageSize" -->
-
-</section>
-
+    <mat-paginator
+      [pageSizeOptions]="pageSizeOptions"
+      aria-label="Select pages"
+      [pageSizeOptions]="pageSize"
+      (page)="onPageChanged($event)"
+    ></mat-paginator>
+    <!-- [pageSizeOptions]="pageSize" -->
+  </section>
 </main>

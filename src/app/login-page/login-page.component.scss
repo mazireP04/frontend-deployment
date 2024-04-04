@@ -1,27 +1,116 @@
+* {
+    box-sizing: border-box;
+}
 
-
-main{
-    
+main {
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: flex-end;
-    flex-flow: column wrap;
-    background-image: url("../../assets/final.png");
-    background-repeat:  no-repeat; 
-    background-position: 0% 98%;
-    // background-size: auto;
-    // background-clip: border-box;
-    // background-attachment: fixed;
-    background-size:70% 70%;
+    align-items: center;
+    // flex-flow: column wrap;
 
-    background-color: white;
+//     background-color: #8EC5FC;
+// background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+
+// background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+
+// background: #7F7FD5;  /* fallback for old browsers */
+// background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);  /* Chrome 10-25, Safari 5.1-6 */
+// background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+// background-color: #8EC5FC;
+// background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 50%, #673ab7 100%);
+
+background-color: #8EC5FC;
+background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+
+
 }
 
-#overlay{
-    display: none;
+header {
+    
+    padding: 0%;
+    position: fixed;
+    top: 0;
+    align-self: center;
+    font-size: large;
+    color: white;
+
+    h2{
+        text-align: center;
+    }
+}
+
+.login-container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+
+    @media screen and (min-width: 768px) {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+form {
+    width: 90%;
+    background-color: white;
+    border: none;
+    padding: 5% 5% 0 5%;
+    border-radius: 5%;
+
     // display: flex;
+    // flex-flow: column;
+    // align-items: center;
+
+    @media screen and (min-width: 768px) {
+        width: 50%;
+    }
+
+
+    mat-form-field{
+       border-color: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+       margin-bottom: 5px;
+
+    }
+
+    
+}
+
+// ::ng-deep {
+//     .mat-form-field-appearance-outline .mat-form-field-outline {
+//         color: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+//     }
+// }
+
+.buttons {
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-flow: column wrap;
+    width: 100%;
+
+    button {
+        margin: 4px 0;
+        width: 100%;
+    }
+
+    #submit:enabled{
+        // background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+        background: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+
+    }
+}
+
+#email, #password{
+    outline: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+
+}
+#overlay {
+    display: none;
     justify-content: center;
     align-items: center;
     width: 100vw;
@@ -29,69 +118,169 @@ main{
     position: fixed;
     z-index: 3;
     background-color: rgba(180, 179, 179, 0.5);
-
-}
-header{
-    padding: 1%;
-    position: fixed;
-    top: 0;
-    align-self: center;
-    font-size: larger;
-    // font-family:'Times New Roman', Times, serif;
 }
 
-// TODO: increase form size
-
-form{
-    // height: 100%;
-    // size:200% ;
-    width: 22%;
-    height: 20%;
-    margin: 4%;
-        padding: 8% 5% 10%;
-        // border: 1px solid rgb(70, 70, 70);
-        border-radius: 5%;
-        // background-color:rgb(246, 248, 254);
-
-        background-color: white;
-}
-
-mat-form-field{
- width: 100%;
- margin-bottom: 1%;
-//  height: 100%;
-
-}
-
-
-
-.buttons{
-    padding-top: 20px;
-    display: flex;
-    justify-content: space-evenly;
-    flex-flow: column wrap;
-    width: 100%;
-    button{
-        margin: 4px 0;
-        width: 100%;
-    }
-}
-
-
-@media screen and (min-width: 768px){
-    main{
-        background-position: 0 65%;
-        // background-size: auto;
-        // background-clip: border-box;
+@media screen and (min-width: 768px) {
+    main {
+        background-image: url("../../assets/final.png");
+        background-repeat: no-repeat;
+        background-position: 0 95%;
         background-attachment: fixed;
         background-size: 60% 80%;
+        background-color: white;
+
+        // justify-content: flex-end;
+    }
+
+    .login-container{
+        width: 100%;
+        justify-content: flex-end;
 
     }
 
-    // form{
-    //     // height: 100%;
-    //     // margin: 4%;
-    //     // padding: 12% 5%;
+    form{
+        width: 35vw;
+        padding-top: 100px;
+    }
 
-    // }
+    header{
+        color: black;
+    }
 }
+
+
+// .showPassword{
+//     width: 48px;
+// }
+// Adjust the width of the password input field to accommodate the show password button
+#email{
+    width: 100%; // 48px is the width of the show password button
+}
+#password{
+    width: 100%;
+}
+
+
+
+
+
+
+// main{
+    
+//     width: 100vw;
+//     height: 100vh;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     flex-flow: column wrap;
+//     background-image: repeating-linear-gradient(to bottom right,#FF7D75, #FFFFFF, #5B5DF0 , #5959EB, #FFFFFF,#FF7D75);
+//     // #BDD0FB
+    
+//     // background-image: url("../../assets/login_mobile.jpg");
+//     // background-repeat: no-repeat;
+//     // background-position: 20% 7%;
+//     // background-size: auto;
+//     // background-clip: border-box;
+//     // background-attachment: fixed;
+//     // background-size:;
+
+//     // background-color: white;
+// }
+
+// #overlay{
+//     display: none;
+//     // display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     width: 100vw;
+//     height: 100vh;
+//     position: fixed;
+//     z-index: 3;
+//     background-color: rgba(180, 179, 179, 0.5);
+
+// }
+// header{
+//     padding: 0%;
+//     position: fixed;
+//     top: 0;
+//     align-self: center;
+//     font-size: medium;
+//     // font-family:'Times New Roman', Times, serif;
+// }
+
+// // TODO: increase form size
+
+// form{
+//     // height: 100%;
+//     // size:200% ;
+//     // width: 22%;
+//     // height: 20%;
+//     // margin-top: 20%;
+//         // padding: 8% 5% 10%;
+//         // border: 1px solid rgb(70, 70, 70);
+//         border-radius: 5%;
+//         // background-color:rgb(246, 248, 254);
+
+//         background-color: white;
+//         border: none;
+
+//         display: flex;
+//         flex-flow: column;
+//         justify-items: center;
+//         align-items: center;
+
+//         padding: 5% 5% 0 5%;
+
+
+// }
+
+// #email{
+//     width: 100%;
+
+// }
+
+// // mat-form-field{
+// // //  width: 00%;
+// // //  margin-bottom: 1%;
+// // //  height: 100%;
+
+// // }
+
+// // .form-field{
+// //     width: 100%;
+// // }
+
+
+
+// .buttons{
+//     padding-top: 20px;
+//     display: flex;
+//     justify-content: space-evenly;
+//     flex-flow: column wrap;
+//     width: 100%;
+//     button{
+//         margin: 4px 0;
+//         width: 100%;
+//     }
+// }
+
+
+// @media screen and (min-width: 768px){
+//     main{
+//         background-image: url("../../assets/final.png");
+//     background-repeat:  no-repeat; 
+//         background-position: 0 65%;
+//         // background-size: auto;
+//         // background-clip: border-box;
+//         background-attachment: fixed;
+//         background-size: 60% 80%;
+
+//     }
+
+//     // form{
+//     //     // height: 100%;
+//     //     // margin: 4%;
+//     //     // padding: 12% 5%;
+
+//     // }
+// }

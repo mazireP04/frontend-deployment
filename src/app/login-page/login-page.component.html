@@ -1,70 +1,109 @@
-
-
 <main>
-    <header>
-        <h2> {{title}}</h2>
-    </header>
-<form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
-    
-    <div>
-    <mat-form-field appearance="outline" class= "form-group" >
-        <mat-label>Email</mat-label>
-        <input class="email" matInput type="email" 
-                class="form-control"
-                formControlName="email"
-                required >
+  <header>
+    <h2>{{ title }}</h2>
+  </header>
 
-                <!-- conditional error messages -->
-                @if (email.invalid){
-        <mat-error class="form-control-feedback">
-               {{getEmailError()}}
-        </mat-error>
-    }
-    <!-- @else { 
+  <div class="login-container">
+
+    <form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
+      <div class="form-field">
+        <mat-form-field appearance="outline" class="form-group" id="email">
+          <mat-label>Email</mat-label>
+          <input
+            class="email"
+            matInput
+            type="email"
+            class="form-control"
+            formControlName="email"
+            required
+          />
+
+          <!-- conditional error messages -->
+          @if (email.invalid){
+          <mat-error class="form-control-feedback">
+            {{ getEmailError() }}
+          </mat-error>
+          }
+          <!-- @else { 
             set this email input's bg color to green ??
     } -->
+        </mat-form-field>
+      </div>
 
-    </mat-form-field>
-</div>
+      <div class="form-field">
+        <mat-form-field appearance="outline" class="form-group" id="password">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            class="form-control"
+            formControlName="password"
+            required
+            [type]="hide ? 'password' : 'text'"
+          />
+          @if (password.invalid){
+          <mat-error class="form-control-feedback">
+            {{ getPasswordError() }}
+          </mat-error>
+          }
 
-<div>
-    <mat-form-field appearance="outline" class="form-group" id="password">
-        <mat-label>Password</mat-label>
-        <input matInput 
-                class="form-control"
-                formControlName="password"
-                required
-                [type]="hide ? 'password' : 'text'"
-                >
-                @if (password.invalid){
-                    <mat-error class="form-control-feedback">
-                           {{getPasswordError()}}
-                    </mat-error>
-                }
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            class="showPassword"
+            (click)="hide = !hide"
+            [attr.aria-pressed]="hide"
+            id="hidePassword"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
 
-                <button type="button" mat-icon-button matSuffix class="showPassword" (click)="hide = !hide"
-    [attr.aria-pressed]="hide" id="hidePassword">
-    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-    </button>
-    </mat-form-field>
-</div>
+      <div class="buttons">
+        <button color="primary"
+          mat-raised-button
+          id="submit"
+          class="simple-button"
+          type="submit"
+          [disabled]="loginForm.invalid"
+          [ngClass]="{ onEnable: !loginForm.invalid }"
+        >
+          Submit
+        </button>
+        <button
+          mat-raised-button
+          class="reset-button"
+          (click)="formReset()"
+          type="reset"
+        >
+          Reset
+        </button>
+      </div>
 
-    <div class="buttons">
-        <button mat-raised-button color="primary" id="submit" class="simple-button" type="submit" [disabled]="loginForm.invalid"
-        [ngClass]="{'onEnable': !loginForm.invalid}">
-    Submit
-    </button>
-        <button mat-raised-button class="reset-button" (click)="formReset()" type="reset">Reset</button>
+      <p style="font-size: small; text-align: center; margin-top: 15px">
+        New here?
+        <button
+          type="button"
+          style="text-decoration: underline"
+          mat-button
+          (click)="routeToSignup()"
+        >
+          Signup
+        </button>
+      </p>
+    </form>
+
+    <div id="overlay">
+      <mat-spinner
+        id="spinner"
+        style="position: fixed; z-index: 2; align-self: center; size: 200%"
+      >
+      </mat-spinner>
     </div>
 
-    <p style="font-size: small; text-align: center; margin-top: 15px;">New here? <button type="button" style="text-decoration: underline;" mat-button (click)="routeToSignup()">Signup</button></p>
 
-    
-</form>
+  </div>
 
-<div id="overlay">
-<mat-spinner id="spinner" style="position: fixed; z-index: 2; align-self: center; size: 200%; " >
-</mat-spinner>
-</div>
 
 </main>

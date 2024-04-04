@@ -57,7 +57,7 @@ export class ResourceAssignmmentComponent implements OnInit {
       }
     );
 
-    this.dataService.getInventoryItems().subscribe(
+    this.dataService.getAllItems().subscribe(
       (response) => {
         console.log(response);
 
