@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 // import { BehaviorSubject } from 'rxjs';
 import { api_url } from './api.const';
@@ -105,10 +105,12 @@ export class DataService {
 
   authenticateAdmin(email: string, password: string) {
     // check if admin exists..?
+    let headers = new HttpHeaders();
+    headers= headers.set('content-type', 'application/json');
     return this.http.post<Object>(`${this.adminApiUrl}/login`, {
       email,
       password,
-    });
+    }, {headers});
   }
 
   markItemsAsDeleted(itemIds: string[]) {
