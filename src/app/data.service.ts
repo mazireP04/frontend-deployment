@@ -72,15 +72,17 @@ export class DataService {
 
   async getPublicKey(): Promise<string> {
     try {
-      const publicKey = await this.http
-        .get<string>(`${this.adminApiUrl}/public-key`)
+      const publicKeyResponse = await this.http
+        .get<{ publicKey: string }>(`${this.adminApiUrl}/public-key`)
         .toPromise();
 
-      if (!publicKey) {
+      if (!publicKeyResponse || !publicKeyResponse.publicKey) {
         throw new Error('Public key not found');
       }
 
       // const publicKey = publicKeyResponse.trim();
+      const publicKey = publicKeyResponse.publicKey;
+
 
       if (typeof publicKey !== 'string') {
         throw new Error('Public key is not a string');
