@@ -76,22 +76,22 @@ export class DataService {
         .get<{ publicKey: string }>(`${this.adminApiUrl}/public-key`)
         .toPromise();
 
-      if (!publicKeyResponse) {
-        throw new Error('Public key not found');
+      if (!publicKeyResponse || typeof publicKeyResponse.publicKey !== 'string') {
+        throw new Error('Invalid public key');
       }
 
       // const publicKey = publicKeyResponse.trim();
-      const publicKey = publicKeyResponse.publicKey;
+      // const publicKey = publicKeyResponse.publicKey;
 
 
-      if (typeof publicKey!== 'string') {
-        throw new Error('Public key is not a string');
-      }
+      // if (typeof publicKey!== 'string') {
+      //   throw new Error('Public key is not a string');
+      // }
 
-      this.encryptor = new JSEncrypt.JSEncrypt();
-      this.encryptor.setPublicKey(publicKey);
+      // this.encryptor = new JSEncrypt.JSEncrypt();
+      // this.encryptor.setPublicKey(publicKey);
 
-      return publicKey;
+      return publicKeyResponse.publicKey;
     } catch (error) {
       console.error(error);
       throw error;
@@ -100,9 +100,10 @@ export class DataService {
 
   async encryptPassword(password: string) {
     const publicKey = await this.getPublicKey();
-
-    const encryptedPassword = this.encryptor.encrypt(password);
-    return encryptedPassword || '';
+    this.encryptor = new JSEncrypt.JSEncrypt();
+    this.encryptor.setPublicKey(publicKey);
+    // const encryptedPassword = this.encryptor.encrypt(password);
+    return this.encryptor.encrypt(password) || '';
   }
 
   authenticateAdmin(email: string, password: string) {
