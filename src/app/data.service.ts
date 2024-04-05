@@ -102,8 +102,8 @@ export class DataService {
     const publicKey = await this.getPublicKey();
     this.encryptor = new JSEncrypt.JSEncrypt();
     this.encryptor.setPublicKey(publicKey);
-    // const encryptedPassword = this.encryptor.encrypt(password);
-    return this.encryptor.encrypt(password) || '';
+    const encryptedPassword = this.encryptor.encrypt(password);
+    return encryptedPassword || '';
   }
 
   authenticateAdmin(email: string, password: string) {
