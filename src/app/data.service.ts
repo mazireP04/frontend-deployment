@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 import { api_url } from './api.const';
 import * as JSEncrypt from 'jsencrypt';
 import { Observable, firstValueFrom } from 'rxjs';
+// import * as forge from 'node-forge';
+
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +16,7 @@ export class DataService {
   private adminsApiUrl = `${api_url}admins`;
   private adminApiUrl = `${api_url}admin`;
 
-  encryptor!: JSEncrypt.JSEncrypt;
+  // encryptor!: JSEncrypt.JSEncrypt;
   constructor(private http: HttpClient) { }
 
   addItems(newItems: any[]) {
@@ -70,6 +72,7 @@ export class DataService {
 
   // TODO: noticed 4 vulnerabilities when npm install jsencrypt
 
+
   async getPublicKey(): Promise<string> {
     try {
       const publicKeyResponse = await this.http
@@ -99,11 +102,26 @@ export class DataService {
   }
 
   async encryptPassword(password: string) {
-    const publicKey = await this.getPublicKey();
-    this.encryptor = new JSEncrypt.JSEncrypt();
-    this.encryptor.setPublicKey(publicKey);
-    const encryptedPassword = this.encryptor.encrypt(password);
-    return encryptedPassword || '';
+    try{
+      const publicKey = await this.getPublicKey();
+      const encryptor = new JSEncrypt.JSEncrypt();
+      encryptor.setPublicKey(publicKey);
+
+      // const publicKey = forge.pki.publicKeyFromPem(publicKeyPem);
+      const encryptedPassword = encryptor.encrypt(password);
+
+      return encryptedPassword || "";
+    }
+    catch(error){
+      console.error(error);
+      throw error;
+      
+    }
+    // const publicKey = await this.getPublicKey();
+    // this.encryptor = new JSEncrypt.JSEncrypt();
+    // this.encryptor.setPublicKey(publicKey);
+    // const encryptedPassword = this.encryptor.encrypt(password);
+    // return encryptedPassword || '';
   }
 
   authenticateAdmin(email: string, password: string) {
