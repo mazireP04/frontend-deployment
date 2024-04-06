@@ -104,10 +104,13 @@ export class DataService {
   };
 
   async encryptPassword(password: string){
-    const publicKey = await this.getPublicKey();
+    // const publicKey = await this.getPublicKey();
     
-    const encryptedPassword = this.encryptor.encrypt(password);
-    return encryptedPassword || "";
+    // const encryptedPassword = this.encryptor.encrypt(password);
+    // return encryptedPassword || "";
+
+    return password;
+    // TODO CHAGED THIS TO SEE IF THE ONLY ISSUE IS THE ENCRYPTION DECRYPTION PART, AND YES. 
   }
 
   authenticateAdmin(email: string, password: string) {
