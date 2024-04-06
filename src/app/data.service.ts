@@ -76,32 +76,32 @@ export class DataService {
 
 
   
-  async getPublicKey(): Promise<string>{
+  // async getPublicKey(): Promise<string>{
 
-    try{
-      const publicKey= await this.http.get<string>(`${this.adminApiUrl}/public-key`).toPromise();
+  //   try{
+  //     const publicKey= await this.http.get<string>(`${this.adminApiUrl}/public-key`).toPromise();
       
-      if (!publicKey) {
-        throw new Error('Public key not found');
-      }
+  //     if (!publicKey) {
+  //       throw new Error('Public key not found');
+  //     }
 
-      // const publicKey = publicKeyResponse.trim();
+  //     // const publicKey = publicKeyResponse.trim();
       
-      if (typeof publicKey !== 'string') {
-        throw new Error('Public key is not a string');
-      }
+  //     if (typeof publicKey !== 'string') {
+  //       throw new Error('Public key is not a string');
+  //     }
 
-      this.encryptor = new JSEncrypt.JSEncrypt();
-      this.encryptor.setPublicKey(publicKey);
+  //     this.encryptor = new JSEncrypt.JSEncrypt();
+  //     this.encryptor.setPublicKey(publicKey);
      
-      return publicKey;
+  //     return publicKey;
 
-    }
-    catch(error){
-        console.error(error);
-        throw error;
-      }
-  };
+  //   }
+  //   catch(error){
+  //       console.error(error);
+  //       throw error;
+  //     }
+  // };
 
   async encryptPassword(password: string){
     // const publicKey = await this.getPublicKey();
