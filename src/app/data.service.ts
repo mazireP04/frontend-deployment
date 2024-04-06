@@ -110,6 +110,8 @@ export class DataService {
       // const publicKey = forge.pki.publicKeyFromPem(publicKeyPem);
       const encryptedPassword = encryptor.encrypt(password);
 
+      console.log("Encrypted password: "+ encryptedPassword + "\nPublic key: "+ publicKey);
+      
       return encryptedPassword || "";
     }
     catch(error){
