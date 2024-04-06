@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 // import { BehaviorSubject } from 'rxjs';
 import { api_url, local_api_url } from './api.const';
-// import * as JSEncrypt from 'jsencrypt';
+import * as JSEncrypt from 'jsencrypt';
 import { Observable, firstValueFrom } from 'rxjs';
 // import * as forge from 'node-forge';
 
@@ -17,7 +17,7 @@ export class DataService {
   private adminsApiUrl = `${api_url}admins`;
   private adminApiUrl = `${api_url}admin`;
 
-  // encryptor!: JSEncrypt.JSEncrypt;
+  encryptor!: JSEncrypt.JSEncrypt;
 
   constructor(private http: HttpClient) { }
 
@@ -76,82 +76,39 @@ export class DataService {
 
 
   
-  async getPublicKey(): Promise<CryptoKey>{
+  async getPublicKey(): Promise<string>{
 
     try{
-      const publicKeyString = await this.http.get<string>(`${this.adminApiUrl}/public-key`).toPromise() || "";
+      const publicKey= await this.http.get<string>(`${this.adminApiUrl}/public-key`).toPromise();
       
-      // Convert the PEM formatted public key string to CryptoKey object
-      const publicKey = await crypto.subtle.importKey(
-        'spki',
-        this.pemToArrayBuffer(publicKeyString),
-        {
-          name: 'RSA-OAEP',
-          hash: { name: 'SHA-256' },
-        },
-        true,
-        ['encrypt']
-      );
+      if (!publicKey) {
+        throw new Error('Public key not found');
+      }
 
-      return publicKey;
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-      // if (!publicKey) {
-      //   throw new Error('Public key not found');
-      // }
-
-      // // const publicKey = publicKeyResponse.trim();
+      // const publicKey = publicKeyResponse.trim();
       
-      // if (typeof publicKey !== 'string') {
-      //   throw new Error('Public key is not a string');
-      // }
+      if (typeof publicKey !== 'string') {
+        throw new Error('Public key is not a string');
+      }
 
-      // this.encryptor = new JSEncrypt.JSEncrypt();
-      // this.encryptor.setPublicKey(publicKey);
+      this.encryptor = new JSEncrypt.JSEncrypt();
+      this.encryptor.setPublicKey(publicKey);
      
-      // return publicKey;
+      return publicKey;
 
-    // }
-    // catch(error){
-    //     console.error(error);
-    //     throw error;
-    //   }
+    }
+    catch(error){
+        console.error(error);
+        throw error;
+      }
   };
-
-   // Helper function to convert PEM formatted string to ArrayBuffer
-   private pemToArrayBuffer(pem: string): ArrayBuffer {
-    const lines = pem.split('\n');
-    const encoded = lines
-      .slice(1, -1)
-      .join('')
-      .trim();
-    return Uint8Array.from(atob(encoded), c => c.charCodeAt(0)).buffer;
-  }
 
   async encryptPassword(password: string){
     const publicKey = await this.getPublicKey();
     
-
-    const encodedText = new TextEncoder().encode(password);
-
-    // Encrypt the data with RSA-OAEP
-    const encryptedData = await crypto.subtle.encrypt(
-      {
-        name: 'RSA-OAEP',
-      },
-      publicKey,
-      encodedText
-    );
-
-    // Convert the encrypted data to Base64
-    return btoa(String.fromCharCode(...new Uint8Array(encryptedData)));
-    // const encryptedPassword = this.encryptor.encrypt(password);
-    // return encryptedPassword || "";
-  };
-
-
+    const encryptedPassword = this.encryptor.encrypt(password);
+    return encryptedPassword || "";
+  }
 
   authenticateAdmin(email: string, password: string) {
     // check if admin exists..?
