@@ -2,9 +2,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 // import { BehaviorSubject } from 'rxjs';
 import { api_url, local_api_url } from './api.const';
-import * as JSEncrypt from 'jsencrypt';
+// import * as JSEncrypt from 'jsencrypt';
 import { Observable, firstValueFrom } from 'rxjs';
 // import * as forge from 'node-forge';
+import * as CryptoJS from 'crypto-js';
 
 
 
@@ -17,7 +18,7 @@ export class DataService {
   private adminsApiUrl = `${api_url}admins`;
   private adminApiUrl = `${api_url}admin`;
 
-  encryptor!: JSEncrypt.JSEncrypt;
+  // encryptor!: JSEncrypt.JSEncrypt;
 
   constructor(private http: HttpClient) { }
 
@@ -109,7 +110,7 @@ export class DataService {
     // const encryptedPassword = this.encryptor.encrypt(password);
     // return encryptedPassword || "";
 
-    return password;
+    return CryptoJS.AES.encrypt(password, 'secret-key').toString();
     // TODO CHAGED THIS TO SEE IF THE ONLY ISSUE IS THE ENCRYPTION DECRYPTION PART, AND YES. 
   }
 
