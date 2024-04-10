@@ -79,6 +79,10 @@ export class SignupComponent {
     }
   }
 
+  routeToLoginPage(){
+    this.router.navigate(['/login']);
+  }
+
   formReset() {
     this.form.reset();
   }

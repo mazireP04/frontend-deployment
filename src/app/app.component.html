@@ -1,6 +1,11 @@
 <head>
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap" rel="stylesheet">
 </head>
 
 <header *ngIf="!router.url.includes('/login') && !router.url.includes('/signup')">
@@ -9,12 +14,12 @@
     <span class="material-symbols-outlined" style="vertical-align: bottom; font-size: larger">
       inventory_2
     </span>
-    <span style="vertical-align: middle"> Inventory Management</span>
+    <span style="vertical-align: middle" class="tilt-neon-font"> Inventory Management</span>
   </h2>
   <!-- </div> -->
 
   <div class="user">
-    <button class="userButton" mat-raised-button color="accent" [value]="buttonText">
+    <button class="userButton" mat-raised-button [value]="buttonText">
       <!-- <mat-icon>user</mat-icon> -->
       {{ buttonText }}
     </button>
@@ -26,22 +31,22 @@
   </div>
 </header>
 
-<mat-drawer-container class="entire-container" autosize>
+<!-- <mat-drawer-container class="entire-container" autosize> -->
   <!-- TODO: WHAT HAPPENED TO THIS TOGGLE BUTTON!?! -->
   <!-- <div> -->
   <!-- <mat-drawer #drawer class="sidenav" mode="side"> -->
-  <button class="menuToggle" type="button" mat-button (click)="drawer.toggle()" color="accent"
+  <!-- <button class="menuToggle" type="button" mat-button (click)="drawer.toggle()" color="accent"
     *ngIf="!router.url.includes('/login') && !router.url.includes('/signup')">
     <mat-icon>menu</mat-icon>
-  </button>
+  </button> -->
   <!-- </mat-drawer> -->
   <!-- </div> -->
 
   <!-- <div class="project-content"> -->
-  <router-outlet></router-outlet>
+  <!-- <router-outlet></router-outlet> -->
   <!-- </div> -->
 
-  <mat-drawer #drawer class="sidenav" mode="side">
+  <!-- <mat-drawer #drawer class="sidenav" mode="side" *ngIf="!router.url.includes('/login') && !router.url.includes('/signup')">
     <p>
       <button mat-button routerLink="/inventories" routerLinkActive="active">
         <span class="material-symbols-outlined"> inventory </span>
@@ -51,9 +56,9 @@
 
     <p>
       <button mat-button routerLink="/add-inventory" routerLinkActive="active">
-        <span class="material-symbols-outlined">
+        <span class="material-symbols-outlined"> -->
           <!-- description -->
-          library_add
+          <!-- library_add
         </span>
         <span style="vertical-align: super"> Add Inventory </span>
       </button>
@@ -73,4 +78,60 @@
       </button>
     </p>
   </mat-drawer>
-</mat-drawer-container>
+</mat-drawer-container> -->
+
+
+<mat-sidenav-container class="entire-container" [hasBackdrop]="hasBackdrop.value">
+  <!-- entire page -->
+  <mat-sidenav #sidenav [mode]="mode.value!" [position]="position.value!" hidden="!router.url.includes('/login') && !router.url.includes('/signup')">
+    <!-- *ngIf="!router.url.includes('/login') && !router.url.includes('/signup')" -->
+    <!-- the side nav -->
+  <p>
+    <button mat-button class="menuButton" (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button> 
+  </p>
+  <p>
+    <button mat-button routerLink="/inventories" routerLinkActive="active">
+      <span class="material-symbols-outlined"> inventory </span>
+      <span style="vertical-align: super; font-size: medium;" class="tilt-neon-font"> Inventories </span>
+    </button>
+  </p>
+
+  <p>
+    <button mat-button routerLink="/add-inventory" routerLinkActive="active">
+      <span class="material-symbols-outlined">
+        <!-- description -->
+        library_add
+      </span>
+      <span style="vertical-align: super; font-size: medium;" class="tilt-neon-font"> Add Inventory </span>
+    </button>
+  </p>
+
+  <p>
+    <button mat-button routerLink="/resource-assignment" routerLinkActive="active">
+      <span class="material-symbols-outlined"> edit </span>
+      <span style="vertical-align: super; font-size: medium;" class="tilt-neon-font"> Assign Resource </span>
+    </button>
+  </p>
+
+  <p>
+    <button mat-button routerLink="/add-user" routerLinkActive="active">
+      <span class="material-symbols-outlined"> person_add </span>
+      <span style="vertical-align: super; font-size: medium;" class="tilt-neon-font"> Add User </span>
+    </button>
+  </p>
+  </mat-sidenav>
+
+
+  <mat-sidenav-content>
+    <!-- the main page content -->
+    <p>
+      <button mat-button class="menuToggle" (click)="sidenav.toggle()" *ngIf="!router.url.includes('/login') && !router.url.includes('/signup')">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </p>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

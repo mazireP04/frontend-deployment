@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
@@ -22,10 +22,12 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-display-table',
   templateUrl: './display-table.component.html',
-  styleUrl: './display-table.component.scss'
+  styleUrl: './display-table.component.scss',
+  // encapsulation: ViewEncapsulation.ShadowDom
 })
 export class DisplayTableComponent implements OnInit {
 
+  // TODO: FIX SERVER SIDE PAGINATION!
   selection = new SelectionModel<any>(true, []);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -59,8 +61,10 @@ export class DisplayTableComponent implements OnInit {
   ngOnInit() {
     this.dataSource = new MatTableDataSource(this.data);
 
-    const selectedItems = this.selection.selected;
-    this.selection = new SelectionModel<any>(true, []);
+    this.selectedItemIds = this.selection.selected.map(item => item.id);
+
+    // const selectedItems = this.selection.selected;
+    // this.selection = new SelectionModel<any>(true, []);
     this.numSelected = this.selection.selected.length;
     this.updateButtonStates();
 
@@ -92,11 +96,11 @@ export class DisplayTableComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.data = this.data;
 
-      this.dataSource.filteredData.forEach(row => {
-        if (this.selectedItemIds.includes(row.id)) {
-          this.selection.select(row);
-        }
-      });
+      // this.dataSource.filteredData.forEach(row => {
+      //   if (this.selectedItemIds.includes(row.id)) {
+      //     this.selection.select(row);
+      //   }
+      // });
     }
 
     // TODO: CHECK THIS
@@ -105,6 +109,12 @@ export class DisplayTableComponent implements OnInit {
 
     
   }
+
+  // masterToggle() {
+  //   this.isAllSelected() ?
+  //       this.selection.clear() :
+  //       this.dataSource.data.forEach(row => this.selection.select(row));
+  // }
   
   disableButtons() {
     // Disable buttons
@@ -121,10 +131,12 @@ export class DisplayTableComponent implements OnInit {
   }
 
   // TODO: CHECK THIS OUT
-  onPageChanged(event: any): void {
-    // Emit the page number to the parent component
-    this.pageChanged.emit(event);
-  }
+  // onPageChanged(event: any): void {
+  //   // Emit the page number to the parent component
+  //   this.pageChanged.emit(event);
+  //   // this.selectedItemIds = this.selection.selected.map(item => item.id);
+
+  // }
 
   routeToForm() {
     this.router.navigate(['/add-inventory']);
@@ -196,28 +208,31 @@ export class DisplayTableComponent implements OnInit {
       this.selection.clear();
       // this.numSelected = 0;
 
-      // return;
+      return;
     }
-    else {
-      this.dataSource.data.forEach(row => this.selection.select(row));
-      // this.numSelected = this.dataSource.data.length;
-    }
+    // else {
+    //   this.dataSource.data.forEach(row => this.selection.select(row));
+    //   // this.numSelected = this.dataSource.data.length;
+    // }
 
-    this.updateSelectAllCheckboxState();
+    // this.updateSelectAllCheckboxState();
 
-    // this.selection.select(...this.dataSource.data);
+    this.selection.select(...this.dataSource.data);
   }
 
-  toggle(row: any) {
-    this.selection.toggle(row);
-    // this.numSelected = this.selection.selected.length;
-    this.updateButtonStates();
-    this.updateSelectAllCheckboxState();
+  // toggle(row: any) {
+  //   this.selection.toggle(row);
+  //   // this.numSelected = this.selection.selected.length;
+  //   this.updateButtonStates();
+  //   // this.updateSelectAllCheckboxState();
 
-  }
+  //   this.selectedItemIds = this.selection.selected.map(item => item.id);
+
+  // }
 
   updateButtonStates() {
     // Enable/disable buttons based on selection
+
     this.deleteButtonDisabled = this.selection.selected.length === 0;
   this.unassignButtonDisabled = this.selection.selected.length === 0;
   }

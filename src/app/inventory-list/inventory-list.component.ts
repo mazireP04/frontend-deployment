@@ -57,7 +57,7 @@ export class InventoryListComponent {
   }
 
   onPageChanged(page: any) {
-    this.pageIndex = page.pageIndex;
+    // this.pageIndex = page.pageIndex;
     // this.pageLength = page.pageLength;
 
     // this.currentPage = page;
@@ -80,17 +80,18 @@ export class InventoryListComponent {
         console.error('Error deleting items:', error);
       }
     );
+    this.reloadPage();
   }
 
   unassignSelectedItems(selectedItemIds: string[]) {
     this.dataService.unassign(selectedItemIds).subscribe(() => {
       this.getInventoryItems();
     });
-    // this.reloadPage();
+    this.reloadPage();
   }
 
   // TODO: check this
-  // reloadPage() {
-  //   this.document.location.reload();
-  // }
+  reloadPage() {
+    this.document.location.reload();
+  }
 }

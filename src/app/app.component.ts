@@ -1,22 +1,31 @@
 import { Component, ViewChild } from '@angular/core';
 import { DataService } from './data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatDrawer } from '@angular/material/sidenav';
+import { MatDrawer, MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
+import { FormControl } from '@angular/forms';
+import {ConfigurableFocusTrapFactory, FocusTrapFactory} from '@angular/cdk/a11y';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers: [DataService],
+  // providers: [DataService],
+  providers: [DataService, {provide: FocusTrapFactory, useClass: ConfigurableFocusTrapFactory}],
 })
 export class AppComponent {
-  @ViewChild('drawer') drawer!: MatDrawer;
+  // @ViewChild('drawer') drawer!: MatDrawer;
+
+  mode = new FormControl('over' as MatDrawerMode);
+  hasBackdrop = new FormControl(null as null | boolean);
+  position = new FormControl('start' as 'start' | 'end');
 
   title = 'inventory-app';
 
   buttonText!: string;
 
   mailId!: string;
+// sidenav: any;
   constructor(private route: ActivatedRoute, protected router: Router) { }
 
   isAuthenticated!: boolean;

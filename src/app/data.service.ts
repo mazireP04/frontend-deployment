@@ -13,10 +13,16 @@ import * as CryptoJS from 'crypto-js';
   providedIn: 'root',
 })
 export class DataService {
-  private inventoryApiUrl = `${api_url}inventoryItems`;
-  private usersApiUrl = `${api_url}users`;
-  private adminsApiUrl = `${api_url}admins`;
-  private adminApiUrl = `${api_url}admin`;
+
+  // Only toggle these comments for production code vs local code testing
+  private currentUrl = api_url;
+  // private currentUrl = local_api_url;
+
+
+  private inventoryApiUrl = `${this.currentUrl}inventoryItems`;
+  private usersApiUrl = `${this.currentUrl}users`;
+  private adminsApiUrl = `${this.currentUrl}admins`;
+  private adminApiUrl = `${this.currentUrl}admin`;
 
   // encryptor!: JSEncrypt.JSEncrypt;
 
@@ -41,9 +47,14 @@ export class DataService {
 
   getInventoryItems(pageIndex: number, pageLength: number): Observable<any> {
     // return this.http.get<any[]>(this.inventoryApiUrl);
+    // return this.http.get<any[]>(
+    //   `${this.inventoryApiUrl}?pageIndex=${pageIndex}&pageLength=${pageLength}`
+    // );
+
     return this.http.get<any[]>(
-      `${this.inventoryApiUrl}?pageIndex=${pageIndex}&pageLength=${pageLength}`
+      `${this.inventoryApiUrl}`
     );
+    
   }
 
   updateItem(id: string, assignedTo: string, status: string) {

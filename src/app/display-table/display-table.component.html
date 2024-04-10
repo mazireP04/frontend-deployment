@@ -27,13 +27,13 @@
         <!-- FILTERS -->
         <div class="filterBoxes">
             <!-- FOR ASSIGNED TO -->
-            <mat-form-field>
+            <mat-form-field appearance="outline">
                 <mat-label>Assigned To </mat-label>
                 <input matInput (keyup)="applyFilter($event, 'assignedTo')" #input />
             </mat-form-field>
 
             <!-- FOR STATUS -->
-            <mat-form-field>
+            <mat-form-field appearance="outline">
                 <mat-label>Status</mat-label>
                 <input matInput (keyup)="applyFilter($event, 'status')" #inputS />
             </mat-form-field>
@@ -61,9 +61,13 @@
                         [checked]="selection.hasValue() && isAllSelected()"
                         [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
                     </mat-checkbox>
+                    <!-- <mat-checkbox (change)="masterToggle()"
+                    [checked]="isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()">
+      </mat-checkbox> -->
                 </th>
                 <td mat-cell *matCellDef="let row">
-                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? toggle(row) : null"
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
                         [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
                     </mat-checkbox>
                 </td>
@@ -138,7 +142,6 @@
             <ng-container matColumnDef="Status">
                 <th mat-header-cell *matHeaderCellDef>Status</th>
                 <td mat-cell *matCellDef="let element" #status>
-                    <span id="statusText">{{ element.status }} </span>
                     @if(element.status === "Assigned"){
                     <span id="assigned" class="material-symbols-outlined">
                         disabled_by_default
@@ -148,6 +151,7 @@
                         check_circle
                     </span>
                     }
+                    <span id="statusText"> {{ element.status }} </span>
                 </td>
             </ng-container>
 
@@ -156,7 +160,7 @@
             </ng-container>
 
             <tr class="top" mat-header-row *matHeaderRowDef="actualColumns; sticky: true"></tr>
-            <tr mat-row *matRowDef="let row; columns: actualColumns" (click)="toggle(row)"></tr>
+            <tr mat-row *matRowDef="let row; columns: actualColumns" (click)="selection.toggle(row)"></tr>
 
             <!-- WHEN NO DATA MATCHES -->
             <ng-container *ngIf="input.value != ''">
@@ -194,8 +198,8 @@
             </ng-container>
         </table>
 
-        <mat-paginator [pageSizeOptions]="pageSizeOptions" aria-label="Select pages" [pageSizeOptions]="pageSize"
-            (page)="onPageChanged($event)"></mat-paginator>
+        <mat-paginator [pageSizeOptions]="pageSizeOptions" aria-label="Select pages" [pageSizeOptions]="pageSize"></mat-paginator>
+            <!-- (page)="onPageChanged($event)"></mat-paginator> -->
         <!-- [pageSizeOptions]="pageSize" -->
     </section>
 </main>

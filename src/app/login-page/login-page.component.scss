@@ -24,6 +24,7 @@ main {
 
     background-color: #8ec5fc;
     background-image: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
+    background-image: linear-gradient(to top, #c493ff, #ff99d0, #ffb9b0, #ffdfb7, #fefedf);
 }
 
 header {
@@ -32,7 +33,7 @@ header {
     top: 0;
     align-self: center;
     font-size: large;
-    color: white;
+    color: black;
 
     h2 {
         text-align: center;
@@ -94,6 +95,7 @@ form {
     #submit:enabled {
         // background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
         background: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
+        background-image: linear-gradient(to right, #c493ff, #ff99d0, #ffb9b0, #ffdfb7, #fefedf);
     }
 }
 

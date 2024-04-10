@@ -10,24 +10,57 @@
 //   align-items: center;
 // }
 
+// <uniquifier>: Use a unique and descriptive class name
+
+.tilt-neon-font {
+  font-family: "Tilt Neon", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "XROT" 0,
+    "YROT" 0;
+}
+
+.example-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 header {
   z-index: 2;
   width: 100%;
-  background-color: rgb(103, 58, 183);
+  height: 55px;
+  // background-color:  #b0ffe5;
+  // background-image: linear-gradient(to left top, #b0ffe5, #9ffbff, #b3f1ff, #dce4ff, #fed8ff); 
+  // background-image: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
+  // background-color: #fefedf;
+  // background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);
+
+  // background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+
+  // background-image: linear-gradient(to left, #c493ff, #ff99d0, #ffb9b0, #ffdfb7, #fefedf);  // background-image: linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);
+
+  background-image: linear-gradient(to left, #c493ff, #ff99d0, #ffb9b0, #ffdfb7, #fefedf);  // rgb(103, 58, 183);
   display: flex;
   justify-content: space-between;
   margin-top: 0;
   align-items: center;
   padding-left: 5px;
   padding-right: 5px;
+  border-bottom: thin solid rgb(173, 173, 173);
 
-  box-shadow: 3px 7px 18px #888888;
+  // box-shadow: 0px 0.5px 12px #888888;
   position: sticky;
   top: 0;
 }
 
 .title {
-  color: white;
+  // color: white;
+  color:black;
   flex-grow: 1;
 }
 
@@ -59,11 +92,14 @@ header {
     height: 50px;
     font-weight: bold;
     font-size: large;
+    transform: scale(0.85);
 
     // TODO: CHECK THIS
-    border: medium solid rgb(103, 58, 183);
-    outline: thin solid lavenderblush;
-  }
+    // border: medium solid rgb(103, 58, 183);
+    // outline: thin solid lavenderblush;
+
+    background-image: linear-gradient(to left top, #b0ffe5, #9ffbff, #b3f1ff, #dce4ff, #fed8ff);
+    background-image: linear-gradient(to right top,  #ffb9b0, #ffdfb7, #fefedf);  }
 
   .userBlock {
     z-index: 2;
@@ -77,8 +113,16 @@ header {
     top: 100%;
     background-color: white;
     border: thin solid rgb(103, 58, 183);
+    border: thin solid #c493ff;  // rgb(103, 58, 183);
+
     border-radius: 3%;
     text-align: center;
+
+    // button{
+    //   // background-image: linear-gradient( 135deg, #69FF97 10%, #00E4FF 100%);    
+    //   // background-image: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
+    //   // background-image: linear-gradient(to right top,  #ffb9b0, #ffdfb7, #fefedf);  
+    // }
   }
 }
 
@@ -88,13 +132,14 @@ header {
   z-index: 100;
   width: auto;
   background-color: white;
-  margin-top: 7px;
+  margin-top: 12px;
 
+  left: 4px;
   // top: 0;
   // left: 0; /* Adjust position as needed */
-  width: 50px;
+  // width: 50px;
   /* Adjust width as needed */
-  height: 50px;
+  // height: 50px;
   /* Adjust height as needed */
   background-color: transparent;
   border: none;
@@ -104,11 +149,14 @@ header {
     // top: 0;
     width: auto;
     vertical-align: top;
+    font-size: larger;
+    font-weight: bold;
 
     // z-index: 3;
-    font-weight: bold;
-    // font-size: x-large;
-    transform: scale(1.7);
+    // font-weight: bold;
+    // // font-size: x-large;
+    transform: scale(1.5);
+
   }
 
   // color: rgb(103, 58, 183);
@@ -121,7 +169,31 @@ header {
   // height: 100%;
   // border: 1px solid rgba(0, 0, 0, 0.5);
   background-color: white;
+
 }
+
+mat-sidenav{
+  padding: 1%;
+}
+
+.menuButton{
+  mat-icon{
+    font-size: larger;
+    font-weight: bold;
+    transform: scale(1.5);
+
+  }
+}
+
+.material-symbols-outlined{
+  // color:  #b0ffe5;
+  color: transparent;
+  background-clip: text;
+  background-color: #c493ff;
+  // background-image: linear-gradient( 135deg, #FFA8A8 10%, #FCFF00 100%);
+  background-image: linear-gradient(to right top, #c493ff, #ff99d0, #ffb9b0);
+    
+  }
 
 .sidenav {
   // width: 30vw;
@@ -164,7 +236,6 @@ header {
       // TODO THE SIZE INCREASES ON HOVER
       // border: 0.5px solid rgb(103, 58, 183);
       // border: 0.5px solid rgb(222, 222, 222);
-      border: 0.5px solid rgb(255, 215, 64);
 
       border-radius: 5px;
       background-color: rgba(0, 0, 0, 0.05);

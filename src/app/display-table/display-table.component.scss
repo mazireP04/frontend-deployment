@@ -6,21 +6,68 @@ main {
   display: flex;
   flex-flow: column;
   align-items: center;
-  padding-top: 5%;
+  padding-top: 3%;
   background-color: #fff;
   min-height: 100vh;
+
+  @media (max-width:680px) {
+    padding-top: 15%;
+  }
 }
 
 .row {
   width: 85%;
   display: flex;
   justify-content: space-between;
+
+  @media (max-width:680px) {
+    flex-flow: column;
+    .filterBoxes{
+      width: 100%;
+      mat-form-field{
+        width: 48%;
+      }
+    }
+    .navButtons{
+      justify-content: space-between;
+      .addButton,
+      #deleteButton{
+        margin: 0;
+        width: 48%;   
+        height: auto;   
+      }
+
+    }
+  }
 }
 
 .navButtons {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  button:disabled{
+      .material-symbols-outlined{
+        color: rgb(174, 174, 174);
+      } 
+  }
+  
+}
+
+mat-check-box{
+  fill: linear-gradient(to right top, #c493ff, #ff99d0, #ffb9b0);
+  // color: transparent;
+  //   background-clip: text;
+  //   background-color: #c493ff;
+  //   background-image: linear-gradient(to right top, #c493ff, #ff99d0, #ffb9b0);
+}
+
+$your-color:  #c493ff;
+
+// TODO!
+.mat-mdc-checkbox .mdc-checkbox__background {
+  background-color: #c493ff !important;
+  // border-color: green !important;
 }
 
 .addButton,
@@ -31,6 +78,7 @@ main {
   margin-right: 8px;
   padding: 8px;
 
+  height: 35%;
 
   .text {
     flex: 1;
@@ -48,7 +96,7 @@ main {
 
   @media (min-width: 786px) {
     .text {
-      vertical-align: super;
+      vertical-align:super;
     }
 
   }
@@ -61,31 +109,44 @@ main {
 }
 
 .filterBoxes {
+  margin-top: 2%;
   display: flex;
   // flex-flow: column;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  width: 50%;
+  justify-content: flex-end;
+  // width: 50%;
 }
 
 .mat-mdc-form-field {
-  width: 45%;
+  width: 35%;
   margin-bottom: 8px;
+  margin-left: 6px;
+  // height: 60%
 }
 
+// mat-form-field{
+//   input{
+//     height: 10%;
+//   }
+//   height:67px;
+  
+// }
+
 mat-paginator {
-  width: 100%;
-  /* Ensure pagination section occupies full width */
-  display: flex;
-  /* Use flex display */
-  justify-content: flex-end;
-  /* Center the paginator horizontally */
+  // width: 100%;
+  // /* Ensure pagination section occupies full width */
+  // display: flex;
+  // /* Use flex display */
+  // justify-content: flex-end;
+  // /* Center the paginator horizontally */
 
-  @media (max-width: 768px) {
-    width: 195%;
+  // @media (max-width: 768px) {
+  //   width: 195%;
 
-  }
+  // }
+  position: sticky;
+  left:0;
 }
 
 // .mat-mdc-paginator-container{
@@ -132,14 +193,21 @@ caption {
   font-weight: bold;
   padding: 8px;
   text-align: left;
+
+  // position: sticky;
+  // right: 0;
 }
 
 #assigned {
   color: gray;
+  color: rgb(158, 158, 158);
+
 }
 
 #available {
   color: green;
+  color: #00C2AA;
+  color: rgb(0, 211, 0);
 }
 
 #statusText {
