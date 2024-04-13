@@ -36,6 +36,9 @@ import { SignupComponent } from './signup/signup.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { InventoryListComponent } from './inventory-list/inventory-list.component';
 import { MatDialogContent } from '@angular/material/dialog';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { StackedBarChartComponent } from './stacked-bar-chart/stacked-bar-chart.component';
+import { DoughnutChartComponent } from './doughnut-chart/doughnut-chart.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +50,9 @@ import { MatDialogContent } from '@angular/material/dialog';
     AddUserComponent,
     SignupComponent,
     InventoryListComponent,
+    DashboardComponent,
+    StackedBarChartComponent,
+    DoughnutChartComponent,
   ],
   imports: [
     BrowserModule,

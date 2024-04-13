@@ -86,13 +86,20 @@ export class LoginPageComponent implements OnInit {
 
             sessionStorage.setItem('authenticated', this.loginForm.value.email);
             this.loginForm.reset();
-            this.router.navigate(['/inventories']);
+            this.router.navigate(['/dashboard']);
           },
           error: (err) => {
             // TODO: show message that invalid credentials
             console.error(err.message);
             this.formReset();
             overlay!.style.display = 'none';
+
+            const alert_message = document.getElementById("invalidLogin") as HTMLElement;
+
+            alert_message.style.display = 'block';
+            setTimeout(() => {
+              alert_message.style.display = 'none'; // Hide after a delay
+          }, 2000);
           },
         });
 
@@ -100,6 +107,7 @@ export class LoginPageComponent implements OnInit {
     } else {
       // TODO: make it a good-looking popup - this will happen when password not string or email doesn't exist?
       // alert('Invalid credentials. Try again');
+      
       this.formReset();
     }
     // this.formReset();

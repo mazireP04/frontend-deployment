@@ -8,12 +8,17 @@ import { ResourceAssignmmentComponent } from './resource-assignmment/resource-as
 import { AddUserComponent } from './add-user/add-user.component';
 import { SignupComponent } from './signup/signup.component';
 import { InventoryListComponent } from './inventory-list/inventory-list.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
   { path: 'login', component: LoginPageComponent, data: { title: 'Login' } },
   { path: 'signup', component: SignupComponent, data: { title: 'Signup' } },
+
+  {
+    path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard'}, canActivate: [AuthGuard]
+  },
 
   {
     path: 'add-inventory',

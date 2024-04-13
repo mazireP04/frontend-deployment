@@ -1,5 +1,5 @@
 main {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -8,14 +8,28 @@ main {
 }
 
 form {
-    width: 30%;
+    width: 30vw;
     //    margin-left: -200px;
     margin-top: 2%;
     position: absolute;
+
+    @media (max-width: 768px) {
+        margin-top: 3%;
+        width: 50vw;
+    }
+
+    @media (max-width:680px) {
+        margin-top: 14%;
+        width: 70vw;
+    }
 }
 
 mat-form-field {
     width: 100%;
+}
+
+#submit:enabled {
+    background-image: linear-gradient(to right, #c493ff, #ff99d0, #ffb9b0, #ffdfb7, #fefedf);
 }
 
 button {
@@ -25,9 +39,17 @@ button {
 }
 
 .addUser {
-    transform: scale(1.1);
-    position: relative;
-    left: 400%;
+
+    // display: none;
+    // position: relative;
+    // left: 400%;
+
+    width: max-content;
+    margin-right: 5%;
+    position: fixed;
+    right: 0;
+
+    // transform: scale(1.1);
     text-align: center;
     // color: white;
 

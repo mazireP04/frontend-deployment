@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 })
 export class ResourceAssignmmentComponent implements OnInit {
   // TODO: IF A RESOURCE ASSSIGNED TO A PERSON, CAN WE ASSIGN RESOURCE OF SAME TYPE TO THAT SAME PERSON AGAIN?
+  // TODO: DON'T SHPW THINGS THAT ARE MARKED DELETED!!
 
   form!: FormGroup;
 

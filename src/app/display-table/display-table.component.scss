@@ -34,7 +34,7 @@ main {
       #deleteButton{
         margin: 0;
         width: 48%;   
-        height: auto;   
+        // height: auto;   
       }
 
     }
@@ -52,6 +52,12 @@ main {
       } 
   }
   
+  
+  @media (max-width: 680px) {
+    margin-bottom: 2%;
+    // margin-top: 1%;
+  }
+
 }
 
 mat-check-box{
@@ -94,12 +100,12 @@ $your-color:  #c493ff;
   }
 
 
-  @media (min-width: 786px) {
+  // @media (min-width: 786px) {
     .text {
       vertical-align:super;
     }
 
-  }
+  // }
 }
 
 .addButton .material-symbols-outlined,
@@ -116,7 +122,44 @@ $your-color:  #c493ff;
   align-items: center;
   justify-content: flex-end;
   // width: 50%;
+
+  @media (max-width: 680px) {
+    display: none;
+    
+  }
 }
+
+.filterButton{
+  display: none;
+  width: max-content;
+  // position: fixed;
+  right: 0;
+  top: 1;
+
+  // @media (max-width: 680px){
+  //   display: block;
+
+  // }
+}
+
+// .checkBoxCol{
+//   position: sticky;
+//   left: 0;
+// }
+
+@media (max-width: 768px) {
+  .addButton, #deleteButton{
+    height: 47px;
+  }
+  
+}
+
+// @media (max-width: 680px) {
+//   .hideOnMobile{
+//     display: none;
+//   }
+  
+// }
 
 .mat-mdc-form-field {
   width: 35%;
@@ -172,6 +215,7 @@ table {
   table-layout: auto;
   /* Change table layout to auto */
   overflow-x: auto;
+
 }
 
 td,
@@ -194,9 +238,18 @@ caption {
   padding: 8px;
   text-align: left;
 
-  // position: sticky;
-  // right: 0;
+  width: 10%;
+
+  position: sticky;
+  right: 0;
 }
+
+// .captionP{
+//   height: auto;
+//   padding-left: 4px;
+//   position: sticky;
+//   left: 0;
+// }
 
 #assigned {
   color: gray;

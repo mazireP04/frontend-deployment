@@ -1,0 +1,54 @@
+
+// main{
+//     width: 100vw;
+//     height: 100vh;
+
+//     display: flex;
+//     flex-flow: column;
+// }
+
+// div.charts{
+//     width: 100%;
+//     height: 100%;
+//     display: flex;
+//     justify-content: space-around ;
+//     align-items: center;
+
+
+//     app-doughnut-chart{
+//         width: 45vw;
+//         height: 50vh;
+//     }
+
+//     app-stacked-bar-chart{
+//         width: 45vw;
+//         height: 45vh;
+//     }
+// }
+
+main {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-flow: column;
+
+    // TODO: make sure entire applications bg is white
+    // background-color: white;
+
+  }
+  
+  div.charts {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  
+    app-doughnut-chart, app-stacked-bar-chart {
+      width: 100%;
+      max-width: 45vw;
+      height: 50vh;
+    }
+  }
+  

@@ -148,6 +148,31 @@ export class DataService {
     const body = { ids: itemIds };
     return this.http.patch<any>(`${this.inventoryApiUrl}/unassign`, body);
   }
+
+
+
+
+  // DASHBOARD
+
+  getStackedBarInfo(){
+    return this.http.get<any>(`${this.inventoryApiUrl}/modelNames`);
+  }
+
+  // getStackedBarData(){
+
+  // }
+
+
+  // async getStackedBarInfo(){
+  //   const returnedData = await this.getStackedBarLabels();
+  
+
+  //   this.getStackedBarData();
+  // }
+
+  getDoughnutChartData(){
+    return this.http.get<any>(`${this.inventoryApiUrl}/doughnutData`);
+  }
 }
 
 // TODO:

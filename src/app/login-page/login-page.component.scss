@@ -8,6 +8,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-flow: column;
     // flex-flow: column wrap;
 
     //     background-color: #8EC5FC;
@@ -53,6 +54,22 @@ header {
     }
 }
 
+#invalidLogin{
+    position: fixed;
+    top: 20vh;
+    width: 80%;
+    text-align: center;
+    padding: 1%;
+    background-color: #ff67b861;
+
+    display: none;
+
+    @media (min-width: 680px) {
+        width: 50%;
+        
+    }
+}
+
 form {
     width: 90%;
     background-color: white;
@@ -94,6 +111,7 @@ form {
 
     #submit:enabled {
         // background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+        color: black;
         background: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
         background-image: linear-gradient(to right, #c493ff, #ff99d0, #ffb9b0, #ffdfb7, #fefedf);
     }

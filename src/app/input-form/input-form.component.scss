@@ -6,7 +6,7 @@ main {
 
     padding-top: 3%;
     height: 100vh;
-    width: 100%;
+    width: 100vw;
 
     display: flex;
     justify-content: flex-start;
@@ -33,6 +33,13 @@ form {
 
     background-color: white;
 
+    @media (max-width: 680px) {
+        width: 80%;
+        margin: 60px 5px;
+    
+        
+    }
+
 }
 
 fieldset {
@@ -44,6 +51,12 @@ fieldset {
 
     display: flex;
     justify-content: flex-start;
+
+    @media (max-width: 680px) {
+        flex-flow:column ;    
+        
+    }
+
 }
 
 // form{
@@ -54,11 +67,21 @@ fieldset {
 mat-form-field {
     margin: 5px;
     padding: 5px;
+
+    @media (max-width: 680px) {
+        width:  70vw;  
+        margin: auto;
+        padding: 0;     
+    }
 }
 
 button#submit {
     width: 100%;
     padding: 7px;
+    
+}
+#submit:enabled{
+        background-image: linear-gradient(to right, #c493ff, #ff99d0, #ffb9b0, #ffdfb7, #fefedf);
 }
 
 div.row {
@@ -67,6 +90,12 @@ div.row {
 
     display: flex;
     justify-content: flex-start;
+
+    @media (max-width: 680px) {
+        flex-flow: column ;    
+        
+    }
+
 }
 
 #toDisplay {

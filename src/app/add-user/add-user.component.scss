@@ -1,5 +1,5 @@
 main {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     display: flex;
     flex-flow: column;
@@ -13,6 +13,14 @@ form {
     width: 30%;
     display: flex;
     flex-flow: column;
+
+    @media (max-width: 768px) {
+        width: 50%;
+    }
+    @media (max-width: 680px) {
+        width: 70%;
+        margin-top: 19%;
+    }
 }
 
 .buttons {
@@ -26,4 +34,8 @@ form {
         margin: 4px 0;
         width: 100%;
     }
+}
+
+#submit:enabled {
+    background-image: linear-gradient(to right, #c493ff, #ff99d0, #ffb9b0, #ffdfb7, #fefedf);
 }

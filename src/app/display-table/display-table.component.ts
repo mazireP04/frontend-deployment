@@ -124,6 +124,7 @@ export class DisplayTableComponent implements OnInit {
 
   // TODO: CHECK THIS!
   updateData(data: any[]) {
+
     if (this.dataSource) {
       this.dataSource.data = data;
       this.dataSource.paginator = this.paginator;
