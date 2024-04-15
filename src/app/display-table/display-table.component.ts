@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -35,27 +35,28 @@ export class DisplayTableComponent implements OnInit {
 
   unassignButtonDisabled: boolean = true;
   deleteButtonDisabled: boolean = true;
+  // @Input() totalItems!: any;
 
   constructor(private router: Router, public dialog: MatDialog) { }
 
   @Input() data!: any[];
   dataSource!: MatTableDataSource<any>;
-  @Input() pageSize!: any[];
-
-  // @Input() totalItems: number = 0;
-  // @Input() pageLength: number = 10; 
+  @Input() pageSize: any = 5;
+  @Input() pageIndex!: any;
+  @Input() length: any = 0;
+  @Input() pageSizeOptions: number[] = [7, 14];
 
   @Output() deleteItems: EventEmitter<string[]> = new EventEmitter<string[]>();
   @Output() unassignItems: EventEmitter<string[]> = new EventEmitter<string[]>();
-  @Output() pageChanged: EventEmitter<number> = new EventEmitter<number>();
+  @Output() pageChanged: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
-  @Input() pageSizeOptions: number[] = [];
   @Input() displayedColumns: string[] = [];
 
   numSelected: number = 0;
   selectedItemIds: string[] = [];
 
   isSelectAllChecked: boolean = false;
+  pageEvent!: PageEvent;
 
 
   ngOnInit() {
@@ -70,9 +71,9 @@ export class DisplayTableComponent implements OnInit {
 
     // console.log(this.paginator);
 
-    if (!this.pageSize) {
-      this.pageSize = [5, 10, 50];
-    }
+    // if (!this.pageSize) {
+    //   this.pageSize = 5;
+    // }
     // this.paginator.pageSizeOptions = this.pageSize;
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -91,22 +92,34 @@ export class DisplayTableComponent implements OnInit {
 
   }
 
-  ngOnChanges() {
-    if (this.dataSource) {
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.data = this.data;
+  ngOnChanges(changes: SimpleChanges) {
+    // if (this.dataSource) {
+      
+    //   console.log(this.length);
+    //   console.log(this.pageSize);
 
-      // this.dataSource.filteredData.forEach(row => {
-      //   if (this.selectedItemIds.includes(row.id)) {
-      //     this.selection.select(row);
-      //   }
-      // });
-    }
+    //   this.dataSource.data = this.data;
+    //   this.dataSource.paginator = this.paginator;
+      
+
+    //   // this.dataSource.filteredData.forEach(row => {
+    //   //   if (this.selectedItemIds.includes(row.id)) {
+    //   //     this.selection.select(row);
+    //   //   }
+    //   // });
+    // }
 
     // TODO: CHECK THIS
     // this.dataSource = new MatTableDataSource<any>(this.data);
     // this.dataSource.paginator = this.paginator;
 
+    if (changes['data']) {
+      // If the data changes, update the data source and paginator
+      this.dataSource = new MatTableDataSource<any>(this.data);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      // this.paginator.length = this.length; // Set the total length of data for pagination
+    }
     
   }
 
@@ -127,17 +140,28 @@ export class DisplayTableComponent implements OnInit {
 
     if (this.dataSource) {
       this.dataSource.data = data;
-      this.dataSource.paginator = this.paginator;
+      // this.dataSource.paginator = this.paginator;
+
+      if (data.length < this.pageSize) {
+        this.paginator.firstPage();
+      }
     }
   }
 
   // TODO: CHECK THIS OUT
-  // onPageChanged(event: any): void {
-  //   // Emit the page number to the parent component
-  //   this.pageChanged.emit(event);
-  //   // this.selectedItemIds = this.selection.selected.map(item => item.id);
+  onPageChanged(event: PageEvent): void {
+    // Emit the page number to the parent component
+    // this.pageEvent = event;
+    // this.totalItems = event.length;
+    // this.pageSize = event.pageSize;
+    // this.pageIndex = event.pageIndex;
+    // console.log(event.length);
+    
+    // this.pageChanged.emit(event);
+    this.pageChanged.emit(event);
+    // this.selectedItemIds = this.selection.selected.map(item => item.id);
 
-  // }
+  }
 
   routeToForm() {
     this.router.navigate(['/add-inventory']);

@@ -2,7 +2,10 @@
 
 <app-display-table
   [data]="inventoryItems"
-  [pageSizeOptions]="pageSize"
+  [pageSizeOptions]="pageSizeOptions"
+  [pageSize]="pageSize"
+  [length]="length"
+  [pageIndex]="pageIndex"
   [displayedColumns]="[
     'ID',
     'Category',

@@ -15,8 +15,8 @@ import * as CryptoJS from 'crypto-js';
 export class DataService {
 
   // Only toggle these comments for production code vs local code testing
-  private currentUrl = api_url;
-  // private currentUrl = local_api_url;
+  // private currentUrl = api_url;
+  private currentUrl = local_api_url;
 
 
   private inventoryApiUrl = `${this.currentUrl}inventoryItems`;

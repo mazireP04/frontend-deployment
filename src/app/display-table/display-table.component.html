@@ -208,7 +208,14 @@
             </ng-container>
         </table>
 
-        <mat-paginator [pageSizeOptions]="pageSizeOptions" aria-label="Select pages" [pageSizeOptions]="pageSize"></mat-paginator>
+        <mat-paginator #paginator
+            [pageSizeOptions]="pageSizeOptions" 
+            aria-label="Select pages" 
+            [pageSize]="pageSize" 
+            [length]="length" 
+            [pageIndex]="pageIndex"
+            (page)="onPageChanged($event)">
+        </mat-paginator>
             <!-- (page)="onPageChanged($event)"></mat-paginator> -->
         <!-- [pageSizeOptions]="pageSize" -->
     </section>

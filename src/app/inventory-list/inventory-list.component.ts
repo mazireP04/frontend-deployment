@@ -13,16 +13,11 @@ import { DOCUMENT } from '@angular/common';
 export class InventoryListComponent {
   // sourceData!: MatTableDataSource<any>;
   inventoryItems: any[] = [];
-  pageSize: any[] = [5, 7, 10, 15];
+  pageSizeOptions: any = [5, 10, 15, 20, 50];
+  pageSize: any = 5;
+  pageIndex: any = 0;
+  length: any = 0;
 
-  // pageLength = 10;
-  // totalItems = 0;
-  pageIndex!: any;
-  pageLength!: any;
-
-  // SERVER SIDE PAGINATION
-  currentPage = 1;
-  itemsPerPage = 5;
 
   @ViewChild(DisplayTableComponent) displayTable!: DisplayTableComponent;
 
@@ -42,30 +37,35 @@ export class InventoryListComponent {
   // }
 
   ngOnInit() {
-    this.getInventoryItems();
+    this.getInventoryItems(this.pageSize, this.pageIndex);
   }
 
-  getInventoryItems() {
-    const offset = this.pageIndex * this.pageLength;
+  getInventoryItems(pageIndex: any, pageSize: any) {
     this.dataService
-      .getInventoryItems(offset, this.pageLength)
+      .getInventoryItems(pageIndex, pageSize)
       .subscribe((data) => {
         this.inventoryItems = data.data.filter((item: any) => !item.isDeleted);
-        // this.totalItems = data.totalItems;
+        
+        console.log(data.total);
+        console.log(this.pageSize);
+        
+        
+        this.length = data.total;
+        // this.pageIndex = pageIndex + 1;
         this.updateDisplayTableData();
       });
   }
 
   onPageChanged(page: any) {
-    // this.pageIndex = page.pageIndex;
-    // this.pageLength = page.pageLength;
-
-    // this.currentPage = page;
-    this.getInventoryItems();
+    this.pageIndex = page.pageIndex;
+    this.pageSize = page.pageSize;
+    this.getInventoryItems(page.pageIndex, page.pageSize);
   }
 
   updateDisplayTableData() {
     if (this.displayTable) {
+      console.log(this.pageSize);
+
       this.displayTable.updateData(this.inventoryItems);
     }
   }
@@ -74,20 +74,20 @@ export class InventoryListComponent {
     this.dataService.markItemsAsDeleted(selectedItemIds).subscribe(
       () => {
         console.log('Items deleted successfully');
-        this.getInventoryItems();
+        this.getInventoryItems(this.pageIndex, this.pageSize);
       },
       (error) => {
         console.error('Error deleting items:', error);
       }
     );
-    this.reloadPage();
+    // this.reloadPage();
   }
 
   unassignSelectedItems(selectedItemIds: string[]) {
     this.dataService.unassign(selectedItemIds).subscribe(() => {
-      this.getInventoryItems();
+      this.getInventoryItems(this.pageIndex, this.pageSize);
     });
-    this.reloadPage();
+    // this.reloadPage();
   }
 
   // TODO: check this
