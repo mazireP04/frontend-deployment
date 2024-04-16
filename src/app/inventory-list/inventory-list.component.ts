@@ -11,12 +11,11 @@ import { DOCUMENT } from '@angular/common';
   styleUrl: './inventory-list.component.scss',
 })
 export class InventoryListComponent {
-  // sourceData!: MatTableDataSource<any>;
   inventoryItems: any[] = [];
   pageSizeOptions: any = [5, 10, 15, 20, 50];
   pageSize: any = 5;
   pageIndex: any = 0;
-  length: any = 0;
+  length: any = 20;
 
 
   @ViewChild(DisplayTableComponent) displayTable!: DisplayTableComponent;
@@ -26,18 +25,9 @@ export class InventoryListComponent {
     @Inject(DOCUMENT) private document: Document
   ) { }
 
-  // ngOnInit(){
-
-  //   const offset = (this.currentPage - 1) * this.itemsPerPage;
-  //   this.dataService.getInventoryItems(offset, this.itemsPerPage).subscribe(data => {
-  //     // this.sourceData = new MatTableDataSource(data);
-  //     this.inventoryItems = data.filter((item: any) => item.isDeleted === false);
-  //     this.updateDisplayTableData();
-  //   });
-  // }
 
   ngOnInit() {
-    this.getInventoryItems(this.pageSize, this.pageIndex);
+        this.getInventoryItems(this.pageIndex, this.pageSize);
   }
 
   getInventoryItems(pageIndex: any, pageSize: any) {
@@ -45,28 +35,21 @@ export class InventoryListComponent {
       .getInventoryItems(pageIndex, pageSize)
       .subscribe((data) => {
         this.inventoryItems = data.data.filter((item: any) => !item.isDeleted);
-        
-        console.log(data.total);
-        console.log(this.pageSize);
-        
-        
-        this.length = data.total;
-        // this.pageIndex = pageIndex + 1;
+        this.length = data.total;        
         this.updateDisplayTableData();
       });
   }
 
   onPageChanged(page: any) {
     this.pageIndex = page.pageIndex;
-    this.pageSize = page.pageSize;
+    this.pageSize = page.pageSize;    
     this.getInventoryItems(page.pageIndex, page.pageSize);
   }
 
   updateDisplayTableData() {
-    if (this.displayTable) {
-      console.log(this.pageSize);
 
-      this.displayTable.updateData(this.inventoryItems);
+    if (this.displayTable) {
+      this.displayTable.updateData(this.inventoryItems, this.pageIndex);
     }
   }
 

@@ -47,13 +47,13 @@ export class DataService {
 
   getInventoryItems(pageIndex: number, pageLength: number): Observable<any> {
     // return this.http.get<any[]>(this.inventoryApiUrl);
-    // return this.http.get<any[]>(
-    //   `${this.inventoryApiUrl}?pageIndex=${pageIndex}&pageLength=${pageLength}`
-    // );
-
     return this.http.get<any[]>(
-      `${this.inventoryApiUrl}`
+      `${this.inventoryApiUrl}?pageIndex=${pageIndex}&pageSize=${pageLength}`
     );
+
+    // return this.http.get<any[]>(
+    //   `${this.inventoryApiUrl}`
+    // );
     
   }
 

@@ -58,76 +58,75 @@ export class DisplayTableComponent implements OnInit {
   isSelectAllChecked: boolean = false;
   pageEvent!: PageEvent;
 
+  showFirstLastButtons = "true";
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource(this.data);
 
-    this.selectedItemIds = this.selection.selected.map(item => item.id);
+    // this.dataSource = new MatTableDataSource(this.data);
+    this.dataSource = new MatTableDataSource<any>([]);
 
-    // const selectedItems = this.selection.selected;
-    // this.selection = new SelectionModel<any>(true, []);
-    this.numSelected = this.selection.selected.length;
-    this.updateButtonStates();
+    // this.selectedItemIds = this.selection.selected.map(item => item.id);
+    // this.numSelected = this.selection.selected.length;
+    // this.updateButtonStates();
 
-    // console.log(this.paginator);
 
-    // if (!this.pageSize) {
-    //   this.pageSize = 5;
-    // }
-    // this.paginator.pageSizeOptions = this.pageSize;
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
+    if(this.paginator){
+      this.paginator.length = this.length;
+    }
+
+    // this.selection.changed.subscribe(() => {
+    //   this.numSelected = this.selection.selected.length;
+    //   if (this.numSelected === 0) {
+    //     this.disableButtons();
+    //   }else{
+    //     this.selectedItemIds = this.selection.selected.map(item => item.id);
+    //   }
+    //   this.updateButtonStates();
+    // });
+    // this.updateSelectAllCheckboxState();
+
     this.selection.changed.subscribe(() => {
       this.numSelected = this.selection.selected.length;
-      if (this.numSelected === 0) {
-        // Disable buttons when no items are selected
-        this.disableButtons();
-      }else{
-        this.selectedItemIds = this.selection.selected.map(item => item.id);
-      }
       this.updateButtonStates();
     });
-    this.updateSelectAllCheckboxState();
-
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // if (this.dataSource) {
+    if (changes['data']) {      
+      if(this.data){
+        this.dataSource = new MatTableDataSource<any>(this.data);
+
+        this.dataSource.data = this.data;
+        this.dataSource.sort = this.sort;
+
+        this.updateSelectedItems();
+        if(this.paginator){
+          this.paginator.length = this.length;
+
+        }
+      //     this.dataSource.filteredData.forEach(row => {
+      //   if (this.selectedItemIds.includes(row.id)) {
+      //     this.selection.select(row);
+      //   }
+      // });
+      }
       
-    //   console.log(this.length);
-    //   console.log(this.pageSize);
-
-    //   this.dataSource.data = this.data;
-    //   this.dataSource.paginator = this.paginator;
-      
-
-    //   // this.dataSource.filteredData.forEach(row => {
-    //   //   if (this.selectedItemIds.includes(row.id)) {
-    //   //     this.selection.select(row);
-    //   //   }
-    //   // });
-    // }
-
-    // TODO: CHECK THIS
-    // this.dataSource = new MatTableDataSource<any>(this.data);
-    // this.dataSource.paginator = this.paginator;
-
-    if (changes['data']) {
-      // If the data changes, update the data source and paginator
-      this.dataSource = new MatTableDataSource<any>(this.data);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      // this.paginator.length = this.length; // Set the total length of data for pagination
     }
     
   }
 
-  // masterToggle() {
-  //   this.isAllSelected() ?
-  //       this.selection.clear() :
-  //       this.dataSource.data.forEach(row => this.selection.select(row));
-  // }
+  updateSelectedItems(){
+    this.selection.clear();
+    this.selectedItemIds.forEach(itemId => {
+      const selected = this.dataSource.data.find(item => item.id === itemId);
+      if(selected){
+        this.selection.select(selected);
+      }
+    });
+  }
   
   disableButtons() {
     // Disable buttons
@@ -136,30 +135,31 @@ export class DisplayTableComponent implements OnInit {
   }
 
   // TODO: CHECK THIS!
-  updateData(data: any[]) {
-
+  updateData(data: any[], pageIndex: number) {
     if (this.dataSource) {
       this.dataSource.data = data;
-      // this.dataSource.paginator = this.paginator;
+      
+      if (this.paginator) {
+        this.paginator.length = data.length;
+        // this.selectedItemIds = this.selection.selected.map(item => item.id);
 
-      if (data.length < this.pageSize) {
-        this.paginator.firstPage();
-      }
+  }
     }
   }
 
   // TODO: CHECK THIS OUT
   onPageChanged(event: PageEvent): void {
-    // Emit the page number to the parent component
-    // this.pageEvent = event;
-    // this.totalItems = event.length;
-    // this.pageSize = event.pageSize;
-    // this.pageIndex = event.pageIndex;
-    // console.log(event.length);
-    
-    // this.pageChanged.emit(event);
+    this.pageIndex = event.pageIndex;
+
+    // this.dataSource.filteredData.forEach(row => {
+    //   if (this.selectedItemIds.includes(row.id)) {
+    //     this.selection.select(row);
+    //   } else {
+    //     this.selection.deselect(row);
+    //   }
+    // });
+
     this.pageChanged.emit(event);
-    // this.selectedItemIds = this.selection.selected.map(item => item.id);
 
   }
 
@@ -222,9 +222,13 @@ export class DisplayTableComponent implements OnInit {
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
-    this.numSelected = this.selection.selected.length;
+    // this.numSelected = this.selection.selected.length;
+    const numSelected = this.selection.selected.length;
+
     const numRows = this.dataSource.data.length;
-    return this.numSelected === numRows;
+    console.log("is all selected: ", this.numSelected === numRows);
+    
+    return numSelected === numRows;
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
@@ -233,33 +237,20 @@ export class DisplayTableComponent implements OnInit {
       this.selection.clear();
       // this.numSelected = 0;
 
-      return;
+      console.log("all toggled");
+      
+      // return;
     }
-    // else {
-    //   this.dataSource.data.forEach(row => this.selection.select(row));
-    //   // this.numSelected = this.dataSource.data.length;
-    // }
-
-    // this.updateSelectAllCheckboxState();
-
-    this.selection.select(...this.dataSource.data);
+    else{
+      this.dataSource.data.forEach(row => this.selection.select(row));
+    }
+    // this.selection.select(...this.dataSource.data);
   }
 
-  // toggle(row: any) {
-  //   this.selection.toggle(row);
-  //   // this.numSelected = this.selection.selected.length;
-  //   this.updateButtonStates();
-  //   // this.updateSelectAllCheckboxState();
-
-  //   this.selectedItemIds = this.selection.selected.map(item => item.id);
-
-  // }
 
   updateButtonStates() {
-    // Enable/disable buttons based on selection
-
     this.deleteButtonDisabled = this.selection.selected.length === 0;
-  this.unassignButtonDisabled = this.selection.selected.length === 0;
+    this.unassignButtonDisabled = this.selection.selected.length === 0;
   }
   
 
@@ -274,10 +265,7 @@ export class DisplayTableComponent implements OnInit {
 
   // unassign item: 
   unassign() {
-    const itemsToBeUnassigned: string[] = [];
-    this.selection.selected.forEach(item => {
-      itemsToBeUnassigned.push(item.id);
-    });
+    const itemsToBeUnassigned: string[] = this.selection.selected.map(item => item.id);
     this.openDialog('Unassign', itemsToBeUnassigned);
 
   }
@@ -290,10 +278,10 @@ export class DisplayTableComponent implements OnInit {
 
   // REMOVE DATA:
   removeData() {
-    const itemsToBeDeleted: string[] = [];
-    this.selection.selected.forEach(item => {
-      itemsToBeDeleted.push(item.id);
-    });
+    const itemsToBeDeleted: string[] = this.selection.selected.map(item => item.id);
+    // this.selection.selected.forEach(item => {
+    //   itemsToBeDeleted.push(item.id);
+    // });
     this.openDialog('Delete', itemsToBeDeleted);
     // display the dialog box
     // if yes clicked on dialog box, trigger another function wherein the selected id are sent to parent and there te isDeleted property is set to true
@@ -347,7 +335,6 @@ export class DisplayTableComponent implements OnInit {
   imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent],
 })
 export class Dialog {
-  // public action!: string;
 
   constructor(public dialogRef: MatDialogRef<DisplayTableComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
