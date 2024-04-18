@@ -53,6 +53,8 @@ export class DisplayTableComponent implements OnInit {
   isSelectAllChecked: boolean = false;
   pageEvent!: PageEvent;
 
+  itemsToBeReselected!: Set<string>; // = this.selectedItemIds;
+
   showFirstLastButtons = "true";
 
   constructor(private router: Router, public dialog: MatDialog) { 
@@ -71,12 +73,17 @@ export class DisplayTableComponent implements OnInit {
       this.numSelected = this.selection.selected.length;
       // this.updateSelectedItemIds();
 
+
+      // if(this.selectedItemIds){
+      //     this.itemsToBeReselected = this.selectedItemIds;
+      // }
       this.selectedItemIds = new Set(this.selection.selected.map(item => item.id));
-        console.log("Selected item IDs:", this.selectedItemIds);
+      console.log("Selected item IDs:", this.selectedItemIds, "itemstobereselected: ", this.itemsToBeReselected);
       this.updateButtonStates();
       this.updateSelectedItems.emit(this.selectedItemIds); 
 
     });
+    this.updateSelectionFromPageData();
   }
 
 
@@ -103,11 +110,11 @@ export class DisplayTableComponent implements OnInit {
         this.dataSource.data = this.data;
         this.dataSource.sort = this.sort;
 
-        this.data.forEach(item => {
-          if (this.selectedItemIds.has(item.id)) {
-            this.selection.select(item);
-          }
-        });
+        // this.data.forEach(item => {
+        //   if (this.selectedItemIds.has(item.id)) {
+        //     this.selection.select(item);
+        //   }
+        // });
         
         if(this.paginator){
           this.paginator.length = this.length;
@@ -116,12 +123,12 @@ export class DisplayTableComponent implements OnInit {
     }
   }
 
-  // updateSelectionFromPageData(): void {
-  //   this.selectedItemIds.clear(); // Clear the set before updating
-  //   this.selection.selected.forEach(item => {
-  //     this.selectedItemIds.add(item.id);
-  //   });
-  // }
+  updateSelectionFromPageData(): void {
+    // this.selectedItemIds.clear(); // Clear the set before updating
+    this.selection.selected.forEach(item => {
+      this.selectedItemIds.add(item.id);
+    });
+  }
 
   // updateSelectedItems(){
   //   this.selection.clear();
@@ -141,11 +148,27 @@ export class DisplayTableComponent implements OnInit {
 
   // TODO: CHECK THIS!
   updateData(data: any[], pageIndex: number) {
-    // this.selectedItemIds = this.selection.selected.map(item => item.id);
+    // this.selectedItemIds = new Set(this.selection.selected.map(item => item.id));
 
     if (this.dataSource) {
       this.dataSource.data = data;
 
+      this.itemsToBeReselected = new Set(this.selectedItemIds);
+      console.log("TO BE RESELECTED: ", this.itemsToBeReselected);
+      
+      this.selection.selected.forEach(selectedItem => {
+        if (!this.data.some(item => item && item.id === selectedItem?.id)) {
+          console.log("deselecting ",selectedItem.id);
+          
+          this.selection.deselect(selectedItem);
+          // console.log("REDHFG ",this.selectedItemIds);
+          console.log("Selected item:", selectedItem);
+                console.log("Data:", this.data);
+                console.log("Data IDs:", this.data.map(item => item && item.id));
+                console.log("Error: Selected item not found in data array!");
+          
+        }
+      });
       // for(let itemId in this.selectedItemIds)
       //   this.selectedItemIds.forEach((itemId) => {
       //   const selected = data.find(item => item.id === itemId);
@@ -155,6 +178,15 @@ export class DisplayTableComponent implements OnInit {
       //     this.selection.select(selected);
       //   }
       // });
+
+      // Reselect items that were previously selected
+      this.itemsToBeReselected.forEach(itemId => {
+        const selected = this.data.find(item => item.id === itemId);
+        // if (selected) {
+          console.log("reselecting ",itemId);
+          this.selection.select(selected);
+        // }
+      });
 
       if (this.paginator) {
         this.paginator.length = data.length;
