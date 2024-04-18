@@ -5,6 +5,7 @@
   [pageSize]="pageSize"
   [length]="length"
   [pageIndex]="pageIndex"
+  [selectedItemIds]="selectedItemIds"
   [displayedColumns]="[
     'ID',
     'Category',
@@ -20,6 +21,8 @@
   (deleteItems)="deleteItems($event)"
   (unassignItems)="unassignSelectedItems($event)"
   (pageChanged)="onPageChanged($event)"
+  (updateSelectedItems)="updateSelectedItems($event)"
+
 >
 </app-display-table>
 <!-- TODO WHY IS THIS REQUIRING RELOAD EVERY TIME!? SUBSCRIBE!! -->

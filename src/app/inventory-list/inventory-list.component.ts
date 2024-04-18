@@ -18,6 +18,8 @@ export class InventoryListComponent {
   length: any = 20;
 
 
+  selectedItemIds: Set<string> = new Set<string>();
+
   @ViewChild(DisplayTableComponent) displayTable!: DisplayTableComponent;
 
   constructor(
@@ -42,7 +44,9 @@ export class InventoryListComponent {
 
   onPageChanged(page: any) {
     this.pageIndex = page.pageIndex;
-    this.pageSize = page.pageSize;    
+    this.pageSize = page.pageSize;  
+    console.log("on page changed inventory list: ", this.selectedItemIds);
+      
     this.getInventoryItems(page.pageIndex, page.pageSize);
   }
 
@@ -53,7 +57,11 @@ export class InventoryListComponent {
     }
   }
 
-  deleteItems(selectedItemIds: string[]): void {
+  updateSelectedItems(selectedItemIds: Set<string>) {
+    this.selectedItemIds = selectedItemIds;
+  }
+  
+  deleteItems(selectedItemIds: Set<string>): void {
     this.dataService.markItemsAsDeleted(selectedItemIds).subscribe(
       () => {
         console.log('Items deleted successfully');
@@ -66,7 +74,7 @@ export class InventoryListComponent {
     // this.reloadPage();
   }
 
-  unassignSelectedItems(selectedItemIds: string[]) {
+  unassignSelectedItems(selectedItemIds: Set<string>) {
     this.dataService.unassign(selectedItemIds).subscribe(() => {
       this.getInventoryItems(this.pageIndex, this.pageSize);
     });

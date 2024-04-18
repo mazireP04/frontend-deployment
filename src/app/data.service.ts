@@ -135,14 +135,14 @@ export class DataService {
     }, {headers});
   };
 
-  markItemsAsDeleted(itemIds: string[]) {
+  markItemsAsDeleted(itemIds: any) {
     // console.log("Request sent!");
 
     const body = { ids: itemIds };
     return this.http.patch<any>(`${this.inventoryApiUrl}/delete`, body);
   }
 
-  unassign(itemIds: string[]) {
+  unassign(itemIds: any) {
     // console.log("Request sent!");
 
     const body = { ids: itemIds };
