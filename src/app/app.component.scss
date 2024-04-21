@@ -1,4 +1,12 @@
+body, html {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+
 * {
+  margin-top: 0;
+  padding-top: 0;
   box-sizing: border-box;
 }
 
@@ -12,13 +20,24 @@
 
 // <uniquifier>: Use a unique and descriptive class name
 
+router-outlet{
+  height: 100vh;
+}
 
+main{
+  height: 100vh;
+}
+
+app-login-page{
+  height: 100vh;
+}
 .example-container {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  overflow: scroll;
 }
 
 header {
@@ -36,6 +55,7 @@ header {
   // background-image: linear-gradient(to left, #c493ff, #ff99d0, #ffb9b0, #ffdfb7, #fefedf);  // background-image: linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);
 
   background-image: linear-gradient(to left, #c493ff, #ff99d0, #ffb9b0, #ffdfb7, #fefedf);  // rgb(103, 58, 183);
+  background-image: linear-gradient(to left, #9ce0e8, #afeae0, #c9f2db, #e4f8da, #fefedf);
   display: flex;
   justify-content: space-between;
   margin-top: 0;
@@ -60,17 +80,7 @@ header {
   flex-grow: 1;
 }
 
-// .user{
 
-// }
-
-// .userBlock{
-
-// }
-
-// .userButton{
-
-// }
 
 .user {
   z-index: 2;
@@ -101,7 +111,11 @@ header {
     // outline: thin solid lavenderblush;
 
     background-image: linear-gradient(to left top, #b0ffe5, #9ffbff, #b3f1ff, #dce4ff, #fed8ff);
-    background-image: linear-gradient(to right top,  #ffb9b0, #ffdfb7, #fefedf);  }
+    background-image: linear-gradient(to right top,  #ffb9b0, #ffdfb7, #fefedf);  
+    background-image: linear-gradient(to left, #e4f8da, #fefedf);
+
+  }
+
 
   .userBlock {
     z-index: 2;
@@ -115,8 +129,9 @@ header {
     right: 20%;
     top: 100%;
     background-color: white;
-    border: thin solid rgb(103, 58, 183);
     border: thin solid #c493ff;  // rgb(103, 58, 183);
+    border: thin solid #9ce0e8;
+    
 
     border-radius: 3%;
     text-align: center;
@@ -128,6 +143,8 @@ header {
     // }
     button:hover{
       background-image: linear-gradient(to right, #c493ff, #ff99d0, #ffb9b0, #ffdfb7, #fefedf);  // rgb(103, 58, 183);
+      background-image: linear-gradient(to left top, #9ce0e8, #afeae0, #c9f2db, #e4f8da, #fefedf);
+
 
     }
   }
@@ -196,9 +213,11 @@ mat-sidenav{
   // color:  #b0ffe5;
   color: transparent;
   background-clip: text;
-  background-color: #c493ff;
+  background-color: #d3fdbe;
   // background-image: linear-gradient( 135deg, #FFA8A8 10%, #FCFF00 100%);
   background-image: linear-gradient(to right top, #c493ff, #ff99d0, #ffb9b0);
+  background-image: linear-gradient(to left top, #93e1ea, #a1ece0, #c9f2db);
+
     
   }
 

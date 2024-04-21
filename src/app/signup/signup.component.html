@@ -9,12 +9,17 @@
     <!-- <div class="container"> -->
     <mat-card class="container">
         <!-- <mat-card-header> -->
-        <mat-card-title class="header">Signup</mat-card-title>
+
+        <!-- <mat-card-title class="header">Signup</mat-card-title> -->
+
         <!-- <mat-card-subtitle>Start</mat-card-subtitle> -->
         <!-- </mat-card-header> -->
 
         <div class="nowrap">
             <div class="form-container">
+                <header class="tilt-neon-font">
+                    Signup
+                </header>
                 <form [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
                     <!--TODO: RESIZABLE ??  -->
                     <!-- TODO: add reset button -->
@@ -57,6 +62,9 @@
                         </button>
                     </div>
                 </form>
+                <footer>
+                    <p> Have an account? <button mat-button (click)="routeToLoginPage()">Login</button></p>
+                </footer>
             </div>
             <!-- </mat-card> -->
 
@@ -67,9 +75,11 @@
         </div>
 
         <!-- <mat-footer-row> -->
-            <mat-card-footer>
+
+            <!-- <mat-card-footer>
                <p> Have an account? <button mat-button (click)="routeToLoginPage()">Login</button></p>
-            </mat-card-footer>
+            </mat-card-footer> -->
+
         <!-- </mat-footer-row> -->
 
     </mat-card>

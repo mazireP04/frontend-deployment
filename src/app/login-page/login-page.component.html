@@ -1,14 +1,15 @@
 <main>
-  <header>
-    <h2>{{ title }}</h2>
-  </header>
-
+ 
   <mat-card id="invalidLogin">
     incorrect email or password!
   </mat-card>
 
   <div class="login-container">
     <form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
+      <header>
+        <h2>{{ title }}</h2>
+      </header>
+      
       <div class="form-field">
         <mat-form-field appearance="outline" class="form-group" id="email">
           <mat-label>Email</mat-label>
@@ -67,4 +68,5 @@
       </mat-spinner>
     </div>
   </div>
+
 </main>

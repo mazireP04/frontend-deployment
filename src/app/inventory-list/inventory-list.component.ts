@@ -17,7 +17,6 @@ export class InventoryListComponent {
   pageIndex: any = 0;
   length: any = 20;
 
-
   selectedItemIds: Set<string> = new Set<string>();
 
   @ViewChild(DisplayTableComponent) displayTable!: DisplayTableComponent;
@@ -62,7 +61,8 @@ export class InventoryListComponent {
   }
   
   deleteItems(selectedItemIds: Set<string>): void {
-    this.dataService.markItemsAsDeleted(selectedItemIds).subscribe(
+    const arr = Array.from(selectedItemIds);
+    this.dataService.markItemsAsDeleted(arr).subscribe(
       () => {
         console.log('Items deleted successfully');
         this.getInventoryItems(this.pageIndex, this.pageSize);
@@ -71,11 +71,12 @@ export class InventoryListComponent {
         console.error('Error deleting items:', error);
       }
     );
-    // this.reloadPage();
+    this.reloadPage();
   }
 
   unassignSelectedItems(selectedItemIds: Set<string>) {
-    this.dataService.unassign(selectedItemIds).subscribe(() => {
+    const arr = Array.from(selectedItemIds);
+    this.dataService.unassign(arr).subscribe(() => {
       this.getInventoryItems(this.pageIndex, this.pageSize);
     });
     // this.reloadPage();

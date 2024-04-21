@@ -1,4 +1,6 @@
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <!-- <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" /> -->
 
@@ -33,55 +35,6 @@
     </div>
   </div>
 </header>
-
-<!-- <mat-drawer-container class="entire-container" autosize> -->
-  <!-- TODO: WHAT HAPPENED TO THIS TOGGLE BUTTON!?! -->
-  <!-- <div> -->
-  <!-- <mat-drawer #drawer class="sidenav" mode="side"> -->
-  <!-- <button class="menuToggle" type="button" mat-button (click)="drawer.toggle()" color="accent"
-    *ngIf="!router.url.includes('/login') && !router.url.includes('/signup')">
-    <mat-icon>menu</mat-icon>
-  </button> -->
-  <!-- </mat-drawer> -->
-  <!-- </div> -->
-
-  <!-- <div class="project-content"> -->
-  <!-- <router-outlet></router-outlet> -->
-  <!-- </div> -->
-
-  <!-- <mat-drawer #drawer class="sidenav" mode="side" *ngIf="!router.url.includes('/login') && !router.url.includes('/signup')">
-    <p>
-      <button mat-button routerLink="/inventories" routerLinkActive="active">
-        <span class="material-symbols-outlined"> inventory </span>
-        <span style="vertical-align: super"> Inventories </span>
-      </button>
-    </p>
-
-    <p>
-      <button mat-button routerLink="/add-inventory" routerLinkActive="active">
-        <span class="material-symbols-outlined"> -->
-          <!-- description -->
-          <!-- library_add
-        </span>
-        <span style="vertical-align: super"> Add Inventory </span>
-      </button>
-    </p>
-
-    <p>
-      <button mat-button routerLink="/resource-assignment" routerLinkActive="active">
-        <span class="material-symbols-outlined"> edit </span>
-        <span style="vertical-align: super"> Assign Resource </span>
-      </button>
-    </p>
-
-    <p>
-      <button mat-button routerLink="/add-user" routerLinkActive="active">
-        <span class="material-symbols-outlined"> person_add </span>
-        <span style="vertical-align: super"> Add User </span>
-      </button>
-    </p>
-  </mat-drawer>
-</mat-drawer-container> -->
 
 
 <mat-sidenav-container class="entire-container" [hasBackdrop]="hasBackdrop.value">
@@ -139,7 +92,7 @@
 
   <mat-sidenav-content>
     <!-- the main page content -->
-    <p>
+    <p *ngIf="!router.url.includes('/login') && !router.url.includes('/signup')">   <!-- THIS WAS CAUSING THE WHITE STRIP ON TOP OF LOGIN AND SIGNUP PAGES!-->
       <button mat-button class="menuToggle" (click)="sidenav.toggle()" *ngIf="!router.url.includes('/login') && !router.url.includes('/signup')">
         <mat-icon>menu</mat-icon>
       </button>

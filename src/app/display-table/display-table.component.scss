@@ -1,3 +1,16 @@
+@use '@angular/material' as mat;
+
+.my-class-with-default-shadow {
+  // Adds a shadow for elevation level 2 with default color and full opacity:
+  @include mat.elevation(2);
+}
+
+.my-class-with-custom-shadow {
+  // Adds a shadow for elevation level 2 with color #e91e63 and 80% of the default opacity:
+  @include mat.elevation(2, #e91e63, 0.8);
+}
+
+
 * {
   box-sizing: border-box;
 }
@@ -7,7 +20,7 @@ main {
   flex-flow: column;
   align-items: center;
   padding-top: 3%;
-  background-color: #fff;
+  background-color: white;
   min-height: 100vh;
 
   @media (max-width:680px) {
@@ -60,21 +73,37 @@ main {
 
 }
 
-mat-check-box{
-  fill: linear-gradient(to right top, #c493ff, #ff99d0, #ffb9b0);
-  // color: transparent;
-  //   background-clip: text;
-  //   background-color: #c493ff;
-  //   background-image: linear-gradient(to right top, #c493ff, #ff99d0, #ffb9b0);
-}
 
-$your-color:  #c493ff;
+// TODO: STYLE THE MASTER TOGGLE TOO AND CHANGE THE COLORS EW
+// .mat-mdc-checkbox.mat-mdc-checkbox-checked.mdc-checkbox__background{
+//   background-color: #e9d7ff !important;
+// }
 
-// TODO!
+
+// #mat-mdc-checkbox-1-input{
+//   background-color: #7a12f8 !important;
+// }
+
 .mat-mdc-checkbox .mdc-checkbox__background {
-  background-color: #c493ff !important;
-  // border-color: green !important;
+  background-color: #e9d7ff24 !important;
+  border-color: rgb(69, 69, 69) !important;
 }
+
+.mdc-checkbox__ripple {
+     background-color:#ffb9b0 !important;
+}
+
+
+.mat-mdc-checkbox.mat-mdc-checkbox-checked .mdc-checkbox__background{
+  border-color: #fefedf !important;
+    background-color: #ffcee8 !important;
+  // background-image: linear-gradient(to top, #c493ff, #ff99d0, #ffb9b0, #ffdfb7, #fefedf) !important;
+}
+
+
+
+
+
 
 .addButton,
 #deleteButton {
@@ -207,9 +236,11 @@ section {
   display: flex;
   flex-flow: column;
   justify-content: space-between;
+  @include mat.elevation(8);
 }
 
 table {
+  @include mat.elevation(8);
   width: 100%;
   border-collapse: collapse;
   table-layout: auto;
