@@ -17,7 +17,9 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent, data: { title: 'Signup' } },
 
   {
-    path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard'}, canActivate: [AuthGuard]
+    path: 'dashboard',
+    // loadChildren:() => import('./dashboard/') 
+    component: DashboardComponent, data: { title: 'Dashboard'}, canActivate: [AuthGuard]
   },
 
   {
