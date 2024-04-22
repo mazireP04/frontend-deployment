@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { DataService } from '../data.service';
 import { Router } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
@@ -33,8 +34,8 @@ export class SignupComponent {
 
   ngOnInit() { }
 
-  routeToInventory() {
-    this.router.navigate(['/inventories']);
+  routeToDashboard() {
+    this.router.navigate(['/dashboard']);
   }
 
   // TODO: ADD PROPER VALIDATIONS
@@ -44,38 +45,73 @@ export class SignupComponent {
       var spinner = document.getElementById('spinner');
       spinner!.style.display = 'block';
 
-      try {
-        const encryptedPassword = await this.dataService.encryptPassword(
-          this.form.value.password
-        );
+      console.log("Emailid: ", this.form.value.email);
+      
+      // TODO: if exists then tell exists, otherwise proceed with making the account
+      this.dataService.adminExists(this.form.value.email).subscribe({
+        next: response => {
+          console.log("Sent to server", response);
+          
+          if(response){
+            const { result } = response;
+            console.log("Exists: ", result);
+            
+            if(result){
+              const alert_message = document.getElementById("adminExists") as HTMLElement;
 
-        if (typeof encryptedPassword !== 'string') {
-          throw new Error('Failed to encrypt password');
-        }
+              spinner!.style.display = 'none';
+              this.formReset(); // why giving all form field red!?
+              // this.form.reset();
 
-        const newData = new Admin(
-          this.form.value.username,
-          this.form.value.email,
-          encryptedPassword
-        );
-
-        // TODO: PREVENT DOUBLE CLICK ON SUBMIT BUTTON WHILE THIS IS GETTING PROCESSED
-        // TODO USE ASYNC AWAIT INSTEAD?
-        this.dataService.addAdmin(newData).subscribe(
-          (response) => {
-            console.log('Admin added successfully!');
-            sessionStorage.setItem('authenticated', this.form.value.email);
-
-            this.form.reset();
-            this.routeToInventory();
-          },
-          (error) => {
-            console.error('Error adding admin: ', error);
+                alert_message.style.display = 'block';
+                setTimeout(() => {
+                  alert_message.style.display = 'none'; 
+                }, 4000);
+            } else{
+              this.addAdmin();
+            }
           }
-        );
-      } catch (error) {
-        console.error(error);
+        },
+        error: (err)=>{
+          console.log(err);
+          // throw err?
+        }        
+      });      
+    }
+  }
+
+  async addAdmin(){
+    try {
+      const encryptedPassword = await this.dataService.encryptPassword(
+        this.form.value.password
+      );
+
+      if (typeof encryptedPassword !== 'string') {
+        throw new Error('Failed to encrypt password');
       }
+
+      const newData = new Admin(
+        this.form.value.username,
+        this.form.value.email,
+        encryptedPassword
+      );
+
+      // TODO: PREVENT DOUBLE CLICK ON SUBMIT BUTTON WHILE THIS IS GETTING PROCESSED
+      // TODO USE ASYNC AWAIT INSTEAD?
+      this.dataService.addAdmin(newData).subscribe(
+        (response) => {
+          console.log('Admin added successfully!');
+          sessionStorage.setItem('authenticated', this.form.value.email);
+
+          this.form.reset();
+          this.routeToDashboard();
+        },
+        (error) => {
+          console.error('Error adding admin: ', error);
+        }
+      );
+    } catch (error) {
+      console.error(error);
     }
   }
 

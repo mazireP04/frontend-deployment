@@ -28,7 +28,6 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class DisplayTableComponent implements OnInit {
 
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 

@@ -93,7 +93,7 @@ export class StackedBarChartComponent {
           {
             label: "Available",
             data: this.data.available,
-            backgroundColor: '#d3fdbe',  //'#a1ece0', //'#c493ff', // 'limegreen',
+            backgroundColor: '#66F33F',  //'#a1ece0', //'#c493ff', // 'limegreen',
             stack: 'Stack 0'
           },
           {

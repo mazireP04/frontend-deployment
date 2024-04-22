@@ -56,6 +56,8 @@ header {
 
   background-image: linear-gradient(to left, #c493ff, #ff99d0, #ffb9b0, #ffdfb7, #fefedf);  // rgb(103, 58, 183);
   background-image: linear-gradient(to left, #9ce0e8, #afeae0, #c9f2db, #e4f8da, #fefedf);
+  background-image: linear-gradient(to left, rgb(156, 224, 232), #a4e0f2, #b0e0f9, #bee0fe, #cddfff, #e0deff, #f1defb, #ffdff5, #ffe2e9, #ffeade, #fff3da, rgb(254, 254, 223));
+
   display: flex;
   justify-content: space-between;
   margin-top: 0;
@@ -75,6 +77,8 @@ header {
 }
 
 .title {
+  margin-top: auto;
+  margin-bottom: auto;
   // color: white;
   color:black;
   flex-grow: 1;
@@ -83,6 +87,9 @@ header {
 
 
 .user {
+  margin-top: auto;
+  margin-bottom: auto;
+
   z-index: 2;
   position: relative;
 
@@ -97,6 +104,9 @@ header {
   }
 
   .userButton {
+    margin-top: auto;
+    margin-bottom: auto;
+
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -113,6 +123,7 @@ header {
     background-image: linear-gradient(to left top, #b0ffe5, #9ffbff, #b3f1ff, #dce4ff, #fed8ff);
     background-image: linear-gradient(to right top,  #ffb9b0, #ffdfb7, #fefedf);  
     background-image: linear-gradient(to left, #e4f8da, #fefedf);
+    background-image: linear-gradient(to right top,  #ffdff5, #ffe5e5, #fff0da, #fefedf);
 
   }
 
@@ -144,6 +155,7 @@ header {
     button:hover{
       background-image: linear-gradient(to right, #c493ff, #ff99d0, #ffb9b0, #ffdfb7, #fefedf);  // rgb(103, 58, 183);
       background-image: linear-gradient(to left top, #9ce0e8, #afeae0, #c9f2db, #e4f8da, #fefedf);
+      background-image: linear-gradient(to left top, rgb(156, 224, 232), #a4e0f2, #b0e0f9, #bee0fe, #cddfff, #e0deff, #f1defb, #ffdff5, #ffe2e9, #ffeade, #fff3da, rgb(254, 254, 223));
 
 
     }
@@ -217,8 +229,21 @@ mat-sidenav{
   // background-image: linear-gradient( 135deg, #FFA8A8 10%, #FCFF00 100%);
   background-image: linear-gradient(to right top, #c493ff, #ff99d0, #ffb9b0);
   background-image: linear-gradient(to left top, #93e1ea, #a1ece0, #c9f2db);
+  background-image: linear-gradient(to left top, #9ce0e8, #a4e0f2, #bee0fe, #e0deff);
 
-    
+  background-image: linear-gradient(to left, #dfdffe, #ffdff5);
+  background-image: linear-gradient(to right top, #c493ff, #fad5d0, #FEFEDF);
+
+  color: transparent;
+    background-clip: text;
+    background-color: #c493ff;
+    background-image: linear-gradient(to right top, #c493ff, #db8cff, #DFDFFE, #FEFEDF);
+    background-image: linear-gradient(to right top, #c493ff, #ff99d0, #fefedf);
+    background-image: linear-gradient(to right top, #b39ddb, #ffd8b0, #fff9c2);
+    background-image: linear-gradient(to right top, #c493ff, #c5a3ff, #c7b2ff, #ccc0ff, #d3ceff, #e6d2fb, #f5d8f8, #ffdff5, #ffe2e9, #ffeade, #fff3da, #fefedf);
+    background-image: linear-gradient(to right top, #a35afe, #c493ff, #c5a3ff, #c7b2ff, #e6d2fb, #f5d8f8, #ffdff5, #ffe2e9, #fefedf);
+    background-image: linear-gradient(to right bottom, #91dee6, #8fdaf1, #99d7f9, #a7d2f8, #c7dbfe, #c3bffc, #f1defb, #fbccec, #ffdbe3);
+
   }
 
 .sidenav {
@@ -292,9 +317,9 @@ mat-sidenav{
     font-size: small;
   }
 
-  .user {
-    margin-top: 10px;
-  }
+  // .user {
+  //   // margin-top: 10px;
+  // }
 
   .userBlock {
     right: 0;

@@ -28,6 +28,14 @@ main {
   }
 }
 
+.hideOnMobile{
+  @media (max-width: 600px){
+    display: none;
+  }
+
+
+}
+
 .row {
   width: 85%;
   display: flex;
@@ -84,21 +92,6 @@ main {
 //   background-color: #7a12f8 !important;
 // }
 
-.mat-mdc-checkbox .mdc-checkbox__background {
-  background-color: #e9d7ff24 !important;
-  border-color: rgb(69, 69, 69) !important;
-}
-
-.mdc-checkbox__ripple {
-     background-color:#ffb9b0 !important;
-}
-
-
-.mat-mdc-checkbox.mat-mdc-checkbox-checked .mdc-checkbox__background{
-  border-color: #fefedf !important;
-    background-color: #ffcee8 !important;
-  // background-image: linear-gradient(to top, #c493ff, #ff99d0, #ffb9b0, #ffdfb7, #fefedf) !important;
-}
 
 
 
@@ -117,14 +110,10 @@ main {
 
   .text {
     flex: 1;
-    /* Allow text to take remaining space */
     text-align: center;
-    /* Center-align the text */
     font-size: 14px;
     white-space: nowrap;
-    /* Prevent text from wrapping */
     overflow: hidden;
-    /* Hide any overflow text */
     text-overflow: ellipsis;
   }
 
@@ -230,7 +219,6 @@ mat-paginator {
 section {
   width: 85%;
   overflow-x: auto;
-  /* Enable horizontal scrolling for smaller screens */
   min-height: 50vh;
   margin: 0 auto;
   display: flex;
@@ -244,7 +232,6 @@ table {
   width: 100%;
   border-collapse: collapse;
   table-layout: auto;
-  /* Change table layout to auto */
   overflow-x: auto;
 
 }
@@ -253,14 +240,10 @@ td,
 th {
   text-align: center;
   border: 1px solid #ddd;
-  /* Add border for better visibility */
   padding: 8px;
   font-size: 14px;
-  /* Adjust font size */
   width: auto;
-  /* Set column width to auto */
   white-space: nowrap;
-  /* Prevent text wrapping */
 }
 
 caption {
