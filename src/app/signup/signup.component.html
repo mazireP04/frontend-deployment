@@ -7,7 +7,7 @@
 
 <main>
     <!-- <div class="container"> -->
-        <mat-card id="adminExists" style="display: none; width: max-content; padding: 1%; text-align: center; background-color: #f4501e8a; position: fixed; top: 3%;" color="warn">
+        <mat-card id="adminExists" style="display: none; width: max-content; padding: 1%; text-align: center; background-color: #f4501e8a; position: fixed; top: 3%; z-index: 5;" color="warn">
             <p>Admin exists! please login or use another email </p>
         </mat-card>
 
@@ -40,23 +40,158 @@
                         <mat-label>Email-ID</mat-label>
                         <input matInput type="email" formControlName="email" required />
                     </mat-form-field>
+                    <!-- @if (form.controls['email'].invalid){
+                        <mat-error class="form-control-feedback">
+                          {{ getPasswordError() }}
+                        </mat-error>
+                        } -->
 
                     <!-- Password:  -->
-                    <mat-form-field appearance="outline" class="form-group" id="password">
+                    <mat-form-field appearance="outline" class="form-group" id="password" (click)="showPasswordRequirements = true">
                         <mat-label>Password</mat-label>
-                        <input matInput class="form-control" formControlName="password" required
-                            [type]="hide ? 'password' : 'text'" />
+                        <input #password matInput class="form-control" formControlName="password" required
+                            [type]="hidePassword ? 'password' : 'text'" (blur)="onPasswordBlur()" />
                         <!-- @if (password.invalid){
                             <mat-error class="form-control-feedback">
                                    {{getPasswordError()}}
                             </mat-error>
                         } -->
-
-                        <button type="button" mat-icon-button matSuffix class="showPassword" (click)="hide = !hide"
-                            [attr.aria-pressed]="hide" id="hidePassword">
-                            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+                        <!-- @if(password.) -->
+                        <button type="button" mat-icon-button matSuffix class="showPassword" (click)="hidePassword = !hidePassword"
+                            [attr.aria-pressed]="hidePassword" id="hidePassword">
+                            <mat-icon>{{ hidePassword ? "visibility_off" : "visibility" }}</mat-icon>
                         </button>
                     </mat-form-field>
+
+                    <!-- && password.invalid -->
+                        <mat-card class='passwordConditions' *ngIf="showPasswordRequirements && form.controls['password'].invalid">
+                            <mat-label
+                            [ngClass]="form.controls['password'].hasError('required') || form.controls['password'].hasError('minlength')  ? 'text-danger' : 'text-success'"
+                            >
+                            <!-- <i class="material-icons">
+                                {{ form.controls['password'].hasError('required') ||
+                                form.controls['password'].hasError('minlength') ? 'cancel' :
+                                'check_circle' }}
+                            </i> -->
+                            <span class="material-symbols-outlined">
+                                {{ form.controls['password'].hasError('required') || form.controls['password'].hasError('minlength') ? 'check_box_outline_blank' : 'check_box' }}
+                            </span>
+                            Must be at least 8 characters!
+                            </mat-label>
+
+                            <br>
+                            <mat-label
+                            class="col"
+                            [ngClass]="form.controls['password'].hasError('required') || form.controls['password'].hasError('hasNumber')  ? 'text-danger' : 'text-success'"
+                            >
+                            <!-- <i class="material-icons">
+                                {{ form.controls['password'].hasError('required') ||
+                                form.controls['password'].hasError('hasNumber') ? 'cancel' :
+                                'check_circle' }}
+                            </i> -->
+                            <span class="material-symbols-outlined">
+                                {{ form.controls['password'].hasError('required') ||
+                                form.controls['password'].hasError('hasNumber') ? 'check_box_outline_blank' : 'check_box' }}
+                            </span>
+                            Must contain at least 1 number!
+                            </mat-label>
+
+                            <br>
+                            <mat-label
+                            class="col"
+                            [ngClass]="form.controls['password'].hasError('required') || form.controls['password'].hasError('hasCapitalCase')  ? 'text-danger' : 'text-success'"
+                            >
+                            <!-- <i class="material-icons">
+                                {{ form.controls['password'].hasError('required') ||
+                                form.controls['password'].hasError('hasCapitalCase') ? 'cancel' :
+                                'check_circle' }}
+                            </i> -->
+                            <span class="material-symbols-outlined">
+                                {{ form.controls['password'].hasError('required') ||
+                                form.controls['password'].hasError('hasCapitalCase') ? 'check_box_outline_blank' : 'check_box' }}
+                            </span>
+                            Must contain at least 1 in Capital Case!
+                            </mat-label>
+
+                            <br>
+                            <mat-label
+                            class="col"
+                            [ngClass]="form.controls['password'].hasError('required') || form.controls['password'].hasError('hasSmallCase')  ? 'text-danger' : 'text-success'"
+                            >
+                            <!-- <i class="material-icons">
+                                {{ form.controls['password'].hasError('required') ||
+                                form.controls['password'].hasError('hasSmallCase') ? 'cancel' :
+                                'check_circle' }}
+                            </i> -->
+                            <span class="material-symbols-outlined">
+                                {{ form.controls['password'].hasError('required') ||
+                                form.controls['password'].hasError('hasSmallCase') ? 'check_box_outline_blank' : 'check_box' }}
+                            </span>
+                            Must contain at least 1 Letter in Small Case!
+                            </mat-label>
+
+                            <br>
+                            <mat-label
+                            class="col"
+                            [ngClass]="form.controls['password'].hasError('required') || form.controls['password'].hasError('hasSpecialCharacters') ? 'text-danger' : 'text-success'"
+                            >
+                            <!-- <i class="material-icons">
+                                {{ form.controls['password'].hasError('required') ||
+                                form.controls['password'].hasError('hasSpecialCharacters') ? 'cancel' :
+                                'check_circle' }}
+                            </i> -->
+                            <span class="material-symbols-outlined">
+                                {{ form.controls['password'].hasError('required') ||
+                                form.controls['password'].hasError('hasSpecialCharacters') ? 'check_box_outline_blank' : 'check_box' }}
+                            </span>
+                            Must contain at least 1 Special Character!
+                            </mat-label>
+
+                            <div *ngIf="form.controls['password'].valid" class="text-success">
+                                Strong password!
+                            </div>
+                        </mat-card>
+
+                        <!-- <mat-error *ngIf="form.get('password').hasError('required')">
+                            Password is required.
+                        </mat-error>
+                        <mat-error *ngIf="form.get('password').hasError('minlength')">
+                            Password should be at least 8 characters.
+                        </mat-error>
+                        <mat-error *ngIf="form.get('password').hasError('hasNumber')">
+                            Password must contain at least one number.
+                        </mat-error>
+                        <mat-error *ngIf="form.get('password').hasError('hasCapitalCase')">
+                            Password must contain at least one uppercase letter.
+                        </mat-error>
+                        <mat-error *ngIf="form.get('password').hasError('hasSmallCase')">
+                            Password must contain at least one lowercase letter.
+                        </mat-error>
+                        <mat-error *ngIf="form.get('password').hasError('hasSpecialCharacters')">
+                            Password must contain at least one special character.
+                        </mat-error> -->
+                        
+
+                    <!-- Confirm Password:  -->
+                    <mat-form-field appearance="outline" class="form-group" id="confirmPassword">
+                        <mat-label>Confirm Password</mat-label>
+                        <input matInput class="form-control" formControlName="confirmPassword" required
+                            [type]="hideConfirmPassword ? 'password' : 'text'" />
+                        <button type="button" mat-icon-button matSuffix class="showConfirmPassword" (click)="hideConfirmPassword = !hideConfirmPassword"
+                            [attr.aria-pressed]="hideConfirmPassword" id="hideConfirmPassword">
+                            <mat-icon>{{ hideConfirmPassword ? "visibility_off" : "visibility" }}</mat-icon>
+                        </button>
+                    </mat-form-field>
+
+                    <mat-label
+                        class="error"
+                        *ngIf="form.controls['confirmPassword'].touched && form.get('confirmPassword')?.hasError('NoPasswordMatch')"
+                        >
+                        Passwords do not match
+                    </mat-label>
+                    <!-- *ngIf="form.controls['confirmPassword'].hasError('NoPasswordMatch')" -->
+
+
 
                     <!-- SUBMIT -->
                     <div class="buttons">
@@ -67,6 +202,7 @@
                             Reset
                         </button>
                     </div>
+                    
                 </form>
                 <footer>
                     <p> Have an account? <button mat-button (click)="routeToLoginPage()">Login</button></p>
@@ -91,7 +227,10 @@
     </mat-card>
 
     <!-- <mat-card class="loading" style="display:none; position: fixed; background-color: rgb(183, 183, 183); z-index: 3; display: flex; justify-content: center; align-items: center;"> -->
-    <mat-spinner id="spinner" style="z-index: 2; position: fixed; display: none"></mat-spinner>
+    <div id="overlay">
+        <mat-spinner id="spinner" style="z-index: 2; position: fixed; "></mat-spinner>
+    </div>
+
     <!-- </mat-card> -->
     <!-- </div> -->
 </main>

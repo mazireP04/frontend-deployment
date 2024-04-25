@@ -7,6 +7,39 @@
     <div class="row">
 
         
+        <!-- <div id="search"> -->
+            <mat-form-field mat-input appearance="outline" color="primary" class="input">
+                <mat-label>Search</mat-label>
+                <input matInput (keyup)="applyFilter($event, selected)" #inputT />
+                <div class="select"> 
+                    <!-- <mat-form-field appearance="outline" >
+                        
+                        <mat-label>Search By</mat-label>
+                        <mat-select formControlName="searchBy" required placeholder="Select search type" #selectedType>
+                            @for (type of ["Assign To", "Status"]; track type){
+                            <mat-option [value]="type">{{type}}</mat-option>
+                            }
+                        </mat-select>
+                    
+                    </mat-form-field> -->
+                    <button mat-button id="dropdown" (click)="showOptions()" #dropdown>{{label}}
+                        <span class="material-symbols-outlined" style="vertical-align:middle;">
+                            arrow_drop_down
+                        </span>
+                    </button>
+                    <!-- <div id="options"> -->
+                        <ul id="options">
+                            <li><button mat-button (click)="selectOption('all', 'All')">All</button></li>
+                            <li><button mat-button (click)="selectOption('assignedTo', 'Assigned To')">Assigned To</button></li>
+                            <li><button mat-button (click)="selectOption('status', 'Status')">Status</button></li>
+                        </ul>
+                    <!-- </div> -->
+                </div>
+            </mat-form-field>
+        <!-- </div> -->
+
+
+
         <div class="filterButton">
             <span class="material-symbols-outlined">
                 filter_alt
@@ -36,7 +69,7 @@
         <div class="filterBoxes">
             <!-- FOR ASSIGNED TO -->
             <mat-form-field appearance="outline">
-                <mat-label>Assigned To </mat-label>
+                <mat-label>Assigned To</mat-label>
                 <input matInput (keyup)="applyFilter($event, 'assignedTo')" #input />
             </mat-form-field>
 
@@ -176,18 +209,27 @@
             <!-- toggleRowSelection -->
             <!-- selection.toggle -->
 
+
             <!-- WHEN NO DATA MATCHES -->
             <ng-container *ngIf="input.value != ''">
                 <tr class="mat-row" *matNoDataRow>
-                    <td class="mat-cell" colspan="11">
+                    <td class="mat-cell" colspan="*">
                         No data matching the filter "{{ input.value }}"
+                    </td>
+                </tr>
+            </ng-container>
+
+            <ng-container *ngIf="inputT.value != ''">
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="*">
+                        No data matching the filter "{{ inputT.value }}"
                     </td>
                 </tr>
             </ng-container>
 
             <ng-container *ngIf="inputS.value != ''">
                 <tr class="mat-row" *matNoDataRow>
-                    <td class="mat-cell" colspan="11">
+                    <td class="mat-cell" colspan="*">
                         No data matching the filter "{{ inputS.value }}"
                     </td>
                 </tr>
@@ -196,7 +238,7 @@
             <!-- TODO : FIX THIS! -->
             <ng-container *ngIf="input.value == ''">
                 <tr class="mat-row" *matNoDataRow>
-                    <td class="mat-cell" colspan="11" style="
+                    <td class="mat-cell" colspan="*" style="
               text-align: center;
               font-size: medium;
               font-weight: bold;

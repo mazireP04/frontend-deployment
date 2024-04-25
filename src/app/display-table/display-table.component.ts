@@ -59,6 +59,9 @@ export class DisplayTableComponent implements OnInit {
 
   showFirstLastButtons = "true";
 
+  selected = "all";
+  label = "All"
+
   constructor(private router: Router, public dialog: MatDialog) { 
     this.selection = new SelectionModel<any>(true, []);
   }
@@ -111,6 +114,22 @@ export class DisplayTableComponent implements OnInit {
     // Disable buttons
     this.deleteButtonDisabled = true;
     this.unassignButtonDisabled = true;
+  }
+
+  showOptions(){
+    const optionsList = document.getElementById("options") as HTMLElement;
+    if(optionsList.style.display == "flex"){
+      optionsList.style.display = "none"
+    }
+    else{
+      optionsList.style.display = "flex"
+    }
+  }
+
+  selectOption(select: string, label: string){
+    this.showOptions();
+    this.selected = select;
+    this.label = label;
   }
 
   // TODO: CHECK THIS!
@@ -170,9 +189,10 @@ export class DisplayTableComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
 
     switch (filterType) {
-      // case 'general':
-      //   this.dataSource.filter = filterValue;
-      //   break;
+      // TODO: BUT THEN WHAT THE POINT OF OTHER FILTER TYPES IF A GENERAL ONE IS AVAILABLE?!
+      case 'all':
+        this.dataSource.filter = filterValue;
+        break;
 
       case 'assignedTo':
         this.dataSource.filterPredicate = (data, filter) => {

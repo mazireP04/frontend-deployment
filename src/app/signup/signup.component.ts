@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   MinLengthValidator,
+  PatternValidator,
+  ValidationErrors,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { DataService } from '../data.service';
@@ -18,7 +22,10 @@ export class SignupComponent {
   form: FormGroup;
   users: Array<Admin> = [];
 
-  hide = true;
+  hidePassword = true;
+  hideConfirmPassword = true;
+  passwordTouched = false;
+  showPasswordRequirements = false;
 
   constructor(
     private fb: FormBuilder,
@@ -28,8 +35,33 @@ export class SignupComponent {
     this.form = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-    });
+      password: ['', Validators.compose([
+
+        Validators.required,
+
+        CustomValidator.patternValidator(/\d/, { hasNumber: true }),
+
+        CustomValidator.patternValidator(/[A-Z]/, { hasCapitalCase: true}),
+
+        CustomValidator.patternValidator(/[a-z]/, { hasSmallCase: true }),
+
+        // TODO: CHECK!!
+        CustomValidator.patternValidator(/[@#$\^%&]/, { hasSpecialCharacters: true}),
+        // /[!@#$%^&*()_+-=[\]{};':"|,.<>]/
+
+        Validators.minLength(8)
+      ]) 
+    ],
+      // [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]
+      // contains(lower, upper, digit, symbol) and max length=20
+      // TODO: make sure password not same as the mail id or username?
+      
+      confirmPassword: ['', Validators.compose([Validators.required])]
+    },
+    {
+      validator: CustomValidator.passwordMatchValidator
+    }
+  );
   }
 
   ngOnInit() { }
@@ -38,12 +70,16 @@ export class SignupComponent {
     this.router.navigate(['/dashboard']);
   }
 
+  onPasswordBlur() {
+    this.passwordTouched = false;
+  }
+
   // TODO: ADD PROPER VALIDATIONS
   // TODO: ADD AUTH GUARD LIKE LOGIN FORM
   async onSubmit() {
     if (this.form.valid) {
-      var spinner = document.getElementById('spinner');
-      spinner!.style.display = 'block';
+      var overlay = document.getElementById('overlay');
+      overlay!.style.display = 'flex';
 
       console.log("Emailid: ", this.form.value.email);
       
@@ -59,7 +95,7 @@ export class SignupComponent {
             if(result){
               const alert_message = document.getElementById("adminExists") as HTMLElement;
 
-              spinner!.style.display = 'none';
+              overlay!.style.display = 'none';
               this.formReset(); // why giving all form field red!?
               // this.form.reset();
 
@@ -140,4 +176,75 @@ class Admin {
     public email: string = '',
     public password: string = ''
   ) { }
+}
+
+
+class CustomValidator{
+
+  // WHY STATIC
+  static patternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
+    return (control: AbstractControl) => {
+      if (!control.value){
+        // if control is empty
+        // TODO: IS THIS NULL OR A LIST
+        return null;
+      }
+
+      const valid = regex.test(control.value);
+
+      return valid ? null : error;
+    }
+  }
+
+
+  // static patternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
+  //   return (control: AbstractControl): ValidationErrors | null => {
+  //     const value = control.value;
+  
+  //     // Check if the control value is empty
+  //     if (!value || value === '') {
+  //       // Return null if the control value is empty
+  //       return null;
+  //     }
+  
+  //     // Check if the value matches the regex pattern
+  //     const valid = regex.test(value);
+  
+  //     // If the value matches the pattern, return null (no error)
+  //     // Otherwise, return the specified error object
+  //     return valid ? null : error;
+  //   };
+  // }
+
+  
+  // static passwordMatchValidator(control: AbstractControl){
+  //   const password: string = control.get('password')?.value;
+  //   const confirmPassword: string = control.get('confirmPassword')?.value;
+
+  //   if(password != confirmPassword){
+  //     control.get('confirmPassword')?.setErrors({NoPasswordMatch: true}); 
+  //   }
+  // }
+
+  static passwordMatchValidator(group: FormGroup) {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+  
+    if(password != confirmPassword){
+          group.get('confirmPassword')?.setErrors({NoPasswordMatch: true}); 
+        }
+    // return password === confirmPassword ? null : { NoPasswordMatch: true };
+  }
+
+//   static passwordMatchValidator(group: FormGroup) {
+//     const password = group.get('password')?.value;
+//     const confirmPassword = group.get('confirmPassword')?.value;
+
+//     // Check if confirmPassword field is touched and value does not match the password
+//     if (group.get('confirmPassword')?.touched && password !== confirmPassword) {
+//         group.get('confirmPassword')?.setErrors({ NoPasswordMatch: true });
+//     }
+// }
+
+  
 }

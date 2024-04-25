@@ -14,6 +14,7 @@ main {
     background-image: linear-gradient(to top, #c493ff, #ff99d0, #ffb9b0, #ffdfb7, #fefedf);
     background-image: linear-gradient(to top, #9ce0e8, #afeae0, #c9f2db, #e4f8da, #fefedf);
     // filter: ;
+    overflow-y: auto;
 
 }
 
@@ -22,6 +23,7 @@ main {
     flex-flow: row nowrap;
     // padding-top: 2px;
     height: 100%;
+    height: max-content;
 }
 
 .container {
@@ -35,23 +37,43 @@ main {
     // flex-flow: row nowrap;
 
     width: 65vw;
+    width:fit-content;
     // max-width: 600px; 5// Set maximum width for the card
     height: 65vh;
+    height: max-content;
+
     // padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: white;
-
+    margin-top: auto;
+    margin-bottom: auto;
+    margin: auto;
     // @media screen and (max-width: 768px) {
     //     flex-direction: column;
     // }
     @media screen and (min-width: 768px) {
         height: 73vh;
-        width: 60vw;
+        width: 65vw;
+        // width: max-content;
+        height: max-content;
     }
 }
 
+#overlay{
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    background-color:#9ce0e881;
+    z-index: 3;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+}
 form {
+    // margin-top: auto;
+    // margin-bottom: auto;
+
     width: 100%;
     display: flex;
     flex-flow: column;
@@ -62,7 +84,44 @@ form {
     }
 }
 
+mat-label{ 
+    vertical-align: top;
+    .material-symbols-outlined{
+        vertical-align: sub;
+    }
+}
+
+
+.text-danger{
+    color: rgb(0, 0, 0);
+}
+.text-success{
+    color: rgb(162, 162, 162);
+}
+.error{
+    color: #f4501ef1;
+    font-size: small;
+    padding: 0;
+    margin: 0;
+    margin-left: 2px;
+}
+
+.passwordConditions{
+    
+    background-color: rgba(255, 255, 255, 0.603);
+
+    @media (min-width: 600px) {
+        position: fixed;
+        left: 0;
+        top: 25%;
+        width: 17%; 
+
+    }
+}
+
+
 .form-container {
+    
     width: 50%;
     display: flex;
     flex-flow: column;
@@ -79,6 +138,8 @@ form {
         height: 100%;
     }
 }
+
+
 
 header {
     text-align: center;
