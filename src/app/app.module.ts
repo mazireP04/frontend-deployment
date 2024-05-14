@@ -39,6 +39,9 @@ import { MatDialogContent } from '@angular/material/dialog';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { StackedBarChartComponent } from './stacked-bar-chart/stacked-bar-chart.component';
 import { DoughnutChartComponent } from './doughnut-chart/doughnut-chart.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { DeleteEmployeeComponent } from './delete-employee/delete-employee.component';
+
 
 @NgModule({
   declarations: [
@@ -53,6 +56,7 @@ import { DoughnutChartComponent } from './doughnut-chart/doughnut-chart.componen
     DashboardComponent,
     StackedBarChartComponent,
     DoughnutChartComponent,
+    DeleteEmployeeComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,6 +82,7 @@ import { DoughnutChartComponent } from './doughnut-chart/doughnut-chart.componen
     HttpClientModule,
     MatProgressSpinnerModule,
     MatDialogContent,
+    MatButtonToggleModule
   ],
   providers: [
     provideAnimationsAsync(),

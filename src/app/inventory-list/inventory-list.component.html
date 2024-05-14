@@ -6,18 +6,8 @@
   [length]="length"
   [pageIndex]="pageIndex"
   [selectedItemIds]="selectedItemIds"
-  [displayedColumns]="[
-    'ID',
-    'Category',
-    'Sub-Category',
-    'Model Name',
-    'Model Memory',
-    'Warranty',
-    'Screen Size',
-    'Price',
-    'Assigned To',
-    'Status'
-  ]"
+  [displayedColumns]="displayedColumns"
+  (display)="changeDisplayedColumns($event)"
   (deleteItems)="deleteItems($event)"
   (unassignItems)="unassignSelectedItems($event)"
   (pageChanged)="onPageChanged($event)"

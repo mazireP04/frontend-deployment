@@ -38,7 +38,7 @@ export class DoughnutChartComponent {
           {
             label: "Inventory",
             data: this.data, // [60, 70] ;; [no of available, no of non- available]
-            backgroundColor: [ '#A3F9B1', 'lightgrey'],
+            backgroundColor: [ '#5ae2d9', 'lightgrey'],
           },
         ]
       },

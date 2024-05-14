@@ -6,6 +6,10 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatButtonModule } from '@angular/material/button';
+
+
 import {
   MatDialog,
   MatDialogRef,
@@ -15,7 +19,7 @@ import {
   MatDialogContent,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -46,6 +50,7 @@ export class DisplayTableComponent implements OnInit {
   @Output() unassignItems: EventEmitter<Set<string>> = new EventEmitter<Set<string>>();
   @Output() pageChanged: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
   @Output() updateSelectedItems: EventEmitter<any> = new EventEmitter<any>();
+  @Output() display: EventEmitter<any> = new EventEmitter<any>();
 
   @Input() displayedColumns: string[] = [];
   @Input() selectedItemIds:Set<string> = new Set<string>();
@@ -61,6 +66,8 @@ export class DisplayTableComponent implements OnInit {
 
   selected = "all";
   label = "All"
+
+  displayCategory = new FormControl('All');
 
   constructor(private router: Router, public dialog: MatDialog) { 
     this.selection = new SelectionModel<any>(true, []);
@@ -219,20 +226,20 @@ export class DisplayTableComponent implements OnInit {
   }
 
   //TODO SR NUMBER?
-  actualColumns: string[] = [
-    'select',
-    'ID',
-    'Category',
-    'Sub-Category',
-    'Model Name',
-    'Model Memory',
-    'Warranty',
-    'Screen Size',
-    'Price',
-    'Assigned To',
-    'Status',
+  // actualColumns: string[] = [
+  //   'select',
+  //   'ID',
+  //   'Category',
+  //   'Sub-Category',
+  //   'Model Name',
+  //   'Model Memory',
+  //   'Warranty',
+  //   'Screen Size',
+  //   'Price',
+  //   'Assigned To',
+  //   'Status',
 
-  ];
+  // ];
 
 
   /** Whether the number of selected elements matches the total number of rows. */

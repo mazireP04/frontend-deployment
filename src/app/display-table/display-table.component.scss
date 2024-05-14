@@ -250,6 +250,15 @@ table {
 }
 
 
+mat-button-toggle-group {
+  margin-left: 7.5%;
+  align-self: flex-start;
+
+  @media (max-width: 600px) {
+    display: none;
+  }
+}
+
 // #search{
 //   display: flex;
 //   // justify-content: flex-end;

@@ -12,7 +12,7 @@ import { DataService } from '../data.service';
 export class InputFormComponent implements OnInit {
 
   form: FormGroup;
-  itemsArray: Array<DisplayObject> = [];
+  // itemsArray: Array<DisplayObject> = [];
 
 
   categories = new Map<string, Array<string>>(
@@ -24,21 +24,37 @@ export class InputFormComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder, private router: Router, private _dataService: DataService) {
+    // TODO: add custom validators so fields are required as per the category selected
+    // TODO: add more info about each field in this constructor
     this.form = this.fb.group({
       category: ['', Validators.required],
-      subCategory: [''],
+      subCategory: ['', Validators.required],
+
+      // electronics
       model: this.fb.group({
-        name: ['', Validators.required],
-        memory: ['', Validators.required],
+        name: [''],
+        memory: [''],
       }),
       specification: this.fb.group({
-        warranty: ['', Validators.required],
-        screenSize: ['', Validators.required],
+        warranty: [''],
+        screenSize: [''],
       }),
+
+      // non-electronics
+      brandName: [''],
+      warranty: [''],
+      color: [''],
+      size: [''],
+      dimensions: [''],
+
+      // common
       quantity: [, Validators.required],
       price: ['', Validators.required],
     });
   }
+ 
+
+
 
   ngOnInit() { }
 
@@ -49,22 +65,66 @@ export class InputFormComponent implements OnInit {
     const newData = [];
 
     if (this.form.valid) {
-      for (let i = 0; i < this.form.value.quantity; i++) {
-        newData.push(new DisplayObject(
-          uuidv4(),
-          this.form.value.category,
-          this.form.value.subCategory,
-          {
-            name: this.form.value.model.name,
-            memory: this.form.value.model.memory
+
+      // TODO:OPTIMIZE THIS CODE:
+
+      if(this.form.value.category == 'Electronics'){
+        for (let i = 0; i < this.form.value.quantity; i++) {
+          newData.push(new ElectronicObject(
+            uuidv4(),
+            this.form.value.category,
+            this.form.value.subCategory,
+            {
+              name: this.form.value.model.name,
+              memory: this.form.value.model.memory
+            },
+            {
+              warranty: this.form.value.specification.warranty,
+              screenSize: this.form.value.specification.screenSize
+            },
+            this.form.value.price,
+          ));
+        }
+
+        this._dataService.addElectronicItems(newData).subscribe(
+          (response) => {
+            console.log(response);
+            this.form.reset();
+            this.routeToDataTable();
           },
-          {
-            warranty: this.form.value.specification.warranty,
-            screenSize: this.form.value.specification.screenSize
-          },
-          this.form.value.price,
-        ));
+          (error) => {
+            console.log(error);
+  
+          }
+        );
       }
+      else{
+        for (let i = 0; i < this.form.value.quantity; i++) {
+          newData.push(new NonElectronicObject(
+            uuidv4(),
+            this.form.value.category,
+            this.form.value.subCategory,
+            this.form.value.brandName,
+            this.form.value.warranty,
+            this.form.value.color,
+            this.form.value.size,
+            this.form.value.dimensions,
+            this.form.value.price,
+          ));
+        }
+
+        this._dataService.addNonElectronicItems(newData).subscribe(
+          (response) => {
+            console.log(response);
+            this.form.reset();
+            this.routeToDataTable();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+      
 
       // console.log(this.itemsArray);
       // sessionStorage.setItem('displayArray', JSON.stringify(this.itemsArray));
@@ -77,17 +137,7 @@ export class InputFormComponent implements OnInit {
 
       // this._dataService.updateFormData(newData);
 
-      this._dataService.addItems(newData).subscribe(
-        (response) => {
-          console.log(response);
-          this.form.reset();
-          this.routeToDataTable();
-        },
-        (error) => {
-          console.log(error);
-
-        }
-      );
+      
 
       // this.form.reset();
       // this.routeToDataTable();
@@ -98,7 +148,7 @@ export class InputFormComponent implements OnInit {
 }
 
 // TODO: how to use model and specification objects here?
-class DisplayObject {
+class ElectronicObject {
   constructor(
     public id: string = '',
     public category: string = '',
@@ -119,4 +169,18 @@ class DisplayObject {
 
 }
 
+class NonElectronicObject {
+  constructor(
+    public id: string = '',
+    public category: string = '',
+    public subCategory: string = '',
+    public brandName: string = '',    
+    public warranty: string = '',
+    public color: string = '',
+    public size: string = '',
+    public dimensions: string = '',
+    public price: string = '',
+  ) { }
+
+}
 

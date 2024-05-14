@@ -1,3 +1,6 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 <main>
 
     <form [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
@@ -35,8 +38,10 @@
         </div>
 
 
+
+        <!-- ELECTRONICS -->
         <!-- MODEL NAME -->
-        <fieldset formGroupName="model">
+        <fieldset formGroupName="model" *ngIf="selectedCategory.value == 'Electronics'">
             <mat-form-field appearance="outline" class="form-group">
                 <mat-label>Model Name</mat-label>
                 <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
@@ -53,7 +58,7 @@
 
         <!-- SPECIFICATIONS:  -->
         <!-- WARRANTY -->
-        <fieldset formGroupName="specification">
+        <fieldset formGroupName="specification" *ngIf="selectedCategory.value == 'Electronics'">
             <mat-form-field appearance="outline" class="form-group">
                 <mat-label>Warranty</mat-label>
                 <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
@@ -70,9 +75,56 @@
             </mat-form-field>
         </fieldset>
 
-        <div class="row">
+        
 
 
+
+        
+        <!-- NON - ELECTRONICS -->
+        <!-- BRAND NAME -->
+        <div class="row" *ngIf="selectedCategory.value == 'Non-Electronics'">
+            <mat-form-field appearance="outline" class="form-group" >
+                <mat-label>Brand Name</mat-label>
+                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="5" type="text" formControlName="brandName" required></textarea>
+            </mat-form-field>
+
+            <!-- TODO: OPTIMIZE THIS SETUP -->
+            <!-- WARRANTY -->
+            <mat-form-field appearance="outline" class="form-group" *ngIf="selectedCategory.value == 'Non-Electronics'">
+                <mat-label>Warranty</mat-label>
+                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="5" type="text" formControlName="warranty" required></textarea>
+            </mat-form-field>
+
+        </div>
+        <div class="row" *ngIf="selectedCategory.value == 'Non-Electronics'">
+            <!-- COLOR -->
+            <mat-form-field appearance="outline" class="form-group" >
+                <mat-label>Color</mat-label>
+                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="5" type="text" formControlName="color" required></textarea>
+            </mat-form-field>
+            
+            <!-- SIZE -->
+            <mat-form-field appearance="outline" class="form-group" *ngIf="selectedCategory.value == 'Non-Electronics'">
+                <mat-label>Size</mat-label>
+                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="5" type="text" formControlName="size" required></textarea>
+            </mat-form-field>
+
+            <!-- DIMENSIONS -->
+            <mat-form-field appearance="outline" class="form-group" *ngIf="selectedCategory.value == 'Non-Electronics'">
+                <mat-label>Dimensions</mat-label>
+                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="5" type="text" formControlName="dimensions" required></textarea>
+            </mat-form-field>
+        </div>
+        
+        
+        
+        <!-- COMMON -->
+        <div class="row" *ngIf="selectedCategory.value">
             <!-- QUANTITY  -->
             <mat-form-field appearance="outline" class="form-group">
                 <mat-label>Quantity</mat-label>
@@ -85,8 +137,7 @@
                 <input matInput type="text" formControlName="price" required>
             </mat-form-field>
         </div>
-
-
+    
         <!-- SUBMIT -->
         <div>
             <button id="submit" mat-raised-button [disabled]="form.invalid" type="submit">

@@ -1,106 +1,4 @@
 
-// main{
-//     width: 100vw;
-//     height: 100vh;
-
-//     display: flex;
-//     flex-flow: column;
-// }
-
-// div.charts{
-//     width: 100%;
-//     height: 100%;
-//     display: flex;
-//     justify-content: space-around ;
-//     align-items: center;
-
-
-//     app-doughnut-chart{
-//         width: 45vw;
-//         height: 50vh;
-//     }
-
-//     app-stacked-bar-chart{
-//         width: 45vw;
-//         height: 45vh;
-//     }
-// }
-
-
-
-
-
-// -----------------------
-// main {
-//   background-color: white;
-
-//     width: 100vw;
-//     height: 100vh;
-//     display: flex;
-//     flex-flow: column;
-
-//   }
-  
-//   div.charts {
-//     flex: 1;
-//     display: flex;
-//     justify-content: space-around;
-//     align-items: center;
-//     // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-  
-//     app-doughnut-chart, app-stacked-bar-chart {
-//       width: 100%;
-//       max-width: 45vw;
-//       height: 50vh;
-//     }
-//   }
-  
-
-
-
-// main {
-//   background-color: white;
-//   width: 100vw;
-//   height: 100vh;
-//   display: flex;
-//   flex-flow: column;
-// }
-
-// div.charts {
-//   // margin-top: 0;
-//   // flex: 1;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-//   app-doughnut-chart,
-//   app-stacked-bar-chart {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-
-//     width: 100%;
-//     max-width: 45vw;
-//     height: 50vh;
-//   }
-
-//   @media (max-width: 768px) {
-//     flex-direction: column;
-//     align-items: center;
-
-//     app-doughnut-chart,
-//     app-stacked-bar-chart {
-//       max-width: 90vw;
-//       height: 40vh;
-//       margin-bottom: 20px;
-//     }
-//   }
-// }
-
-
-
 
 main {
   background-color: white;
@@ -108,7 +6,47 @@ main {
   height: 100vh;
   display: flex;
   flex-flow: column;
-  // justify-content: flex-start;
+}
+
+mat-form-field {
+  margin-right: 2px;
+}
+
+.tiles {
+  height: 15vh;
+  width: 100vw;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  color: black;
+  mat-card {
+    text-align: center;
+    background-color: #F5F5F5;
+    height: 100%;
+    width: calc(80vw / 3);
+    mat-card-content {
+      color: rgb(138, 226, 7);
+      font-size: xx-large;
+      vertical-align: middle;
+      text-align: left;
+    }
+  }
+}
+
+.customTab {
+  display: flex;
+  flex-flow: row nowrap;
+  align-self: flex-end;
+  padding: 1%;
+  @media (max-width: 600px) {
+    flex-flow: row nowrap;
+    padding: 0;
+  }
+}
+
+mat-button-toggle-group {
+  width: max-content;
+  align-self: flex-start;
 }
 
 div.charts {
@@ -116,22 +54,17 @@ div.charts {
   display: flex;
   justify-content: center;
   align-items: center;
-  // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
   app-doughnut-chart,
   app-stacked-bar-chart {
     display: flex;
     justify-content: center;
-
     width: 100%;
     max-width: 45vw;
-    height: 50vh;
+    margin: 10px;
   }
-
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
-
     app-doughnut-chart,
     app-stacked-bar-chart {
       max-width: 90vw;
@@ -140,3 +73,114 @@ div.charts {
     }
   }
 }
+
+// @media (max-width: 600px) {
+//   main {
+//     margin-top: 10%;
+//     width: 100vw;
+//     height: 100vh;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+//     padding: 10px;
+//   }
+//   mat-form-field {
+//     margin-bottom: 10px;
+//   }
+//   .tiles {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-around;
+//     align-items: center;
+//     mat-card {
+//       width: 100%;
+//       margin-bottom: 10px;
+//     }
+//   }
+//   .customTab {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     margin-bottom: 10px;
+//     mat-form-field {
+//       width: 100%;
+//       margin-bottom: 10px;
+//     }
+//   }
+//   div.charts {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     margin-bottom: 10px;
+//     margin-top: 20px;
+//     app-doughnut-chart,
+//     app-stacked-bar-chart {
+//       width: 100%;
+//       margin-bottom: 10px;
+//     }
+//     mat-card {
+//       width: 100%;
+//       margin-bottom: 20px;
+//     }
+//   }
+// }
+
+@media (max-width: 600px) {
+  main {
+    margin-top: 10%;
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  mat-form-field {
+    margin-bottom: 10px;
+  }
+
+  .tiles {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    mat-card {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+
+  .customTab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+
+    mat-form-field {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+
+  div.charts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 250px;
+    margin-bottom: 10px;
+
+    app-doughnut-chart,
+    app-stacked-bar-chart {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    mat-card {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
+}
+

@@ -1,5 +1,54 @@
-
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 <main>
+
+    <!-- [formControl]="categoryLabel" -->
+    <div class="customTab">
+        <!-- <mat-button-toggle-group  appearance="standard" aria-label="Display Category">
+            <mat-button-toggle value="All" (click)="getData('All', subCat.value)" >All</mat-button-toggle>
+            <mat-button-toggle value="Electronics" (click)="getData('Electronics', subCat.value)" >Electronics</mat-button-toggle>
+            <mat-button-toggle value="Non-Electronics" (click)="getData('Non-Electronics', subCat.value)">Non-Electronics</mat-button-toggle>
+        </mat-button-toggle-group> -->
+
+        <form [formGroup]="myForm">
+            <mat-form-field mat-input appearance="outline">
+                <mat-label>Category</mat-label>
+                <mat-select formControlName="category" #cat (selectionChange)="onCategoryChange(cat.value)">
+                    <mat-option aria-selected="true" value="All">All</mat-option>
+                    @for(category of catList; track category){
+                        <mat-option [value]="category">{{ category }}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field mat-input appearance="outline">
+                <mat-label>Subcategory</mat-label>
+                <mat-select formControlName="subcategory" #subCat (selectionChange)="onSubcategoryChange(subCat.value)" >
+                    <!-- (selectionChange)="getData(cat.value, subCat.value)" -->
+                    <mat-option aria-selected="true" value="All">All</mat-option>
+                    @for(subCategory of subCatList; track subCategory){
+                        <mat-option [value]="subCategory">{{ subCategory }}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </form>
+    </div>
+
+    <div class="tiles">
+        <mat-card>
+            <mat-card-header>Total worth</mat-card-header>
+            <mat-card-content>{{ worth }}</mat-card-content>
+        </mat-card>
+        <mat-card>
+            <mat-card-header>Total items </mat-card-header>
+            <mat-card-content>{{ totalCount }}</mat-card-content>
+        </mat-card>
+        <mat-card>
+            <mat-card-header> % of inventory available </mat-card-header>
+            <mat-card-content>{{ percentageAvailable | number: '1.0-0' }} %</mat-card-content>
+        </mat-card>
+    </div>
 
     <div class="charts">
         <app-doughnut-chart [data]="doughnutData"></app-doughnut-chart>

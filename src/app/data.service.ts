@@ -28,8 +28,12 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  addItems(newItems: any[]) {
-    return this.http.post<any[]>(this.inventoryApiUrl, newItems);
+  addElectronicItems(newItems: any[]) {
+    return this.http.post<any[]>(`${this.inventoryApiUrl}/electronic`, newItems);
+  }
+
+  addNonElectronicItems(newItems: any[]) {
+    return this.http.post<any[]>(`${this.inventoryApiUrl}/non-electronic`, newItems);
   }
 
   deleteItem(id: string) {
@@ -56,6 +60,19 @@ export class DataService {
     // );
     
   }
+
+  getElectronicItems(pageIndex: number, pageLength: number): Observable<any> {
+    return this.http.get<any[]>(
+      `${this.inventoryApiUrl}/electronic?pageIndex=${pageIndex}&pageSize=${pageLength}`
+    );
+  }
+
+  getNonElectronicItems(pageIndex: number, pageLength: number): Observable<any> {
+    return this.http.get<any[]>(
+      `${this.inventoryApiUrl}/non-electronic?pageIndex=${pageIndex}&pageSize=${pageLength}`
+    );
+  }
+
 
   updateItem(id: string, assignedTo: string, status: string) {
     return this.http.patch<any[]>(`${this.inventoryApiUrl}/${id}`, {
@@ -160,25 +177,25 @@ export class DataService {
 
   // DASHBOARD
 
-  getStackedBarInfo(){
-    return this.http.get<any>(`${this.inventoryApiUrl}/modelNames`);
-  }
-
-  // getStackedBarData(){
-
+  // getStackedBarInfo(){
+  //   return this.http.get<any>(`${this.inventoryApiUrl}/modelNames`);
   // }
 
+  getStackedBarData(category: string, subCategory: any){
+    return this.http.get<any>(`${this.inventoryApiUrl}/modelNames?category=${category}&subCategory=${subCategory}`);
+  }
 
-  // async getStackedBarInfo(){
-  //   const returnedData = await this.getStackedBarLabels();
-  
+  // `${this.inventoryApiUrl}/modelNames?category=${category}`
+  // `${this.inventoryApiUrl}/doughnutData?category=${category}`
 
-  //   this.getStackedBarData();
+  // getDoughnutChartData(){
+  //   return this.http.get<any>(`${this.inventoryApiUrl}/doughnutData`);
   // }
 
-  getDoughnutChartData(){
-    return this.http.get<any>(`${this.inventoryApiUrl}/doughnutData`);
+  getDoughnutData(category: string, subCategory: any){
+    return this.http.get<any>(`${this.inventoryApiUrl}/doughnutData?category=${category}&subCategory=${subCategory}`);
   }
+
 }
 
 // TODO:

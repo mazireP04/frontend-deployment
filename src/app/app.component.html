@@ -25,13 +25,20 @@
 
   <div class="user">
     <button class="userButton" mat-raised-button [value]="buttonText">
-      <!-- <mat-icon>user</mat-icon> -->
+      <!-- <mat-icon>user</mat-icon> --> 
+      <!-- make as if on button username outside, and mail initials in circle  -->
       {{ buttonText }}
     </button>
 
     <div class="userBlock">
       <p>{{ mailId }}</p>
-      <button mat-button (click)="logout()">Logout</button>
+      <!-- <button class="account" mat-button [value]="buttonText" (click)="openDialog()" style="background: white;">
+        <span class="material-symbols-outlined" style="color: black; vertical-align:text-bottom;">
+          account_circle
+          </span>
+         Account 
+      </button> -->
+      <button mat-raised-button (click)="sidenav.close();logout()">Logout</button>
     </div>
   </div>
 </header>
@@ -39,61 +46,64 @@
 
 <mat-sidenav-container class="entire-container" [hasBackdrop]="hasBackdrop.value">
   <!-- entire page -->
-  <mat-sidenav #sidenav [mode]="mode.value!" [position]="position.value!" hidden="!router.url.includes('/login') && !router.url.includes('/signup')">
-    <!-- *ngIf="!router.url.includes('/login') && !router.url.includes('/signup')" -->
-    <!-- the side nav -->
-  <p>
-    <button mat-button class="menuButton" (click)="sidenav.toggle()">
-      <mat-icon>menu</mat-icon>
-    </button> 
-  </p>
-
-  <p>
-    <button mat-button routerLink="/dashboard" routerLinkActive="active">
-      <span class="material-symbols-outlined">
-        dashboard
-      </span>
-      <span style="vertical-align: super; font-size: medium;" class="tilt-neon-font"> Dashboard </span>
-    </button>
-  </p>
-
-  <p>
-    <button mat-button routerLink="/inventories" routerLinkActive="active">
-      <span class="material-symbols-outlined"> inventory </span>
-      <span style="vertical-align: super; font-size: medium;" class="tilt-neon-font"> Inventories </span>
-    </button>
-  </p>
-
-  <p>
-    <button mat-button routerLink="/add-inventory" routerLinkActive="active">
-      <span class="material-symbols-outlined">
-        <!-- description -->
-        library_add
-      </span>
-      <span style="vertical-align: super; font-size: medium;" class="tilt-neon-font"> Add Inventory </span>
-    </button>
-  </p>
-
-  <p>
-    <button mat-button routerLink="/resource-assignment" routerLinkActive="active">
-      <span class="material-symbols-outlined"> edit </span>
-      <span style="vertical-align: super; font-size: medium;" class="tilt-neon-font"> Assign Resource </span>
-    </button>
-  </p>
-
-  <p>
-    <button mat-button routerLink="/add-user" routerLinkActive="active">
-      <span class="material-symbols-outlined"> person_add </span>
-      <span style="vertical-align: super; font-size: medium;" class="tilt-neon-font"> Add User </span>
-    </button>
-  </p>
-  </mat-sidenav>
+  <!-- @if(!(router.url.includes('/login') || router.url.includes('/signup'))){ -->
+    <mat-sidenav #sidenav name="sidenav" [mode]="mode.value!" [position]="position.value!" >
+      <!-- *ngIf="!router.url.includes('/login') && !router.url.includes('/signup')" -->
+      <!-- the side nav -->
+    <p>
+      <button mat-button class="menuButton" (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button> 
+    </p>
+  
+    <p>
+      <button mat-button routerLink="/dashboard" routerLinkActive="active" (click)="sidenav.close()">
+        <span class="material-symbols-outlined">
+          dashboard
+        </span>
+        <span style="vertical-align: super; font-size: medium;" class="tilt-neon-font"> Dashboard </span>
+      </button>
+    </p>
+  
+    <p>
+      <button mat-button routerLink="/inventories" routerLinkActive="active" (click)="sidenav.close()">
+        <span class="material-symbols-outlined"> inventory </span>
+        <span style="vertical-align: super; font-size: medium;" class="tilt-neon-font"> Inventories </span>
+      </button>
+    </p>
+  
+    <p>
+      <button mat-button routerLink="/add-inventory" routerLinkActive="active" (click)="sidenav.close()">
+        <span class="material-symbols-outlined">
+          <!-- description -->
+          library_add
+        </span>
+        <span style="vertical-align: super; font-size: medium;" class="tilt-neon-font"> Add Inventory </span>
+      </button>
+    </p>
+  
+    <p>
+      <button mat-button routerLink="/resource-assignment" routerLinkActive="active" (click)="sidenav.close()">
+        <span class="material-symbols-outlined"> edit </span>
+        <span style="vertical-align: super; font-size: medium;" class="tilt-neon-font"> Assign Resource </span>
+      </button>
+    </p>
+  
+    <p>
+      <button mat-button routerLink="/add-user" routerLinkActive="active" (click)="sidenav.close()">
+        <span class="material-symbols-outlined"> person_add </span>
+        <span style="vertical-align: super; font-size: medium;" class="tilt-neon-font"> Add User </span>
+      </button>
+    </p>
+    </mat-sidenav>
+  <!-- } -->
+  
 
 
   <mat-sidenav-content>
     <!-- the main page content -->
     <p *ngIf="!router.url.includes('/login') && !router.url.includes('/signup')">   <!-- THIS WAS CAUSING THE WHITE STRIP ON TOP OF LOGIN AND SIGNUP PAGES!-->
-      <button mat-button class="menuToggle" (click)="sidenav.toggle()" *ngIf="!router.url.includes('/login') && !router.url.includes('/signup')">
+      <button mat-button class="menuToggle" (click)="sidenav?.toggle()" *ngIf="!router.url.includes('/login') && !router.url.includes('/signup')">
         <mat-icon>menu</mat-icon>
       </button>
     </p>

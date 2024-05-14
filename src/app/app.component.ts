@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDrawer, MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
 import { FormControl } from '@angular/forms';
 import {ConfigurableFocusTrapFactory, FocusTrapFactory} from '@angular/cdk/a11y';
+import { OnChanges } from '@angular/core';
 
 
 @Component({
@@ -25,6 +26,8 @@ export class AppComponent {
   buttonText!: string;
 
   mailId!: string;
+  sidenav: any;
+  // hideSidenav!: boolean;
 // sidenav: any;
   constructor(private route: ActivatedRoute, protected router: Router) { }
 
@@ -39,6 +42,24 @@ export class AppComponent {
       // why here?
       this.mailId = sessionStorage.getItem('authenticated') || '';
     });
+  }
+
+  // ngDoCheck() {
+  //   this.isAuthenticated = sessionStorage.getItem('authenticated') !== null;
+  //   // this.buttonText = this.isAuthenticated ? sessionStorage.getItem('authenticated')?.charAt(0).toUpperCase() : '';
+  //   this.mailId = this.isAuthenticated ? sessionStorage.getItem('authenticated') || '' : '';
+  // }
+
+  // ngDoCheck(){
+  //   // console.log(this.router.url);
+  //   this.hideSidenav = this.router.url.includes("/login") || this.router.url.includes("/signup");
+  //   console.log(this.hideSidenav);
+    
+  // }
+
+  // for admin account management thing
+  openDialog(){
+    
   }
 
   logout() {

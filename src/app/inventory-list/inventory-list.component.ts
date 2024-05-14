@@ -19,6 +19,47 @@ export class InventoryListComponent {
 
   selectedItemIds: Set<string> = new Set<string>();
 
+  category: string = "All";
+
+  allItemsColumns = [ 'select',
+  'ID',
+  'Category',
+  'Sub-Category',
+  'Name',
+  'Warranty',
+  'Specifications',
+  'Price',
+  'Assigned To',
+  'Status'];
+
+  electronicItemsColumns = [ 'select',
+  'ID',
+  'Category',
+  'Sub-Category',
+  'Model Name',
+  'Model Memory',
+  'Warranty',
+  'Screen Size',
+  'Price',
+  'Assigned To',
+  'Status'];
+
+  nonElectronicItemsColumns = [ 'select',
+  'ID',
+  'Category',
+  'Sub-Category',
+  'Brand Name',
+  'Warranty',
+  'Color',
+  'Size',
+  'Dimensions',
+  'Price',
+  'Assigned To',
+  'Status'];
+
+  displayedColumns: Array<any> = this.allItemsColumns;
+
+
   @ViewChild(DisplayTableComponent) displayTable!: DisplayTableComponent;
 
   constructor(
@@ -28,17 +69,37 @@ export class InventoryListComponent {
 
 
   ngOnInit() {
-        this.getInventoryItems(this.pageIndex, this.pageSize);
+        this.getInventoryItems(this.pageIndex, this.pageSize, this.category, this.displayedColumns);
   }
 
-  getInventoryItems(pageIndex: any, pageSize: any) {
-    this.dataService
+  getInventoryItems(pageIndex: any, pageSize: any, category: any, columns: any) {
+    if(this.category=="All"){
+      this.dataService
       .getInventoryItems(pageIndex, pageSize)
       .subscribe((data) => {
         this.inventoryItems = data.data.filter((item: any) => !item.isDeleted);
         this.length = data.total;        
         this.updateDisplayTableData();
       });
+    }
+    else if(this.category=="Electronics"){
+      this.dataService
+      .getElectronicItems(pageIndex, pageSize)
+      .subscribe((data) => {
+        this.inventoryItems = data.data.filter((item: any) => !item.isDeleted);
+        this.length = data.total;        
+        this.updateDisplayTableData();
+      });
+    }
+    else if(this.category=="NonElectronics"){
+      this.dataService
+      .getNonElectronicItems(pageIndex, pageSize)
+      .subscribe((data) => {
+        this.inventoryItems = data.data.filter((item: any) => !item.isDeleted);
+        this.length = data.total;        
+        this.updateDisplayTableData();
+      });
+    }
   }
 
   onPageChanged(page: any) {
@@ -46,7 +107,7 @@ export class InventoryListComponent {
     this.pageSize = page.pageSize;  
     console.log("on page changed inventory list: ", this.selectedItemIds);
       
-    this.getInventoryItems(page.pageIndex, page.pageSize);
+    this.getInventoryItems(page.pageIndex, page.pageSize, this.category, this.displayedColumns);
   }
 
   updateDisplayTableData() {
@@ -55,6 +116,21 @@ export class InventoryListComponent {
       this.displayTable.updateData(this.inventoryItems, this.pageIndex);
     }
   }
+
+  changeDisplayedColumns(category: string){
+    this.category = category;
+    if(this.category=="All"){
+      this.displayedColumns = this.allItemsColumns;
+    }
+    else if(this.category=="Electronics"){
+      this.displayedColumns = this.electronicItemsColumns;
+    }
+    else if(this.category=="NonElectronics"){
+      this.displayedColumns = this.nonElectronicItemsColumns;
+    }
+    this.getInventoryItems(this.pageIndex, this.pageSize, this.category, this.displayedColumns);
+  }
+
 
   updateSelectedItems(selectedItemIds: Set<string>) {
     this.selectedItemIds = selectedItemIds;
@@ -65,7 +141,7 @@ export class InventoryListComponent {
     this.dataService.markItemsAsDeleted(arr).subscribe(
       () => {
         console.log('Items deleted successfully');
-        this.getInventoryItems(this.pageIndex, this.pageSize);
+        this.getInventoryItems(this.pageIndex, this.pageSize, this.category, this.displayedColumns);
       },
       (error) => {
         console.error('Error deleting items:', error);
@@ -77,7 +153,7 @@ export class InventoryListComponent {
   unassignSelectedItems(selectedItemIds: Set<string>) {
     const arr = Array.from(selectedItemIds);
     this.dataService.unassign(arr).subscribe(() => {
-      this.getInventoryItems(this.pageIndex, this.pageSize);
+      this.getInventoryItems(this.pageIndex, this.pageSize, this.category, this.displayedColumns);
     });
     // this.reloadPage();
   }
